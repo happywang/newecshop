@@ -18,31 +18,30 @@
     <th>备注</th>
   </tr>
   <tr>
-  	<td><input type="text" name="coupons_code" id="coupons_code" value="{$coupons_code}"></td>
-  	<td><input type="text" name="coupons_rate" id="coupons_rate" value="{$coupons_rate}"></td>
-  	<td><input type="text" name="coupons_subtracting_amount" id="coupons_subtracting_amount" value="{$coupons_subtracting_amount}"></td>
-  	<td><input type="text" name="user_email" id="user_email" value="{$user_email}"></td>
+  	<td><input type="text" name="coupons_code" id="coupons_code" value=""></td>
+  	<td><input type="text" name="coupons_rate" id="coupons_rate" value=""></td>
+  	<td><input type="text" name="coupons_subtracting_amount" id="coupons_subtracting_amount" value=""></td>
+  	<td><input type="text" name="user_email" id="user_email" value=""></td>
   	
   	<td>
   	<select name="cat_id" id="cat_id" onchange="hideCatDiv()" ><option value="0">{$lang.select_please}</option>{$cat_list}</select>
     </td>
-  	<td><input type="text" name="goods_name" id="goods_name" value="{$goods_name}" onclick="clearGoodsname();"></td>
-  	<td><input type="text" name="use_times" id="use_times" value="{$use_times}"></td>
+  	<td><input type="text" name="goods_name" id="goods_name" value="" onclick="clearGoodsname();"></td>
+  	<td><input type="text" name="use_times" id="use_times" value=""></td>
   	<td>
-  	<input name="promote_start_date" type="text" id="promote_start_date" size="12" value='{$expiration_time}' readonly="readonly" />
+  	<input name="promote_start_date" type="text" id="promote_start_date" size="12" value='' readonly="readonly" />
   	<input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('promote_start_date', '%Y-%m-%d', false, false, 'selbtn1');" value="{$lang.btn_select}" class="button"/>
   	<!-- <input type="text" name="expiration_time" id="expiration_time" value="{$expiration_time}"> -->
   	</td>
-  	<td><input type="text" name="Remarks" id="Remarks" value="{$Remarks}"></td>
+  	<td><input type="text" name="Remarks" id="Remarks" value=""></td>
   </tr>
-  <tr><td><input type="button" name="btn" id="btn" onclick="submitForm();" value="提交"></td>
+  <tr><td><input type="button" name="btn" id="btn" onclick="submitForm();" value="添加"></td>
   <td><a href="discount.php?act=list">返回列表</a></td>
   </tr>
 </table>
 </div>
 <!-- end payment list -->
 <script type="Text/Javascript" language="JavaScript">
-<!--
 function clearGoodsname(){
 	var goods_name = $('#goods_name').val();
 	if(goods_name=='--'){
@@ -66,18 +65,21 @@ function submitForm(){
 	var expiration_time = $("#promote_start_date").val();
 	var Remarks = $("#Remarks").val();
 	var goods_id = {if $goods_id}{$goods_id}{else}''{/if};
-	shopAjax('discount.php?act=update','POST',{'goods_id':goods_id,'coupons_id':{$coupons_id},'coupons_code':coupons_code,'coupons_rate':coupons_rate,'coupons_subtracting_amount':coupons_subtracting_amount,
+	shopAjax('discount.php?act=insert','POST',{'goods_id':goods_id,'coupons_code':coupons_code,'coupons_rate':coupons_rate,'coupons_subtracting_amount':coupons_subtracting_amount,
 		'user_email':user_email,'cat_id':cat_id,'goods_name':goods_name,'use_times':use_times,'expiration_time':expiration_time,'Remarks':Remarks
 	},function(json)
 	{
 		if(json.Ret > 0)
 		{
-			alert("更新成功");return;
+			alert("添加成功");
+			location.href = 'discount.php?act=list';
+			return;
+		}else if(json.Ret == -1){
+			alert("添加失败，该折扣券码已经存在");return;
 		}else{
-			alert("更新失败");return ;
+			alert("添加失败");return;
 		}
 	});
 }
-//-->
 </script>
 {include file="pagefooter.htm"}

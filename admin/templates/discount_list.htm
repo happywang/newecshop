@@ -1,6 +1,6 @@
 <!-- $Id: discount_list.htm 17043 2010-02-26 10:40:02Z sxc_shop $ -->
 {include file="pageheader.htm"}
-{insert_scripts files="../js/utils.js,listtable.js"}
+{insert_scripts files="../js/utils.js,listtable.js,../js/jquery.min.js,../js/common.js"}
 <!-- start payment list -->
 <div class="list-div" id="listDiv">
 <table cellspacing='1' cellpadding='3'>
@@ -30,7 +30,7 @@
   	<td>{$coupons.expiration_time}</td>
   	<td>{$coupons.Remarks}</td>
   	<td>{$coupons.insert_date}</td>
-  	<td><a href="?act=edit&coupons_id={$coupons.coupons_id}">编辑</a>/<a href="">删除</a></td>
+  	<td><a href="?act=edit&coupons_id={$coupons.coupons_id}">编辑</a>/<a href="javascript:;" onclick="delCoupons({$coupons.coupons_id});">删除</a></td>
   </tr>
   {/foreach}
 </table>
@@ -38,7 +38,27 @@
 <!-- end payment list -->
 <script type="Text/Javascript" language="JavaScript">
 <!--
-
+function delCoupons(coupons_id){
+	if(!coupons_id){
+		return ;
+	}
+	if(window.confirm('你确定要删除该记录！')){
+		shopAjax('discount.php?act=del','POST',{'coupons_id':coupons_id},function(json)
+		{
+			if(json.Ret > 0)
+			{
+				alert("删除成功");
+				location.reload();
+				return;
+			}else{
+				alert("删除失败");return ;
+			}
+		});
+     }else{
+        //alert("取消");
+        return false;
+    }
+}
 //-->
 </script>
 {include file="pagefooter.htm"}
