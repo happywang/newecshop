@@ -825,6 +825,10 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     $goods_size = isset($_POST['goods_size']) ? ($_POST['goods_size']) : '0';
     $goods_color = isset($_POST['goods_color']) ? ($_POST['goods_color']) : '0';
     $goods_source = isset($_POST['goods_source']) ? ($_POST['goods_source']) : '0';
+//     $goods_img = $image->rename_image($goods_img,$goods_sn,'g');
+//     $original_img = $image->rename_image($original_img,$goods_sn,'s');
+//     $goods_thumb = $image->rename_image($goods_thumb,$goods_sn,'t');
+//     var_dump($goods_thumb);exit;
 
     /* 入库 */
     if ($is_insert)
@@ -928,6 +932,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
                 "goods_type = '$goods_type' " .
                 "WHERE goods_id = '$_REQUEST[goods_id]' LIMIT 1";
     }
+  
     $db->query($sql);
 
     /* 商品编号 */
@@ -1081,9 +1086,9 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     }
 
     /* 重新格式化图片名称 */
-    $original_img = reformat_image_name('goods', $goods_id, $original_img, 'source');
-    $goods_img = reformat_image_name('goods', $goods_id, $goods_img, 'goods');
-    $goods_thumb = reformat_image_name('goods_thumb', $goods_id, $goods_thumb, 'thumb');
+    $original_img = reformat_image_name('goods', $goods_sn, $original_img, 'source');
+    $goods_img = reformat_image_name('goods', $goods_sn, $goods_img, 'goods');
+    $goods_thumb = reformat_image_name('goods_thumb', $goods_sn, $goods_thumb, 'thumb');
     if ($goods_img !== false)
     {
         $db->query("UPDATE " . $ecs->table('goods') . " SET goods_img = '$goods_img' WHERE goods_id='$goods_id'");
@@ -1105,8 +1110,8 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
         /* 重新格式化图片名称 */
         if (empty($is_url_goods_img))
         {
-            $img = reformat_image_name('gallery', $goods_id, $img, 'source');
-            $gallery_img = reformat_image_name('gallery', $goods_id, $gallery_img, 'goods');
+            $img = reformat_image_name('gallery', $goods_sn, $img, 'source');
+            $gallery_img = reformat_image_name('gallery', $goods_sn, $gallery_img, 'goods');
         }
         else
         {
@@ -1114,7 +1119,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
             $gallery_img = $url_goods_img;
         }
 
-        $gallery_thumb = reformat_image_name('gallery_thumb', $goods_id, $gallery_thumb, 'thumb');
+        $gallery_thumb = reformat_image_name('gallery_thumb', $goods_sn, $gallery_thumb, 'thumb');
         $sql = "INSERT INTO " . $ecs->table('goods_gallery') . " (goods_id, img_url, img_desc, thumb_url, img_original) " .
                 "VALUES ('$goods_id', '$gallery_img', '', '$gallery_thumb', '$img')";
         $db->query($sql);
@@ -2613,6 +2618,16 @@ elseif ($_REQUEST['act'] == 'batch_product')
     /* 返回 */
     sys_msg($_LANG['no_operation'], 1, $link);
 }
+
+/*------------------------------------------------------ */
+//-- 批量导入商品图片 add by ken
+/*------------------------------------------------------ */
+elseif ($_REQUEST['act'] == 'batch_goods_pic')
+{
+	
+	
+}
+
 
 /**
  * 列表链接
