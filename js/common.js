@@ -261,7 +261,7 @@ function bidResponse(result)
 }
 onload = function()
 {
-    var link_arr = document.getElementsByTagName(String.fromCharCode(65));
+    /*var link_arr = document.getElementsByTagName(String.fromCharCode(65));
     var link_str;
     var link_text;
     var regg, cc;
@@ -350,7 +350,7 @@ onload = function()
   }
   catch(ex)
   {
-  }
+  }*/
 }
 
 /* *

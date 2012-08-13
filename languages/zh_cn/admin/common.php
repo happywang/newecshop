@@ -176,6 +176,7 @@ $_LANG['article_auto'] = '文章自动发布';
 $_LANG['navigator'] = '自定义导航栏';
 
 /* 促销管理 */
+$_LANG['01_discount_list'] = '折扣券';
 $_LANG['02_snatch_list'] = '夺宝奇兵';
 $_LANG['snatch_add'] = '添加夺宝奇兵';
 $_LANG['04_bonustype_list'] = '红包类型';

@@ -11,8 +11,8 @@
     <th>折扣率%(留空为不支持)</th>
     <th nowrap="true">直减价格</th>
     <th nowrap="true">用户注册邮箱</th>
-    <th nowrap="true">商品类型</th>
-    <th>商品名字</th>
+    <th nowrap="true">商品分类</th>
+    <th>商品货号</th>
     <th>使用次数(0:无数次)</th>
     <th>过期时间</th>
     <th>备注</th>
@@ -26,7 +26,7 @@
   	<td>
   	<select name="cat_id" id="cat_id" onchange="hideCatDiv()" ><option value="0">{$lang.select_please}</option>{$cat_list}</select>
     </td>
-  	<td><input type="text" name="goods_name" id="goods_name" value="{$goods_name}" onclick="clearGoodsname();"></td>
+  	<td><input type="text" name="goods_sn" id="goods_sn" value="{$goods_sn}" onclick="clearGoodsname();"></td>
   	<td><input type="text" name="use_times" id="use_times" value="{$use_times}"></td>
   	<td>
   	<input name="promote_start_date" type="text" id="promote_start_date" size="12" value='{$expiration_time}' readonly="readonly" />
@@ -44,9 +44,9 @@
 <script type="Text/Javascript" language="JavaScript">
 <!--
 function clearGoodsname(){
-	var goods_name = $('#goods_name').val();
-	if(goods_name=='--'){
-		$('#goods_name').val("");
+	var goods_sn = $('#goods_sn').val();
+	if(goods_sn=='--'){
+		$('#goods_sn').val("");
 		return true;
 	}
 	return true;
@@ -60,14 +60,22 @@ function submitForm(){
 		return false;
 	}
 	var user_email = $("#user_email").val();
+	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	if(!myreg.test(user_email)){
+		alert('请输入有效的E_mail！');
+		return false;
+	}
 	var cat_id = $("#cat_id").val();
-	var goods_name = $("#goods_name").val();
+	var goods_sn = $("#goods_sn").val();
 	var use_times = $("#use_times").val();
+	if(use_times == ''){
+		alert('次数为必填项！');return false ;
+	}
 	var expiration_time = $("#promote_start_date").val();
 	var Remarks = $("#Remarks").val();
 	var goods_id = {if $goods_id}{$goods_id}{else}''{/if};
 	shopAjax('discount.php?act=update','POST',{'goods_id':goods_id,'coupons_id':{$coupons_id},'coupons_code':coupons_code,'coupons_rate':coupons_rate,'coupons_subtracting_amount':coupons_subtracting_amount,
-		'user_email':user_email,'cat_id':cat_id,'goods_name':goods_name,'use_times':use_times,'expiration_time':expiration_time,'Remarks':Remarks
+		'user_email':user_email,'cat_id':cat_id,'goods_sn':goods_sn,'use_times':use_times,'expiration_time':expiration_time,'Remarks':Remarks
 	},function(json)
 	{
 		if(json.Ret > 0)

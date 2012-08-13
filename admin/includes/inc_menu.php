@@ -36,7 +36,7 @@ $modules['02_cat_and_goods']['51_virtual_card_add']    = 'goods.php?act=add&exte
 $modules['02_cat_and_goods']['52_virtual_card_change'] = 'virtual_card.php?act=change';
 $modules['02_cat_and_goods']['goods_auto']             = 'goods_auto.php?act=list';
 
-
+$modules['03_promotion']['01_discount_list']        = 'discount.php?act=list';
 $modules['03_promotion']['02_snatch_list']          = 'snatch.php?act=list';
 $modules['03_promotion']['04_bonustype_list']       = 'bonus.php?act=list';
 $modules['03_promotion']['06_pack_list']            = 'pack.php?act=list';

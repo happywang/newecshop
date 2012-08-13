@@ -9,7 +9,7 @@ require(dirname(__FILE__) . '/includes/init.php');
 $exc = new exchange($ecs->table('discount_coupons'), $db, 'coupons_code', 'coupons_rate');
 if ($_REQUEST['act'] == 'list')//折扣券列表
 {
-	$sql = "SELECT d.coupons_id, d.coupons_code, d.coupons_rate, d.coupons_subtracting_amount, d.user_email,d.cat_id,d.goods_id,d.use_times,d.expiration_time,d.Remarks, 
+	$sql = "SELECT d.coupons_id, d.coupons_code, d.coupons_rate, d.coupons_subtracting_amount, d.user_email,d.cat_id,d.goods_id,d.goods_sn,d.use_times,d.expiration_time,d.Remarks, 
 	d.insert_date FROM " .$ecs->table('discount_coupons'). " as d ORDER BY coupons_id";
 // 	echo $sql;exit;
 	$row = $db->getAll($sql);
@@ -25,14 +25,14 @@ if ($_REQUEST['act'] == 'list')//折扣券列表
 		{
 			$value['cat_name'] = '--';
 		}
-		if($value['goods_id'] && !empty($value['goods_id']))
+		if($value['goods_sn'] && !empty($value['goods_sn']))
 		{
-			$goodSql = "SELECT `goods_name` FROM " .$ecs->table('goods'). " where goods_id={$value['goods_id']} limit 1";
-			$value['goods_name'] = $db->getOne($goodSql);
+			//$goodSql = "SELECT `goods_name` FROM " .$ecs->table('goods'). " where goods_id={$value['goods_id']} limit 1";
+			$value['goods_sn'] = $value['goods_sn'];
 		}
 		else 
 		{
-			$value['goods_name'] = '--';
+			$value['goods_sn'] = '--';
 		}
 		array_push($coupons_list,$value);
 	}
@@ -45,7 +45,7 @@ if ($_REQUEST['act'] == 'list')//折扣券列表
 elseif($_REQUEST['act'] == 'edit')
 {
 	$coupons_id = $_REQUEST['coupons_id'];
-	$sql = "SELECT d.coupons_id, d.coupons_code, d.coupons_rate, d.coupons_subtracting_amount, d.user_email,d.cat_id,d.goods_id,d.use_times,d.expiration_time,d.Remarks, 
+	$sql = "SELECT d.coupons_id, d.coupons_code, d.coupons_rate, d.coupons_subtracting_amount, d.user_email,d.cat_id,d.goods_id,d.goods_sn,d.use_times,d.expiration_time,d.Remarks, 
 		d.insert_date FROM " .$ecs->table('discount_coupons'). " as d where coupons_id={$coupons_id} limit 1";
 	$row = $db->getRow($sql);
 	if($row['cat_id'] && !empty($row['cat_id']))
@@ -57,14 +57,14 @@ elseif($_REQUEST['act'] == 'edit')
 	{
 		$row['cat_name'] = '--';
 	}
-	if($row['goods_id'] && !empty($row['goods_id']))
+	if($row['goods_sn'] && !empty($row['goods_sn']))
 	{
-		$goodSql = "SELECT `goods_name` FROM " .$ecs->table('goods'). " where goods_id={$row['goods_id']} limit 1";
-		$row['goods_name'] = $db->getOne($goodSql);
+		//$goodSql = "SELECT `goods_name` FROM " .$ecs->table('goods'). " where goods_id={$row['goods_id']} limit 1";
+		$row['goods_sn'] = $row['goods_sn'];//$db->getOne($goodSql);
 	}
 	else 
 	{
-		$row['goods_name'] = '--';
+		$row['goods_sn'] = '--';
 	}
 	$row['goods_id'] = $row['goods_id'] ? $row['goods_id'] : '';
 	$smarty->assign('coupons_id', $row['coupons_id']);
@@ -74,7 +74,7 @@ elseif($_REQUEST['act'] == 'edit')
 	$smarty->assign('coupons_subtracting_amount', $row['coupons_subtracting_amount']);
 	$smarty->assign('user_email', $row['user_email']);
 	$smarty->assign('cat_name', $row['cat_name']);
-	$smarty->assign('goods_name', $row['goods_name']);
+	$smarty->assign('goods_sn', $row['goods_sn']);
 	$smarty->assign('use_times', $row['use_times']);
 	$smarty->assign('expiration_time', $row['expiration_time']);
 	$smarty->assign('insert_date', $row['insert_date']);
@@ -90,10 +90,11 @@ elseif($_REQUEST['act'] == 'update'){
 	$coupons_subtracting_amount = isset($_REQUEST['coupons_subtracting_amount']) ? trim($_REQUEST['coupons_subtracting_amount']) : '';
 	$user_email = isset($_REQUEST['user_email']) ? trim($_REQUEST['user_email']) : '';
 	$cat_id = isset($_REQUEST['cat_id']) ? trim($_REQUEST['cat_id']) : '';
-	$goods_name = isset($_REQUEST['goods_name']) ? trim($_REQUEST['goods_name']) : '';
+	$goods_sn = isset($_REQUEST['goods_sn']) ? trim($_REQUEST['goods_sn']) : '';
 	$use_times = isset($_REQUEST['use_times']) ? trim($_REQUEST['use_times']) : '';
 	$expiration_time = isset($_REQUEST['expiration_time']) ? trim($_REQUEST['expiration_time']) : '';
 	$Remarks = isset($_REQUEST['Remarks']) ? trim($_REQUEST['Remarks']) : '';
+	$status = $use_times == 0 ? 1 : 0 ;
 	if($goods_id && $cat_id)
 	{
 		$goodSql = "SELECT * FROM " .$ecs->table('goods'). " where goods_id={$goods_id} and `cat_id `={$cat_id} limit 1";
@@ -105,15 +106,17 @@ elseif($_REQUEST['act'] == 'update'){
 		}
 	}
 	$sql = "UPDATE " . $ecs->table('discount_coupons') . " SET " .
-			"coupons_code = 'coupons_code', " .
+			"coupons_code = '$coupons_code', " .
 			"coupons_rate = '$coupons_rate', " .
 			"coupons_subtracting_amount = '$coupons_subtracting_amount', " .
 			"user_email = '$user_email', " .
 			"cat_id = '$cat_id', " .
 			"goods_id = '$goods_id', " .
+			"goods_sn = '$goods_sn', " .
 			"use_times = '$use_times', " .
 			"expiration_time = '$expiration_time', " .
 			"Remarks = '$Remarks', " .
+			"status = '$status', " .
 			"insert_date = "."date('Y-m-d H:i:s')"." WHERE `coupons_id` = '$coupons_id'";
 	$result = $db->query($sql);
 	if($result)
@@ -149,13 +152,14 @@ elseif($_REQUEST['act'] == 'insert'){
 	$coupons_subtracting_amount = isset($_REQUEST['coupons_subtracting_amount']) ? trim($_REQUEST['coupons_subtracting_amount']) : '';
 	$user_email = isset($_REQUEST['user_email']) ? trim($_REQUEST['user_email']) : '';
 	$cat_id = isset($_REQUEST['cat_id']) ? trim($_REQUEST['cat_id']) : '';
-	$goods_name = isset($_REQUEST['goods_name']) ? trim($_REQUEST['goods_name']) : '';
-	$use_times = isset($_REQUEST['use_times']) ? trim($_REQUEST['use_times']) : 0;
+	$goods_sn = isset($_REQUEST['goods_sn']) ? trim($_REQUEST['goods_sn']) : '';
+	$use_times = isset($_REQUEST['use_times']) ? trim($_REQUEST['use_times']) : '';
 	$expiration_time = isset($_REQUEST['expiration_time']) ? trim($_REQUEST['expiration_time']) : '';
 	$Remarks = isset($_REQUEST['Remarks']) ? trim($_REQUEST['Remarks']) : '';
-	if($goods_name)
+	$status = $use_times == 0 ? 1 : 0 ;
+	if($goods_sn)
 	{
-		$goodSql = "SELECT `goods_id` FROM " .$ecs->table('goods'). " where goods_name={$goods_name} limit 1";
+		$goodSql = "SELECT `goods_id` FROM " .$ecs->table('goods'). " where goods_sn={$goods_sn} limit 1";
 		$goods_id = $db->getOne($goodSql);
 	}
 	else 
@@ -171,9 +175,9 @@ elseif($_REQUEST['act'] == 'insert'){
 	}
 	$insert_time = date('Y-m-d H:i:s');
 	$sql = "INSERT INTO " . $ecs->table('discount_coupons') . " (coupons_code, coupons_rate, coupons_subtracting_amount, " .
-			"user_email, cat_id, goods_id, use_times, expiration_time, Remarks,insert_date) " .
+			"user_email, cat_id, goods_id, goods_sn, use_times, expiration_time, Remarks,insert_date,status) " .
 			"VALUES ('$coupons_code', '$coupons_rate', '$coupons_subtracting_amount', '$user_email', " .
-			"'$cat_id', '$goods_id', '$use_times', '$expiration_time','$Remarks', " . "'$insert_time'".")";
+			"'$cat_id', '$goods_id', '$goods_sn','$use_times', '$expiration_time','$Remarks', " . "'$insert_time'".",'$status')";
 	$result = $db->query($sql);
 	if($result)
 	{

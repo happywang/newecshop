@@ -9,8 +9,8 @@
     <th>折扣率%(留空为不支持)</th>
     <th nowrap="true">直减价格(单位缺省，默认为人民币元，留空为不支持)</th>
     <th nowrap="true">用户注册邮箱</th>
-    <th nowrap="true">商品类型</th>
-    <th>商品名字</th>
+    <th nowrap="true">商品分类</th>
+    <th>商品货号</th>
     <th>使用次数(0:无数次)</th>
     <th>过期时间</th>
     <th>备注</th>
@@ -25,12 +25,12 @@
   	<td>{$coupons.coupons_subtracting_amount}</td>
   	<td>{$coupons.user_email}</td>
   	<td>{$coupons.cat_name}</td>
-  	<td>{$coupons.goods_name}</td>
+  	<td>{$coupons.goods_sn}</td>
   	<td>{$coupons.use_times}</td>
   	<td>{$coupons.expiration_time}</td>
   	<td>{$coupons.Remarks}</td>
   	<td>{$coupons.insert_date}</td>
-  	<td><a href="?act=edit&coupons_id={$coupons.coupons_id}">编辑</a>/<a href="javascript:;" onclick="delCoupons({$coupons.coupons_id});">删除</a></td>
+  	<td><a href="?act=edit&coupons_id={$coupons.coupons_id}">{$lang.edit}</a>/<a href="javascript:;" onclick="delCoupons({$coupons.coupons_id});">{$lang.drop}</a></td>
   </tr>
   {/foreach}
 </table>
