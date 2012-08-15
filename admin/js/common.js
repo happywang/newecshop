@@ -246,3 +246,131 @@ function rand_str(prefix)
 
   return (tt + rand);
 }
+/**
+ * 翻页逻辑
+ * @para:
+ */
+//分页类
+function fenye(parent,url,totalRecord,totalPage,currentPage,pageSize){
+	this.parent=parent;//装在分页条的父容器
+	this.url=url;
+	this.totalRecord=totalRecord;//总记录数
+	this.totalPage=totalPage;//总页数
+	this.currentPage=currentPage;//当前页
+	this.pageSize=pageSize;
+	//分页条模板
+	this.tpl='	<table id="page-table" cellspacing="0">';
+	this.tpl+='<tr>';
+	this.tpl+='<td align="right" nowrap="true">';
+	this.tpl+='<div id="turn-page">';
+	this.tpl+='总计<span id="totalRecord"></span>';
+	this.tpl+='个记录分为 <span id="totalPage"></span>';
+	this.tpl+='页当前第 <span id="currentPage"></span>';
+	this.tpl+='页，每页 <input type="text" size="3" id="pageSize" value="" />';
+	this.tpl+='<span id="page-link">';
+	this.tpl+='<a id="firstPage" href="javascript:void(0)">第一页</a>';
+	this.tpl+='<a id="goPre" href="javascript:void(0)">前一页</a>';
+	this.tpl+='<a id="goNext" href="javascript:void(0)">下一页</a>';
+	this.tpl+='<a id="lastPage" href="javascript:void(0)">最末页</a>';
+	this.tpl+='<select id="goCertain">';
+	this.tpl+='</select>';
+	this.tpl+='</span>';
+	this.tpl+='</div>';
+	this.tpl+='</td>';
+	this.tpl+='</tr>';
+	this.tpl+='</table>';
+	this.init=function(){
+		this.parent.innerHTML+=this.tpl;
+		this._dataInit();
+		this._actionInit();
+	}
+	this._dataInit=function(){
+		document.getElementById('totalRecord').innerHTML=this.totalRecord;
+		document.getElementById('totalPage').innerHTML=this.totalPage;
+		document.getElementById('currentPage').innerHTML=this.currentPage;
+		document.getElementById('pageSize').value=this.pageSize;
+		var option='';
+		for(var i=1;i<=totalPage;i++){
+			option+='<option value='+i+'>'+i+'</option>';
+		}
+		document.getElementById('goCertain').innerHTML=option;
+	}
+	this._actionInit=function(){
+		document.getElementById('firstPage').onclick=function(){
+			fenye.goToPage(fenye._getUrl(fenye.firstPage(),fenye.pageSize));
+		}
+		document.getElementById('goPre').onclick=function(){
+			fenye.goToPage(fenye._getUrl(fenye.goPre(),fenye.pageSize));
+		}
+		document.getElementById('goNext').onclick=function(){
+			fenye.goToPage(fenye._getUrl(fenye.goNext(),fenye.pageSize));
+		}
+		document.getElementById('lastPage').onclick=function(){
+			fenye.goToPage(fenye._getUrl(fenye.lastPage(),fenye.pageSize));
+		}
+		document.getElementById('goCertain').onchange=function(){
+			fenye.goToPage(fenye._getUrl(fenye.goCertain(this.value),fenye.pageSize));
+		}
+		document.getElementById('pageSize').onblur=function(){
+			var totalPage=fenye.totalRecord/this.value;
+			totalPage=parseInt(totalPage)<totalPage? parseInt(totalPage)+1:totalPage;
+			if(totalPage<fenye.currentPage){
+				fenye.currentPage=totalPage;
+			}
+			fenye.goToPage(fenye._getUrl(fenye.currentPage,this.value));
+		}
+	}
+	//前一页
+	this.goPre=function(){
+		if(this.currentPage==1){
+			return false;
+		}
+		return this.currentPage-1;
+	}
+	//后一页
+	this.goNext=function(){
+		if(this.currentPage==this.totalPage){
+			return false;
+		}
+		return parseInt(this.currentPage)+1;
+	}
+	//首页
+	this.firstPage=function(){
+		if(this.currentPage==1){
+			return false;
+		}
+		return 1;
+	}
+	//尾页
+	this.lastPage=function(){
+		if(this.currentPage==this.totalPage){
+			return false;
+		}
+		return this.totalPage;
+	}
+	this.goCertain=function(page){
+		if(page==currentPage){
+			return false;
+		}
+		return page;
+	}
+	this._getUrl=function(page,pageSize){
+		if(!page){
+			return page;
+		}
+		var allUrl;
+		if(this.url.indexOf('?')==-1){
+			allUrl=this.url+'?page='+page+'&pageSize='+pageSize;
+			return allUrl;
+		}
+		allUrl=this.url+'&page='+page+'&pageSize='+pageSize;
+		return allUrl;
+	}
+	this.goToPage=function(url){
+		if(!url){
+			return url;
+		}
+		window.location.href=url;
+	}
+	this.init();
+}

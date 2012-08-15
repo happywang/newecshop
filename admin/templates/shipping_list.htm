@@ -1,59 +1,98 @@
 <!-- $Id: shipping_list.htm 17043 2010-02-26 10:40:02Z sxc_shop $ -->
 {include file="pageheader.htm"}
-{insert_scripts files="../js/utils.js,listtable.js"}
+{insert_scripts files="../js/utils.js,listtable.js,common.js,jquery.min.js"}
+{if $type eq 0}<!-- 列表 -->
 <!-- start payment list -->
 <div class="list-div" id="listDiv">
+<form action='shipping.php?act=editShip' method="post" name="country_id_form">
 <table cellspacing='1' cellpadding='3'>
   <tr>
-    <th>{$lang.shipping_name}</th>
-    <th>{$lang.shipping_desc}</th>
-    <th nowrap="true">{$lang.insure}</th>
-    <th nowrap="true">{$lang.support_cod}</th>
-    <th nowrap="true">{$lang.shipping_version}</th>
-    <th>{$lang.shipping_author}</th>
-    <th>{$lang.sort_order}</th>
-    <th>{$lang.handler}</th>
+  	<th><input type="checkbox" id="chooseAll"/></th>
+  	<td>国家代码</td>
+    <th>国家名称</th>
+    <th>英文名称</th>
+    <th nowrap="true">国家地区代码</th>
+    <th nowrap="true">国家邮编</th>
+    <th nowrap="true">所属洲</th>
+    <th>ems起重价格</th>
+    <th>ems续重价格</th>
+    <th>ems挂号费</th>
+    <th>dhl起重价</th>
+    <th>dhl续重价</th>
+    <th>dhl挂号费</th>
+    <th>香港小包</th>
+    <th>编辑</th>
   </tr>
-  {foreach from=$modules item=module}
+  {foreach from=$shipping item=ship}
   <tr>
-    <td class="first-cell" nowrap="true">
-      {if $module.install == 1}
-      <span onclick="listTable.edit(this, 'edit_name', '{$module.code}'); return false;">{$module.name}</span>
-      {else}
-      {$module.name}
-      {/if}
-    </td>
-    <td>
-      {if $module.install == 1}
-      <span onclick="listTable.edit(this, 'edit_desc', '{$module.code}'); return false;">{$module.desc}</span>
-      {else}
-      {$module.desc}
-      {/if}
-    </td>
-    <td align="right">
-      {if $module.install == 1 && $module.is_insure neq 0}
-      <span onclick="listTable.edit(this, 'edit_insure', '{$module.code}'); return false;">{$module.insure_fee}</span>
-      {else}
-      {$module.insure_fee}
-      {/if}
-    </td>
-    <td align='center'>{if $module.cod==1}{$lang.yes}{else}{$lang.no}{/if}</td>
-    <td nowrap="true">{$module.version}</td>
-    <td nowrap="true"><a href="{$module.website}" target="_blank">{$module.author}</a></td>
-    <td align="right" valign="top"> {if $module.install == 1} <span onclick="listTable.edit(this, 'edit_order', '{$module.code}'); return false;">{$module.shipping_order}</span> {else} &nbsp; {/if} </td>
-    <td align="center" nowrap="true">
-      {if $module.install == 1}
-      <a href="javascript:confirm_redirect(lang_removeconfirm,'shipping.php?act=uninstall&code={$module.code}')">{$lang.uninstall}</a>
-      <a href="shipping_area.php?act=list&shipping={$module.id}">{$lang.shipping_area}</a>
-      <a href="shipping.php?act=edit_print_template&shipping={$module.id}">{$lang.shipping_print_edit}</a>
-      {else}
-      <a href="shipping.php?act=install&code={$module.code}">{$lang.install}</a>
-      {/if}
+  	<td align="center"><input class="country_id_check" type="checkbox" name="country_ids[]" value={$ship.country_id}>{$ship.country_id}</td>
+    <td align="center">{$ship.country_code}</td>
+    <td align="center">{$ship.country_name}</td>
+    <td align="center">{$ship.country_en_name}</td>
+    <td align="center">{$ship.country_abb_name}</td>
+    <td align='center'>{$ship.country_zipcode}</td>
+    <td align="center" nowrap="true">{$ship.country_delta}</td>
+    <td align="center" nowrap="true">{$ship.ems_lifting_price}</td>
+    <td align="center" valign="top">{$ship.ems_heavy_price}</td>
+    <td align="center" nowrap="true">{$ship.ems_registration_fee}</td>
+    <td align="center">{$ship.dhl_lifting_price}</td>
+    <td align="center" >{$ship.dhl_heavy_price}</td>
+    <td align="center" >{$ship.dhl_registration_fee}</td>
+    <td align="center" >{$ship.hk_registration_fee}</td>
+    <td align="center" >
+    	<a href="javascript:void(0)" class="shipEdit" title="编辑"><img src="images/icon_edit.gif"  width="16px" height="16px" /></a>
+    	<a href="javascript:void(0)" class="shipDel" title="删除"><img src="images/icon_trash.gif" width="16px" height="16px" /></a>
     </td>
   </tr>
   {/foreach}
 </table>
+<div>
+<input id="duoEdit" style="margin-left:45%" type="button"  value="编辑" class="button" />
+<input id="duoDelete" style="margin-left:10px" type="button" value="删除" class="button" />
 </div>
+
+</form>
+<div id='fenye'>
+</div>
+</div>
+<script type="text/javascript">
+	var fenye=new fenye(document.getElementById('fenye'),'shipping.php?act=list','{$totalRecord}','{$totalPage}','{$currentPage}','{$pageSize}');
+	$('.shipEdit').click(function(){
+		$('.country_id_check').each(function(){
+			$(this).attr('checked',false);
+		})
+		$(this).parent().siblings().find('input').attr('checked',true);
+		$('form[name=country_id_form]').attr('action','shipping.php?act=editShip');
+		$('form[name=country_id_form]').submit();
+	})
+	$('.shipDel').click(function(){
+		$('.country_id_check').each(function(){
+			$(this).attr('checked',false);
+		})
+		$(this).parent().siblings().find('input').attr('checked',true);
+		$('form[name=country_id_form]').attr('action','shipping.php?act=delShip');
+		$('form[name=country_id_form]').submit();
+	})
+	$('#duoEdit').click(function(){
+		$('form[name=country_id_form]').attr('action','shipping.php?act=editShip');
+		$('form[name=country_id_form]').submit();
+	})
+	$('#duoDelete').click(function(){
+		$('form[name=country_id_form]').attr('action','shipping.php?act=delShip');
+		$('form[name=country_id_form]').submit();
+	})
+	$('#chooseAll').click(function(){
+		if($(this).attr('checked')){
+			$('input[type=checkbox]').each(function(){
+				$(this).attr('checked',true);
+			})
+		}else{
+			$('input[type=checkbox]').each(function(){
+				$(this).attr('checked',false);
+			})
+		}
+	})
+</script>
 <!-- end payment list -->
 <script type="Text/Javascript" language="JavaScript">
 <!--
@@ -61,10 +100,145 @@
 
 onload = function()
 {
-    // 开始检查订单
+    // 瀵拷顬婂Λ锟界叀鐠併垹宕�
     startCheckOrder();
 }
 {/literal}
 //-->
 </script>
+{elseif $type eq 1}
+<div class="tab-div">
+	<div id="tabbody-div">
+	<form action='' method='post' name="country_form">
+    <table width="50%" id="general-table" align="center">
+    	<tr>
+            <td class="label">国家代码</td>
+            <td><input type="text" name="country_code" value="" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">国家名称</td>
+            <td><input type="text" name="country_name" value="" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">国家英文名称</td>
+            <td><input type="text" name="country_en_name" value="" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">国家地区代码</td>
+            <td><input type="text" name="country_abb_name" value="" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">国家邮编</td>
+            <td><input type="text" name="country_zipcode" value="" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">所属洲</td>
+            <td><input type="text" name="country_delta"value="" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">EMS</td>
+            <td>
+            	<input type="text" name="ems_lifting_price" value="" style="float:left;" size="9" />
+            	<input type="text" name="ems_heavy_price" value="" style="float:left;" size="9" />
+            	<input type="text" name="ems_reg_fee" value="" style="float:left;" size="9" /><br>
+           	</td>
+           	<td><span class="notice-span" style="float:left">分别为EMS起重价，续重价，挂号费</span></td>
+          </tr>
+          <tr style="margin-bottom:20px">
+            <td class="label">DHL</td>
+            <td>
+            	<input type="text" name="dhl_lifting_price"" value="" style="float:left;" size="9" />
+            	<input type="text" name="dhl_heavy_price" value="" style="float:left;" size="9" />
+            	<input type="text" name="dhl_reg_fee" value="" style="float:left;" size="9" /><br>
+           	</td>
+           	<td><span class="notice-span" style="float:left">分别为DHL起重价，续重价，挂号费</span></td>
+          </tr>
+          <tr>
+            <td class="label">香港小包</td>
+            <td><input type="text" name="hk_small_bag" value="" size="30" /></td>
+          </tr>
+          <tr>
+          	<td class="label">备注</td>
+          	<td>
+          		<textarea name="country_note" rows="5" cols="28"></textarea>
+          	</td>
+          </tr>
+        </table>
+          <div class="button-div">
+          <input type="submit" value="确认" name='confirm' class="button" />
+          <input type="reset" value="重置" class="button" />
+        </div>
+        </form>
+        </div>
+</div>
+{elseif $type eq 2}
+<form action='' method='post' name="country_form">
+{foreach from=$shippings item=ship}
+	
+	<div id="tabbody-div">
+		<input type="hidden" name="country_id[]" value="{$ship.country_id}" />
+    <table width="50%" id="general-table" align="center">
+           <tr>
+            <td class="label">国家代码</td>
+            <td><input type="text" name="country_code[]" value="{$ship.country_code}" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">国家名称</td>
+            <td><input type="text" name="country_name[]" value="{$ship.country_name}" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">国家英文名称</td>
+            <td><input type="text" name="country_en_name[]" value="{$ship.country_en_name}" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">国家地区代码</td>
+            <td><input type="text" name="country_abb_name[]" value="{$ship.country_abb_name}" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">国家邮编</td>
+            <td><input type="text" name="country_zipcode[]" value="{$ship.country_zipcode}" style="float:left;" size="30" /></td>
+          </tr>
+          <tr>
+            <td class="label">所属洲</td>
+            <td><input type="text" name="country_delta[]" value="{$ship.country_delta}" size="30" " /></td>
+          </tr>
+          <tr>
+            <td class="label">EMS</td>
+            <td>
+            	<input type="text" name="ems_lifting_price[]" value="{$ship.ems_lifting_price}" style="float:left;" size="9" />
+            	<input type="text" name="ems_heavy_price[]" value="{$ship.ems_heavy_price}" style="float:left;" size="9" />
+            	<input type="text" name="ems_reg_fee[]" value="{$ship.ems_registration_fee}" style="float:left;" size="9" /><br>
+           	</td>
+           	<td><span class="notice-span" style="float:left">分别为EMS起重价，续重价，挂号费</span></td>
+          </tr>
+          <tr style="margin-bottom:20px">
+            <td class="label">DHL</td>
+            <td>
+            	<input type="text" name="dhl_lifting_price[]"" value="{$ship.dhl_lifting_price}" style="float:left;" size="9" />
+            	<input type="text" name="dhl_heavy_price[]" value="{$ship.dhl_heavy_price}" style="float:left;" size="9" />
+            	<input type="text" name="dhl_reg_fee[]" value="{$ship.dhl_registration_fee}" style="float:left;" size="9" /><br>
+           	</td>
+           	<td><span class="notice-span" style="float:left">分别为DHL起重价，续重价，挂号费</span></td>
+          </tr>
+          <tr>
+            <td class="label">香港小包</td>
+            <td><input type="text" name="hk_small_bag[]" value="{$ship.hk_registration_fee}" size="30" /></td>
+          </tr>
+          <tr>
+          	<td class="label">备注</td>
+          	<td>
+          		<textarea name="country_note[]" rows="5" cols="28">{$ship.Remarks}</textarea>
+          	</td>
+          </tr>
+        </table>
+        </div>
+{/foreach} 
+          <div class="button-div">
+          <input type="hidden" value={$shipLen} name="length" />
+          <input type="submit" value="确认" name='confirm' class="button" />
+          <a href="shipping.php?act=list"></a><input type="reset" value="取消" class="button" /></a>
+        </div>
+        </form>    
+{/if}
+
 {include file="pagefooter.htm"}

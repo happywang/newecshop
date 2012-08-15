@@ -841,4 +841,17 @@ function suppliers_list_name()
 
     return $suppliers_name;
 }
+/**
+ * 分页函数，使用array_slice
+ * @param $data
+ */
+function fenye($key,$data,$pageSize=20){
+	$page=!isset($_REQUEST['page'])||empty($_REQUEST['page'])? 1:$_REQUEST['page'];
+	$pageSize=!isset($_REQUEST['pageSize'])||empty($_REQUEST['pageSize'])? $pageSize:$_REQUEST['pageSize'];
+	$totalRecord=count($data);
+	$totalPage=$totalRecord/$pageSize;
+	$totalPage=intval($totalPage)<$totalPage? intval($totalPage)+1:$totalPage;
+	$data=array_slice($data, ($page-1)*$pageSize,$pageSize);
+	return array($key=>$data,'totalRecord'=>$totalRecord,'totalPage'=>$totalPage,'currentPage'=>$page,'pageSize'=>$pageSize);
+}
 ?>

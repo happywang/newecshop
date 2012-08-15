@@ -24,57 +24,170 @@ $exc = new exchange($ecs->table('shipping'), $db, 'shipping_code', 'shipping_nam
 
 if ($_REQUEST['act'] == 'list')
 {
-    $modules = read_modules('../includes/modules/shipping');
-
-    for ($i = 0; $i < count($modules); $i++)
-    {
-        $lang_file = ROOT_PATH.'languages/' .$_CFG['lang']. '/shipping/' .$modules[$i]['code']. '.php';
-
-        if (file_exists($lang_file))
-        {
-            include_once($lang_file);
-        }
-
-        /* 检查该插件是否已经安装 */
-        $sql = "SELECT shipping_id, shipping_name, shipping_desc, insure, support_cod,shipping_order FROM " .$ecs->table('shipping'). " WHERE shipping_code='" .$modules[$i]['code']. "' ORDER BY shipping_order";
-        $row = $db->GetRow($sql);
-
-        if ($row)
-        {
-            /* 插件已经安装了，获得名称以及描述 */
-            $modules[$i]['id']      = $row['shipping_id'];
-            $modules[$i]['name']    = $row['shipping_name'];
-            $modules[$i]['desc']    = $row['shipping_desc'];
-            $modules[$i]['insure_fee']  = $row['insure'];
-            $modules[$i]['cod']     = $row['support_cod'];
-            $modules[$i]['shipping_order'] = $row['shipping_order'];
-            $modules[$i]['install'] = 1;
-
-            if (isset($modules[$i]['insure']) && ($modules[$i]['insure'] === false))
-            {
-                $modules[$i]['is_insure']  = 0;
-            }
-            else
-            {
-                $modules[$i]['is_insure']  = 1;
-            }
-        }
-        else
-        {
-            $modules[$i]['name']    = $_LANG[$modules[$i]['code']];
-            $modules[$i]['desc']    = $_LANG[$modules[$i]['desc']];
-            $modules[$i]['insure_fee']  = empty($modules[$i]['insure'])? 0 : $modules[$i]['insure'];
-            $modules[$i]['cod']     = $modules[$i]['cod'];
-            $modules[$i]['install'] = 0;
-        }
-    }
-
-    $smarty->assign('ur_here', $_LANG['03_shipping_list']);
-    $smarty->assign('modules', $modules);
+	$sql='SELECT
+		country_id,
+		country_code, 
+		country_name,
+		country_en_name,
+		country_abb_name,
+		country_zipcode,
+		country_delta,
+		ems_lifting_price,
+		ems_heavy_price,
+		ems_registration_fee,
+		dhl_lifting_price,
+		dhl_heavy_price,
+		dhl_registration_fee,
+		hk_registration_fee
+		FROM ecs_shipping_country
+		';
+	
+	$shipping=$db->getAll($sql);
+	$res=fenye('shipping',$shipping);
+	foreach ($res as $key=>$value){
+		$smarty->assign($key, $value);
+	}
+	$smarty->assign('action_link', array('href'=>'shipping.php?act=installShip','text'=>'添加配送方式'));
+	$smarty->assign('type',0);
     assign_query_info();
     $smarty->display('shipping_list.htm');
+/*------------------------------------------------------*/
+    //增加配送方式
+/*------------------------------------------------------*/
+}else if($_REQUEST['act']=='installShip'){
+	if(isset($_POST['confirm'])&&!empty($_POST['confirm'])){
+		$country_code=$_POST['country_code'];
+		$country_name=$_POST["country_name"];
+  		$country_en_name=$_POST["country_en_name"];
+  		$country_abb_name=$_POST["country_abb_name"];
+  		$country_zipcode=$_POST["country_zipcode"];
+  		$country_delta=$_POST["country_delta"];
+  		$ems_lifting_price=$_POST["ems_lifting_price"];
+  		$ems_heavy_price=$_POST["ems_heavy_price"];
+  		$ems_reg_fee=$_POST["ems_reg_fee"];
+  		$dhl_lifting_price=$_POST["dhl_lifting_price"];
+  		$dhl_heavy_price=$_POST["dhl_heavy_price"];
+  		$dhl_reg_fee=$_POST["dhl_reg_fee"];
+  		$hk_small_bag=$_POST["hk_small_bag"];
+  		$country_note=$_POST["country_note"];
+  		//构造sql
+  		$sql="
+  			INSERT INTO ecs_shipping_country(country_code,country_name,country_en_name,country_abb_name,country_zipcode,country_delta,ems_lifting_price,ems_heavy_price,ems_registration_fee,dhl_lifting_price,dhl_heavy_price,dhl_registration_fee,hk_registration_fee,Remarks) 
+  			VALUES(
+  				'$country_code',
+  				'$country_name',
+  				'$country_en_name',
+  				'$country_abb_name',
+  				'$country_zipcode',
+  				'$country_delta',
+  				'$ems_lifting_price',
+  				'$ems_heavy_price',
+  				'$ems_reg_fee',
+  				'$dhl_lifting_price',
+  				'$dhl_heavy_price',
+  				'$dhl_reg_fee',
+  				'$hk_small_bag',
+  				'$country_note'
+  			)";
+  		$db->query($sql);
+  		if($db->insert_id()>0){
+  			header('Location:shipping.php?act=list');
+  			exit;
+  		}
+  		echo '<script type="text/javascript">
+  				alert("新增配送方式失败");
+  				window.location.reload();
+  			</script>';
+  		exit;
+  		
+	}
+	$smarty->assign('action_link', array('href'=>'shipping.php?act=list','text'=>'配送方式列表'));
+	$smarty->assign('type', 1);
+	$smarty->display('shipping_list.htm');
+/*------------------------------------------------------*/
+	//编辑配送方式
+/*------------------------------------------------------*/	
+}else if($_REQUEST['act']=='editShip'){
+	if(isset($_POST['confirm'])&&!empty($_POST['confirm'])){
+		$res=array();
+		for($i=0;$i<$_POST['length'];$i++){
+			$sql="
+				UPDATE ecs_shipping_country
+				SET country_code='".$_POST['country_code'][$i]."',
+					country_name='".$_POST['country_name'][$i]."',
+					country_en_name='".$_POST['country_en_name'][$i]."',
+					country_abb_name='".$_POST['country_abb_name'][$i]."',
+					country_zipcode='".$_POST['country_zipcode'][$i]."',
+					country_delta='".$_POST['country_delta'][$i]."',
+					ems_lifting_price='".$_POST['ems_lifting_price'][$i]."',
+					ems_heavy_price='".$_POST['ems_heavy_price'][$i]."',
+					ems_registration_fee='".$_POST['ems_reg_fee'][$i]."',
+					dhl_lifting_price='".$_POST['dhl_lifting_price'][$i]."',
+					dhl_heavy_price='".$_POST['dhl_heavy_price'][$i]."',
+					dhl_registration_fee='".$_POST['dhl_reg_fee'][$i]."',
+					hk_registration_fee='".$_POST['hk_small_bag'][$i]."',
+					Remarks='".$_POST['country_note'][$i]."'
+				WHERE country_id=".$_POST['country_id'][$i];
+			if(!$db->query($sql)){
+				$res[$_POST['country_id'][$i]]=-1;
+			}
+		}
+		if(empty($res)){
+			echo '<script type="text/javascript">
+  				alert("更新成功");
+				window.location.href="shipping.php?act=list";
+  				</script>';
+		}else{
+			$str='';
+			foreach ($res as $key=>$value){
+				$str.=$key.',';
+			}
+			$str=substr($str, 0,strlen($str)-1);
+			echo '<script type="text/javascript">
+  					alert("ID为'.$str.'的配送方式更新失败");
+  					window.location.href="shipping.php?act=list";
+  				</script>';
+		}
+		exit;
+	}
+	$country_id=$_POST['country_ids'];
+	$sql="
+		SELECT *
+		FROM ecs_shipping_country
+		WHERE country_id
+		IN(";
+	foreach ($country_id as $value){
+		$sql.=$value.',';
+	}
+	$sql=substr($sql, 0,strlen($sql)-1);
+	$sql.=')';
+	$shippings=$db->getAll($sql);
+	$smarty->assign('action_link', array('href'=>'shipping.php?act=list','text'=>'配送方式列表'));
+	$smarty->assign('type', 2);
+	$smarty->assign('shippings', $shippings);
+	$smarty->assign('shipLen', count($shippings));
+	$smarty->display('shipping_list.htm');
+/*------------------------------------------------------*/
+	//删除配送方式
+/*------------------------------------------------------*/
+}else if($_REQUEST['act']=='delShip'){
+	$country_id=$_POST['country_ids'];
+	$sql="
+	DELETE
+	FROM ecs_shipping_country
+	WHERE country_id
+	IN(";
+	foreach ($country_id as $value){
+		$sql.=$value.',';
+	}
+	$sql=substr($sql, 0,strlen($sql)-1);
+	$sql.=')';
+	if(!$db->query($sql)){
+		echo '<script type="text/javascript">alert("删除失败");window.location.href="shipping.php?act=list";</script>';
+		exit;
+	}
+	echo '<script type="text/javascript">alert("删除成功");window.location.href="shipping.php?act=list";</script>';
 }
-
 /*------------------------------------------------------ */
 //-- 安装配送方式
 /*------------------------------------------------------ */
