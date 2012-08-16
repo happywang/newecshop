@@ -1126,7 +1126,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     }
 
     /* 处理相册图片 */
-    handle_gallery_image($goods_id, $_FILES['img_url'], $_POST['img_desc'], $_POST['img_file']);
+    handle_gallery_image($goods_id, $_FILES['img_url'], $_POST['img_desc'], $_POST['img_file'],$goods_source);
 
     /* 编辑时处理相册图片描述 */
     if (!$is_insert && isset($_POST['old_img_desc']))
@@ -1832,7 +1832,7 @@ elseif ($_REQUEST['act'] == 'huoy')
 	$cat_id = isset($_REQUEST['cat_id']) ? trim($_REQUEST['cat_id']) : null;
 	$suppliers_id = isset($_REQUEST['suppliers_id']) ? trim($_REQUEST['suppliers_id']) : null;
 // 	if(!$goodsSource || !$cat_id) return json_encode(array('ret'=>-1));
-	$goos_number = date('Ymd').'*'.$suppliers_id.'*'.$cat_id.'*'.$goodsSource.'*'.rand(1000,9999);
+	$goos_number = date('Ymd').'_'.$suppliers_id.'_'.$cat_id.'_'.$goodsSource.'_'.rand(1000,9999);
 	
 	 $arr = array('ret'=>1,'code'=>$goos_number);
 	echo json_encode($arr);exit;
@@ -1854,8 +1854,9 @@ elseif ($_REQUEST['act'] == 'set_source_price')
 			" WHERE `cat_id` = '$cat_id'";
 	$row = $GLOBALS['db']->getRow($sql);
 	
-	$shop_price = ($goodsSource * 6.1) * $row['interest_rate'];
-	$market_price = $shop_price * 1.5;
+	$price = getMarketPrice($goodsSource,$row['interest_rate']);
+	$shop_price = $goodsSource * $price['shop_price'];
+	$market_price = $goodsSource * $price['market_price'];
 	$reg_price = $shop_price;
 	$vip_price = $shop_price * 0.9;
 	$agent_price = $shop_price * 0.8;

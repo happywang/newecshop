@@ -292,7 +292,7 @@ function handle_goods_article($goods_id)
  * @param   array   $image_descs
  * @return  void
  */
-function handle_gallery_image($goods_id, $image_files, $image_descs, $image_urls)
+function handle_gallery_image($goods_id, $image_files, $image_descs, $image_urls,$goods_source='')
 {
     /* 是否处理缩略图 */
     $proc_thumb = (isset($GLOBALS['shop_id']) && $GLOBALS['shop_id'] > 0)? false : true;
@@ -357,9 +357,9 @@ function handle_gallery_image($goods_id, $image_files, $image_descs, $image_urls
             }
 
             /* 重新格式化图片名称 */
-            $img_original = reformat_image_name('gallery', $goods_id, $img_original, 'source');
-            $img_url = reformat_image_name('gallery', $goods_id, $img_url, 'goods');
-            $thumb_url = reformat_image_name('gallery_thumb', $goods_id, $thumb_url, 'thumb');
+            $img_original = reformat_image_name('gallery', $goods_source, $img_original, 'source');
+            $img_url = reformat_image_name('gallery', $goods_source, $img_url, 'goods');
+            $thumb_url = reformat_image_name('gallery_thumb', $goods_source, $thumb_url, 'thumb');
             $sql = "INSERT INTO " . $GLOBALS['ecs']->table('goods_gallery') . " (goods_id, img_url, img_desc, thumb_url, img_original) " .
                     "VALUES ('$goods_id', '$img_url', '$img_desc', '$thumb_url', '$img_original')";
             $GLOBALS['db']->query($sql);
@@ -382,7 +382,7 @@ function handle_gallery_image($goods_id, $image_files, $image_descs, $image_urls
             {
                 $thumb_url = $GLOBALS['image']->make_thumb($down_img, $GLOBALS['_CFG']['thumb_width'],  $GLOBALS['_CFG']['thumb_height']);
                 $thumb_url = is_string($thumb_url) ? $thumb_url : '';
-                $thumb_url = reformat_image_name('gallery_thumb', $goods_id, $thumb_url, 'thumb');
+                $thumb_url = reformat_image_name('gallery_thumb', $goods_source, $thumb_url, 'thumb');
             }
 
             if (!$proc_thumb)
@@ -1334,12 +1334,32 @@ function reformat_image_name($type, $goods_id, $source_img, $position='')
 
 function move_image_file($source, $dest)
 {
-    if (@copy($source, $dest))
-    {
-        @unlink($source);
-        return true;
-    }
-    return false;
+	if (@copy($source, $dest))
+	{
+		@unlink($source);
+		return true;
+	}
+	return false;
+}
+
+/**
+ * 获得市场价和网店价
+ */
+function getMarketPrice($sourcePrice,$insert_rate)
+{
+	if(empty($insert_rate) || !$insert_rate)
+	{
+		return array('market_price'=>'1.4','shop_price'=>'1.3');
+	}
+	$array = explode(',', $insert_rate);
+	$len = count($array);
+	for($i=0;$i<$len;$i++){
+		$temp = explode('|', $array[$i]);
+		$result = explode('-', $temp[0]);
+		if($sourcePrice >= $result[0] && $sourcePrice <= $result[1]){
+			return array('market_price'=>(($temp[1]/100)*1.1+1),'shop_price'=>($temp[1]/100 + 1));
+		}
+	}
 }
 
 ?>
