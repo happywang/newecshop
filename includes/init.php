@@ -116,6 +116,8 @@ $err = new ecs_error('message.dwt');
 /* 载入系统参数 */
 $_CFG = load_config();
 
+define('Exchange_rate', $_CFG['ww']);
+
 /* 载入语言文件 */
 require(ROOT_PATH . 'languages/' . $_CFG['lang'] . '/common.php');
 
@@ -187,6 +189,7 @@ if (!defined('INIT_NO_SMARTY'))
 
     $smarty->assign('lang', $_LANG);
     $smarty->assign('ecs_charset', EC_CHARSET);
+    $smarty->assign('cat_list', get_categories_tree());
     if (!empty($_CFG['stylename']))
     {
         $smarty->assign('ecs_css_path', 'themes/' . $_CFG['template'] . '/style_' . $_CFG['stylename'] . '.css');

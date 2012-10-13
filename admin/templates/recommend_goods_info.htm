@@ -1,0 +1,53 @@
+<!-- $Id: discount_list.htm 17043 2010-02-26 10:40:02Z sxc_shop $ -->
+{include file="pageheader.htm"}
+<link href="styles/showimage.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="../js/utils.js,listtable.js,../js/jquery.min.js,../js/common.js"}
+<!-- start payment list -->
+<div class="list-div" id="listDiv">
+<div id="imglist">
+<form id="recommend_form" name="theForm" method="post" action="" enctype="multipart/form-data">
+<table cellspacing='1' cellpadding='3'>
+  <tr>
+    <th>编号</th>
+    <th>商品名称</th>
+    <th>商品推荐图片</th>
+    <th>专题链接</th>
+    <th>备注</th>
+    <th>描述</th>
+    <th>排序</th>
+  </tr>
+  <tr align="center">
+  	<td><input type="text" id="goods_id" name="goods_id" value="{$goods_id}"></td>
+  	<td><input type="text" id="goods_name" name="goods_name" value="{$goods_name}"></td>
+  	<td><input type="file" size="35" name="recommend_img" id="recommend_img" value=""></td>
+  	<td><input type="text" name="subject_url" id="subject_url" value="{$subject_url}"></td>
+  	<td><input type="text" id="recommended_mark" name="recommended_mark" value="{$recommended_mark}"></td>
+  	<td><input type="text" id="description" name="description" value="{$description}"></td>
+  	<td><input type="text" id="sort" name="sort" value="{$sort}"></td>
+  </tr>
+  <tr><td><input type="button" name="btn" id="btn" onclick="submitForm();" value="提交"></td>
+  <td><a href="recommend_goods.php?act=list">返回列表</a></td>
+  <input type="hidden" value="update" name="act">
+<input type="hidden" value="1" name="is_insert">
+</table>
+</form>
+</div>
+</div>
+<!-- end payment list -->
+<script type="Text/Javascript" language="JavaScript">
+function submitForm(){
+	var goods_id = $("#goods_id").val();
+	var goods_name = $("#goods_name").val();
+	if(goods_id == ''){
+		alert("商品编号不能为空");
+		return false;
+	}
+	if(goods_name == ''){
+		alert("商品名字不能为空");
+		return false;
+	}
+	$("#recommend_form").submit();
+}
+</script>
+</script>
+{include file="pagefooter.htm"}

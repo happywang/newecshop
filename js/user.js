@@ -266,6 +266,14 @@ function addBooking()
   return true;
 }
 
+function clearname(){
+	 var frm      = document.forms['formLogin'];
+	 var username = frm.elements['username'].value;
+	 if(username == 'name/email'){
+		 frm.elements['username'].value = "";
+		 return true;
+	 }
+}
 /* *
  * 会员登录
  */

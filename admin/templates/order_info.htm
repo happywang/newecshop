@@ -155,6 +155,10 @@
     <td>{$order.email}</td>
   </tr>
   <tr>
+    <td><div align="right"><strong>{$lang.label_country}</strong></div></td>
+    <td>{$order.country|escape}</td>
+  </tr>
+  <tr>
     <td><div align="right"><strong>{$lang.label_address}</strong></div></td>
     <td>[{$order.region}] {$order.address|escape}</td>
     <td><div align="right"><strong>{$lang.label_zipcode}</strong></div></td>
@@ -254,7 +258,7 @@
       - {$lang.label_bonus} <strong>{$order.formated_bonus}</strong>
     </div></td>
   <tr>
-    <td><div align="right"> = {if $order.order_amount >= 0}{$lang.label_money_dues}<strong>{$order.formated_order_amount}</strong>
+    <td><div align="right"> = {if $order.order_amount >= 0}{$lang.label_money_dues}<strong>${$order.formated_order_amount}</strong>
       {else}{$lang.label_money_refund}<strong>{$order.formated_money_refund}</strong>
       <input name="refund" type="button" value="{$lang.refund}" onclick="location.href='order.php?act=process&func=load_refund&anonymous={if $order.user_id <= 0}1{else}0{/if}&order_id={$order.order_id}&refund_amount={$order.money_refund}'" />
       {/if}{if $order.extension_code eq "group_buy"}<br />{$lang.notice_gb_order_amount}{/if}</div></td>

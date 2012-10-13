@@ -1,32 +1,61 @@
 
-<div id="bottomNav" class="box">
- <div class="box_1">
-  <div class="bNavList clearfix">
-   <div class="f_l">
-   <?php if ($this->_var['navigator_list']['bottom']): ?>
-   <?php $_from = $this->_var['navigator_list']['bottom']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'nav_0_48738800_1341721286');$this->_foreach['nav_bottom_list'] = array('total' => count($_from), 'iteration' => 0);
+
+<div class="bottom">
+  <ul>
+     <li>
+       <h3>Company information</h3>
+       <a href="inside.html" target="_blank" title="xxxx">About Us</a><BR />
+       <a href="inside.html" target="_blank" title="xxxx">Contact Us </a><BR />
+       <a href="inside.html" target="_blank" title="xxxx">dfdfgdfg</a><BR />
+       <a href="inside.html" target="_blank" title="xxxx">Customer Service </a><BR />
+       <a href="inside.html" target="_blank" title="xxxx">Privacy Policies</a>
+     </li>
+     <li>
+       <h3>Customer Service</h3>
+       <a href="inside.html" target="_blank" title="xxxx">Warranty and Return </a><BR />
+       <a href="inside.html" target="_blank" title="xxxx">Payment Methods </a><BR />
+       <a href="inside.html" target="_blank" title="xxxx">Terms and Conditions </a><BR />
+       <a href="inside.html" target="_blank" title="xxxx">Shipping & Handling</a><BR />
+     </li>
+     <li>
+       <h3>My account</h3>
+       <a href="inside.html" target="_blank" title="xxxx" style=" padding-left:23px">Login/Register </a><BR />
+       <a href="inside.html" target="_blank" title="xxxx" style=" padding-left:23px">Order History</a><BR />
+       <a href="inside.html" target="_blank" title="xxxx" style=" padding-left:23px">My Favorites </a><BR />
+       <a href="inside.html" target="_blank" title="xxxx" style=" padding-left:23px">FAQ</a>
+     </li>
+     <li>
+       <h3>We are social</h3>
+       <a href="inside.html" target="_blank" title="xxxx" class="fb"></a><BR />
+       <a href="inside.html" target="_blank" title="xxxx" class="tw"></a><BR />
+       <a href="inside.html" target="_blank" title="xxxx"  class="tb"></a><BR />
+     </li>
+     <li class="track_orders">
+        <h3>Track orders</h3>
+        <div class="track"><input type="button" value="" class="bt" /> <input type="text" value="Order Number" class="enter" /></div>
+        <h3>Newsletter</h3>
+        <div class="track"><input type="button" value="" class="bt" /> <input type="text" value="Enter your email" class="enter" /></div>
+     </li>
+   </ul>
+   <div class="bt_nav">
+      <?php if ($this->_var['navigator_list']['bottom']): ?>
+   <?php $_from = $this->_var['navigator_list']['bottom']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'nav');$this->_foreach['nav_bottom_list'] = array('total' => count($_from), 'iteration' => 0);
 if ($this->_foreach['nav_bottom_list']['total'] > 0):
-    foreach ($_from AS $this->_var['nav_0_48738800_1341721286']):
+    foreach ($_from AS $this->_var['nav']):
         $this->_foreach['nav_bottom_list']['iteration']++;
 ?>
-        <a href="<?php echo $this->_var['nav_0_48738800_1341721286']['url']; ?>" <?php if ($this->_var['nav_0_48738800_1341721286']['opennew'] == 1): ?> target="_blank" <?php endif; ?>><?php echo $this->_var['nav_0_48738800_1341721286']['name']; ?></a>
+        <a href="<?php echo $this->_var['nav']['url']; ?>" <?php if ($this->_var['nav']['opennew'] == 1): ?> target="_blank" <?php endif; ?>><?php echo $this->_var['nav']['name']; ?></a>
         <?php if (! ($this->_foreach['nav_bottom_list']['iteration'] == $this->_foreach['nav_bottom_list']['total'])): ?>
            -
         <?php endif; ?>
       <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
   <?php endif; ?>
+   </div> 
+ 
+   <div class="cooperation">
+     <img src="themes/default/images/paypal.gif" width="768" height="55" />
    </div>
-   <div class="f_r">
-   <a href="#top"><img src="themes/default/images/bnt_top.gif" /></a> <a href="index.php"><img src="themes/default/images/bnt_home.gif" /></a>
-   </div>
-  </div>
- </div>
-</div>
-
-<div class="blank"></div>
-
-<div id="footer">
- <div class="text">
+   <div class="text">
  <?php echo $this->_var['copyright']; ?><br />
  <?php echo $this->_var['shop_address']; ?> <?php echo $this->_var['shop_postcode']; ?>
  <?php if ($this->_var['service_phone']): ?>
@@ -87,5 +116,7 @@ echo $this->_echash . $k['name'] . '|' . serialize($k) . $this->_echash;
     <?php endif; ?>
     <div align="left"  id="rss"><a href="<?php echo $this->_var['feed_url']; ?>"><img src="themes/default/images/xml_rss2.gif" alt="rss" /></a></div>
  </div>
-</div>
 
+
+
+</div>

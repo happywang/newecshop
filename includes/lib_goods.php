@@ -144,7 +144,7 @@ function get_top10($cats = '')
             $top10_time = '';
     }
 
-    $sql = 'SELECT g.goods_id, g.goods_name, g.shop_price, g.goods_thumb, SUM(og.goods_number) as goods_number ' .
+    $sql = 'SELECT g.goods_id, g.goods_name, g.shop_price, g.goods_thumb,g.goods_img,g.market_price, SUM(og.goods_number) as goods_number ' .
            'FROM ' . $GLOBALS['ecs']->table('goods') . ' AS g, ' .
                 $GLOBALS['ecs']->table('order_info') . ' AS o, ' .
                 $GLOBALS['ecs']->table('order_goods') . ' AS og ' .
@@ -154,12 +154,12 @@ function get_top10($cats = '')
     {
         $sql .= " AND g.goods_number > 0 ";
     }
-    $sql .= ' AND og.order_id = o.order_id AND og.goods_id = g.goods_id ' .
+    /* $sql .= ' AND og.order_id = o.order_id AND og.goods_id = g.goods_id ' .
            "AND (o.order_status = '" . OS_CONFIRMED .  "' OR o.order_status = '" . OS_SPLITED . "') " .
            "AND (o.pay_status = '" . PS_PAYED . "' OR o.pay_status = '" . PS_PAYING . "') " .
            "AND (o.shipping_status = '" . SS_SHIPPED . "' OR o.shipping_status = '" . SS_RECEIVED . "') " .
-           'GROUP BY g.goods_id ORDER BY goods_number DESC, g.goods_id DESC LIMIT ' . $GLOBALS['_CFG']['top_number'];
-           
+           'GROUP BY g.goods_id ORDER BY goods_number DESC, g.goods_id DESC LIMIT ' . $GLOBALS['_CFG']['top_number']; */
+    $sql .= 'GROUP BY g.goods_id ORDER BY goods_number DESC, g.goods_id DESC LIMIT ' . $GLOBALS['_CFG']['top_number'];
     $arr = $GLOBALS['db']->getAll($sql);
 
     for ($i = 0, $count = count($arr); $i < $count; $i++)
@@ -168,9 +168,10 @@ function get_top10($cats = '')
                                     sub_str($arr[$i]['goods_name'], $GLOBALS['_CFG']['goods_name_length']) : $arr[$i]['goods_name'];
         $arr[$i]['url']        = build_uri('goods', array('gid' => $arr[$i]['goods_id']), $arr[$i]['goods_name']);
         $arr[$i]['thumb'] = get_image_path($arr[$i]['goods_id'], $arr[$i]['goods_thumb'],true);
-        $arr[$i]['price'] = price_format($arr[$i]['shop_price']);
+        $arr[$i]['market_price']=price_format($arr[$i]['market_price'],false);
+        $arr[$i]['shop_price']=price_format($arr[$i]['shop_price'],false);
+        $arr[$i]['price'] = price_format($arr[$i]['shop_price'],false);
     }
-
     return $arr;
 }
 
@@ -188,7 +189,7 @@ function get_recommend_goods($type = '', $cats = '')
         return array();
     }
 
-    //取不同推荐对应的商品
+    //取不同推荐对应的商品 
     static $type_goods = array();
     if (empty($type_goods[$type]))
     {
@@ -952,7 +953,6 @@ function spec_price($spec)
     {
         $price = 0;
     }
-
     return $price;
 }
 

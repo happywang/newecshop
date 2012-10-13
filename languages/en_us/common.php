@@ -51,6 +51,7 @@ $_LANG['gzip_enabled'] = '，Gzip enabled';
 $_LANG['gzip_disabled'] = '，Gzip disabled';
 $_LANG['memory_info'] = '，take up memory %0.3f MB';
 $_LANG['cart_info'] = '%d products in your cart, total money %s.';
+$_LANG['cart_info_short'] = '%d products.';
 $_LANG['shopping_and_other'] = 'Customers who bought this item also bought.';
 $_LANG['bought_notes'] = 'Bought notes';
 $_LANG['later_bought_amounts'] = 'bought amounts latest';

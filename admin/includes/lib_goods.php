@@ -292,7 +292,7 @@ function handle_goods_article($goods_id)
  * @param   array   $image_descs
  * @return  void
  */
-function handle_gallery_image($goods_id, $image_files, $image_descs, $image_urls,$goods_source='')
+function handle_gallery_image($goods_id, $image_files, $image_descs, $image_urls,$goods_sn='')
 {
     /* 是否处理缩略图 */
     $proc_thumb = (isset($GLOBALS['shop_id']) && $GLOBALS['shop_id'] > 0)? false : true;
@@ -357,9 +357,9 @@ function handle_gallery_image($goods_id, $image_files, $image_descs, $image_urls
             }
 
             /* 重新格式化图片名称 */
-            $img_original = reformat_image_name('gallery', $goods_source, $img_original, 'source');
-            $img_url = reformat_image_name('gallery', $goods_source, $img_url, 'goods');
-            $thumb_url = reformat_image_name('gallery_thumb', $goods_source, $thumb_url, 'thumb');
+            $img_original = reformat_image_name('gallery', $goods_sn, $img_original, 'source');
+            $img_url = reformat_image_name('gallery', $goods_sn, $img_url, 'goods');
+            $thumb_url = reformat_image_name('gallery_thumb', $goods_sn, $thumb_url, 'thumb');
             $sql = "INSERT INTO " . $GLOBALS['ecs']->table('goods_gallery') . " (goods_id, img_url, img_desc, thumb_url, img_original) " .
                     "VALUES ('$goods_id', '$img_url', '$img_desc', '$thumb_url', '$img_original')";
             $GLOBALS['db']->query($sql);
@@ -382,7 +382,7 @@ function handle_gallery_image($goods_id, $image_files, $image_descs, $image_urls
             {
                 $thumb_url = $GLOBALS['image']->make_thumb($down_img, $GLOBALS['_CFG']['thumb_width'],  $GLOBALS['_CFG']['thumb_height']);
                 $thumb_url = is_string($thumb_url) ? $thumb_url : '';
-                $thumb_url = reformat_image_name('gallery_thumb', $goods_source, $thumb_url, 'thumb');
+                $thumb_url = reformat_image_name('gallery_thumb', $goods_sn, $thumb_url, 'thumb');
             }
 
             if (!$proc_thumb)
@@ -1360,6 +1360,7 @@ function getMarketPrice($sourcePrice,$insert_rate)
 			return array('market_price'=>(($temp[1]/100)*1.1+1),'shop_price'=>($temp[1]/100 + 1));
 		}
 	}
+	return false;
 }
 
 ?>

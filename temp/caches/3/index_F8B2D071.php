@@ -1,741 +1,441 @@
-<?php exit;?>a:3:{s:8:"template";a:22:{i:0;s:43:"E:/wamp/www/ecshop/themes/default/index.dwt";i:1;s:57:"E:/wamp/www/ecshop/themes/default/library/page_header.lbi";i:2;s:58:"E:/wamp/www/ecshop/themes/default/library/page_header2.lbi";i:3;s:50:"E:/wamp/www/ecshop/themes/default/library/cart.lbi";i:4;s:59:"E:/wamp/www/ecshop/themes/default/library/category_tree.lbi";i:5;s:51:"E:/wamp/www/ecshop/themes/default/library/top10.lbi";i:6;s:60:"E:/wamp/www/ecshop/themes/default/library/promotion_info.lbi";i:7;s:57:"E:/wamp/www/ecshop/themes/default/library/order_query.lbi";i:8;s:59:"E:/wamp/www/ecshop/themes/default/library/invoice_query.lbi";i:9;s:55:"E:/wamp/www/ecshop/themes/default/library/vote_list.lbi";i:10;s:56:"E:/wamp/www/ecshop/themes/default/library/email_list.lbi";i:11;s:54:"E:/wamp/www/ecshop/themes/default/library/index_ad.lbi";i:12;s:58:"E:/wamp/www/ecshop/themes/default/library/new_articles.lbi";i:13;s:65:"E:/wamp/www/ecshop/themes/default/library/recommend_promotion.lbi";i:14;s:52:"E:/wamp/www/ecshop/themes/default/library/brands.lbi";i:15;s:60:"E:/wamp/www/ecshop/themes/default/library/recommend_best.lbi";i:16;s:59:"E:/wamp/www/ecshop/themes/default/library/recommend_new.lbi";i:17;s:59:"E:/wamp/www/ecshop/themes/default/library/recommend_hot.lbi";i:18;s:53:"E:/wamp/www/ecshop/themes/default/library/auction.lbi";i:19;s:55:"E:/wamp/www/ecshop/themes/default/library/group_buy.lbi";i:20;s:50:"E:/wamp/www/ecshop/themes/default/library/help.lbi";i:21;s:57:"E:/wamp/www/ecshop/themes/default/library/page_footer.lbi";}s:7:"expires";i:1344139314;s:8:"maketime";i:1344139314;}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php exit;?>a:3:{s:8:"template";a:2:{i:0;s:43:"E:/wamp/www/ecshop/themes/default/index.dwt";i:1;s:44:"E:/wamp/www/ecshop/themes/default/header.dwt";}s:7:"expires";i:1350098994;s:8:"maketime";i:1350098994;}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="Generator" content="ECSHOP v2.7.3" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Keywords" content="ECSHOP演示站" />
-<meta name="Description" content="ECSHOP演示站" />
-<title>ECSHOP演示站 - Powered by ECShop</title>
+<meta name="keywords" content="wholesale fashion clothing, wholesale lots of low price clothing" />
+<meta name="description" content="We are professional and reliable China wholesaler, who provide all kinds of high quality wholesale fashion clothing, wholesale lots of low price clothing... " />
+<title>tobunny</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
-<link href="themes/default/style.css" rel="stylesheet" type="text/css" />
-<link rel="alternate" type="application/rss+xml" title="RSS|ECSHOP演示站 - Powered by ECShop" href="feed.php" />
-<script type="text/javascript" src="js/common.js"></script><script type="text/javascript" src="js/index.js"></script></head>
+<link rel="alternate" type="application/rss+xml" title="RSS| - Powered by Tobunny" href="feed.php" />
+<link href="themes/default/css/tobunny.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/common.js"></script><script type="text/javascript" src="js/utils.js"></script><script type="text/javascript" src="js/index.js"></script><script type="text/javascript" src="js/jquery.min.js"></script><script type="text/javascript" src="js/slide.js"></script></head>
 <body>
-<script type="text/javascript">
-var process_request = "Please waiting...";
-</script>
-<div class="block clearfix">
- <div class="f_l"><a href="index.php" name="top"><img src="themes/default/images/logo.gif" /></a></div>
- <div class="f_r log">
+<div class="top">
+ <div class="welcome">Cheap Clothing Online </div>
+ <div class="login">
+  554fcae493e564ee0dc75bdf2ebf94camember_info|a:1:{s:4:"name";s:11:"member_info";}554fcae493e564ee0dc75bdf2ebf94ca </div>
+ 
+</div>
+<div class="head">
+ <div class="m_head">
+  <div class="logo"><a href="index.php"><img src="themes/default/images/logo.png"  width="242" height="80" border="0" /></a></div>
+  <div class="search">
+    <input type="text" value="Please enter the name of the commodity" class="enter" id="search_input" onclick="ec_search();" /> <input type="button" value="" class="bt" id="search_bt" onclick="do_search();" /> 
+  </div> 
+  <div class="cart">
+    <div class="goods">
+      554fcae493e564ee0dc75bdf2ebf94cacart_info|a:1:{s:4:"name";s:9:"cart_info";}554fcae493e564ee0dc75bdf2ebf94ca    </div>
+    <!--<input type="button" value="" class="bt1" /> -->
+    <a href="flow.php?step=checkout">checkout</a>
+  </div>
+ </div> 
+</div>
+<div id="menu">
+<ul id="nav">
+	<li class="mainlevel"><a href="http://localhost">HOME</a></li>
+ <li class="mainlevel" id="mainlevel_0-1"><a href="category.php?id=19">Clothing</a>
+    <ul id="sub_0-1">
+        <li><a href="category.php?id=26">Dresses</a></li>
+         <li><a href="category.php?id=35">Men's cloth</a></li>
+         <li><a href="category.php?id=56">Swimwear</a></li>
+         <li><a href="category.php?id=59">Skirts</a></li>
+         <li><a href="category.php?id=60">T-shirts</a></li>
+         <li><a href="category.php?id=61">Blouses</a></li>
+         <li><a href="category.php?id=62">Jacket</a></li>
+         <li><a href="category.php?id=63">Vest</a></li>
+         <li><a href="category.php?id=64">Shorts</a></li>
+      
+    </ul>
+  </li>
+ 
+  <li class="mainlevel" id="mainlevel_0-1"><a href="category.php?id=22">Accessories</a>
+    <ul id="sub_0-1">
+        <li><a href="category.php?id=27">Handbags</a></li>
+         <li><a href="category.php?id=36">Wallets</a></li>
+         <li><a href="category.php?id=38">Hats</a></li>
+         <li><a href="category.php?id=39">Belts</a></li>
+         <li><a href="category.php?id=40">Scarves</a></li>
+         <li><a href="category.php?id=41">Wigs</a></li>
+         <li><a href="category.php?id=42">Gloves</a></li>
+      
+    </ul>
+  </li>
+ 
+  <li class="mainlevel" id="mainlevel_0-1"><a href="category.php?id=20">Shoes</a>
+    <ul id="sub_0-1">
+        <li><a href="category.php?id=28">Boots</a></li>
+         <li><a href="category.php?id=45">Pumps</a></li>
+         <li><a href="category.php?id=46">Sandals</a></li>
+         <li><a href="category.php?id=47">Flats</a></li>
+         <li><a href="category.php?id=48">Wedges</a></li>
+         <li><a href="category.php?id=49">Sneakers</a></li>
+      
+    </ul>
+  </li>
+ 
+  <li class="mainlevel" id="mainlevel_0-1"><a href="category.php?id=17">Jewelry</a>
+    <ul id="sub_0-1">
+        <li><a href="category.php?id=18">Necklaces</a></li>
+         <li><a href="category.php?id=50">Earrings</a></li>
+         <li><a href="category.php?id=51">Bracelets</a></li>
+         <li><a href="category.php?id=52">Rings</a></li>
+         <li><a href="category.php?id=53">Brooches</a></li>
+      
+    </ul>
+  </li>
+ 
+  <li class="mainlevel" id="mainlevel_0-1"><a href="category.php?id=54">Beauty</a>
+    <ul id="sub_0-1">
+        <li><a href="category.php?id=57">Beauty tools</a></li>
+         <li><a href="category.php?id=58">Health tool</a></li>
+         <li><a href="category.php?id=66">other</a></li>
+      
+    </ul>
+  </li>
+ 
+  <li class="mainlevel" id="mainlevel_0-1"><a href="category.php?id=21">Children</a>
+    <ul id="sub_0-1">
+        <li><a href="category.php?id=43">Kids Clothing</a></li>
+         <li><a href="category.php?id=44">Puzzle Toys</a></li>
+         <li><a href="category.php?id=55">Stationery</a></li>
+         <li><a href="category.php?id=65">other</a></li>
+      
+    </ul>
+  </li>
+ 
+  
+    <div class="clear"></div>
+</ul>
+</div><div id="main">
+<div  class="banner">
+  <div id=myjQuery>
+        <div id=myjQueryContent>
+          <div><a href="" target=_blank><img src="themes/default/images/01.jpg" width="990" height="350" /></a></div>
+          <div class=smask><a href="" target=_blank><img src="themes/default/images/02.JPG"  width="990" height="350"/></a></div>
+          <div class=smask><a href="" target=_blank><img src="themes/default/images/03.jpg"  width="990" height="350"/></a></div>
+          <div class=smask><a href="" target=_blank><img src="themes/default/images/04.jpg" width="990" height="350" /></a></div>
+        </div>
+        <ul id=myjQueryNav>
+          <li class=current><a href="" target=_blank>2009情人节攻略三部曲</a> </li>
+          <li><a href="" target=_blank>给闺蜜的礼物两件新衣80元起</a> </li>
+          <li><a href="" target=_blank>09运动新品新年8折起！</a> </li>
+          <li class=nbg><a href="" target=_blank>新年给家人一次奢华的享受</a> </li>
+        </ul>
+      </div>
+</div>
+<div class="Weekly_Deals">
+ <div class="title"> 
+   <div class="email"><input type="button" value="subscrib" class="bt" onclick="subscrib();"/> <input type="text" onclick="checkSubscrib();" value="Enter your email" class="enter" id="subscrib" />  </div>
+ </div> 
+ <div class="New_Arrivals">
    <ul>
-   <li class="userInfo">
-   <script type="text/javascript" src="js/transport.js"></script><script type="text/javascript" src="js/utils.js"></script>   <font id="ECS_MEMBERZONE">554fcae493e564ee0dc75bdf2ebf94camember_info|a:1:{s:4:"name";s:11:"member_info";}554fcae493e564ee0dc75bdf2ebf94ca </font>
-   </li>
-      <li id="topNav" class="clearfix">
-                <a href="flow.php" >查看购物车</a>
-                         |
-                            <a href="pick_out.php" >选购中心</a>
-                         |
-                            <a href="tag_cloud.php" >标签云</a>
-                         |
-                            <a href="quotation.php" >报价单</a>
-                    <div class="topNavR"></div>
-   </li>
-      </ul>
- </div>
-</div>
-<div  class="blank"></div>
-<div id="mainNav" class="clearfix">
-  <a href="index.php" class="cur">Home<span></span></a>
-    <a href="category.php?id=3"  >GSM手机<span></span></a>
-   <a href="category.php?id=5"  >双模手机<span></span></a>
-   <a href="category.php?id=6"  >手机配件<span></span></a>
-   <a href="group_buy.php"  >团购商品<span></span></a>
-   <a href="activity.php"  >优惠活动<span></span></a>
-   <a href="snatch.php"  >夺宝奇兵<span></span></a>
-   <a href="auction.php"  >拍卖活动<span></span></a>
-   <a href="exchange.php"  >积分商城<span></span></a>
-   <a href="message.php"  >留言板<span></span></a>
-   <a href="http://bbs.ecshop.com/" target="_blank"  >EC论坛<span></span></a>
- </div>
-<div id="search"  class="clearfix">
-  <div class="keys f_l">
-   <script type="text/javascript">
-    
-    <!--
-    function checkSearchForm()
-    {
-        if(document.getElementById('keyword').value)
-        {
-            return true;
-        }
-        else
-        {
-            alert("Please enter keywords!");
-            return false;
-        }
-    }
-    -->
-    
-    </script>
-      </div>
-  <form id="searchForm" name="searchForm" method="get" action="search.php" onSubmit="return checkSearchForm()" class="f_r"  style="_position:relative; top:5px;">
-   <select name="category" id="category" class="B_input">
-      <option value="0">All categories</option>
-      <option value="1" >手机类型</option><option value="5" >&nbsp;&nbsp;&nbsp;&nbsp;双模手机</option><option value="2" >&nbsp;&nbsp;&nbsp;&nbsp;CDMA手机</option><option value="3" >&nbsp;&nbsp;&nbsp;&nbsp;GSM手机</option><option value="4" >&nbsp;&nbsp;&nbsp;&nbsp;3G手机</option><option value="12" >充值卡</option><option value="15" >&nbsp;&nbsp;&nbsp;&nbsp;联通手机充值卡</option><option value="13" >&nbsp;&nbsp;&nbsp;&nbsp;小灵通/固话充值卡</option><option value="14" >&nbsp;&nbsp;&nbsp;&nbsp;移动手机充值卡</option><option value="16" >test</option><option value="6" >手机配件</option><option value="8" >&nbsp;&nbsp;&nbsp;&nbsp;耳机</option><option value="9" >&nbsp;&nbsp;&nbsp;&nbsp;电池</option><option value="11" >&nbsp;&nbsp;&nbsp;&nbsp;读卡器和内存卡</option><option value="7" >&nbsp;&nbsp;&nbsp;&nbsp;充电器</option>    </select>
-   <input name="keywords" type="text" id="keyword" value="" class="B_input" style="width:110px;"/>
-   <input name="imageField" type="submit" value="" class="go" style="cursor:pointer;" />
-   <a href="search.php?act=advanced_search">Advanced </a>
-   </form>
-</div>
-<div class="blank"></div>
-<div class="block clearfix">
-  
-  <div class="AreaL">
-    
-    <div class="box">
-     <div class="box_1">
-      <h3><span>Shop notice</span></h3>
-      <div class="boxCenterList RelaArticle">
-        欢迎光临手机网,我们的宗旨：诚信经营、服务客户！
-<MARQUEE onmouseover=this.stop() onmouseout=this.start() 
-scrollAmount=3><U><FONT color=red>
-<P>咨询电话010-10124444  010-21252454 8465544</P></FONT></U></MARQUEE>      </div>
-     </div>
-    </div>
-    <div class="blank5"></div>
-    
-  
-<div class="cart" id="ECS_CARTINFO">
- 554fcae493e564ee0dc75bdf2ebf94cacart_info|a:1:{s:4:"name";s:9:"cart_info";}554fcae493e564ee0dc75bdf2ebf94ca</div>
-<div class="blank5"></div>
-<div class="box">
- <div class="box_1">
-  <div id="category_tree">
-         <dl>
-     <dt><a href="category.php?id=1">手机类型</a></dt>
-          <dd><a href="category.php?id=2">CDMA手机</a></dd>
-                 <dd><a href="category.php?id=3">GSM手机</a></dd>
-                 <dd><a href="category.php?id=4">3G手机</a></dd>
-                 <dd><a href="category.php?id=5">双模手机</a></dd>
-                   
-       </dl>
-         <dl>
-     <dt><a href="category.php?id=6">手机配件</a></dt>
-          <dd><a href="category.php?id=7">充电器</a></dd>
-                 <dd><a href="category.php?id=8">耳机</a></dd>
-                 <dd><a href="category.php?id=9">电池</a></dd>
-                 <dd><a href="category.php?id=11">读卡器和内存卡</a></dd>
-                   
-       </dl>
-         <dl>
-     <dt><a href="category.php?id=12">充值卡</a></dt>
-          <dd><a href="category.php?id=13">小灵通/固话充值卡</a></dd>
-                 <dd><a href="category.php?id=14">移动手机充值卡</a></dd>
-                 <dd><a href="category.php?id=15">联通手机充值卡</a></dd>
-                   
-       </dl>
-         <dl>
-     <dt><a href="category.php?id=16">test</a></dt>
-            
-       </dl>
-     
-  </div>
- </div>
-</div>
-<div class="blank5"></div>
-<div class="box">
- <div class="box_2">
-  <div class="top10Tit"></div>
-  <div class="top10List clearfix">
-    <ul class="clearfix">
-	<img src="themes/default/images/top_1.gif" class="iteration" />
-	      <li class="topimg">
-      <a href="goods.php?id=3"><img src="images/200905/thumb_img/3_thumb_G_1241422082679.jpg" alt="" class="samllimg" /></a>
-      </li>
-			
-      <li class="iteration1">
-      <a href="goods.php?id=3" title="">诺基亚原装58...</a><br />
-      Shop price:<font class="f1">￥68元</font><br />
-      </li>
-    </ul>
-    <ul class="clearfix">
-	<img src="themes/default/images/top_2.gif" class="iteration" />
-	      <li class="topimg">
-      <a href="goods.php?id=24"><img src="images/200905/thumb_img/24_thumb_G_1241971981429.jpg" alt="" class="samllimg" /></a>
-      </li>
-			
-      <li class="iteration1">
-      <a href="goods.php?id=24" title="">P806</a><br />
-      Shop price:<font class="f1">￥2000元</font><br />
-      </li>
-    </ul>
-    <ul class="clearfix">
-	<img src="themes/default/images/top_3.gif" class="iteration" />
-	      <li class="topimg">
-      <a href="goods.php?id=12"><img src="images/200905/thumb_img/12_thumb_G_1241965978410.jpg" alt="" class="samllimg" /></a>
-      </li>
-			
-      <li class="iteration1">
-      <a href="goods.php?id=12" title="">摩托罗拉A81...</a><br />
-      Shop price:<font class="f1">￥983元</font><br />
-      </li>
-    </ul>
-    <ul class="clearfix">
-	<img src="themes/default/images/top_4.gif" class="iteration" />
-			
-      <li >
-      <a href="goods.php?id=9" title="">诺基亚E66</a><br />
-      Shop price:<font class="f1">￥2298元</font><br />
-      </li>
-    </ul>
-    <ul class="clearfix">
-	<img src="themes/default/images/top_5.gif" class="iteration" />
-			
-      <li >
-      <a href="goods.php?id=22" title="">多普达Touc...</a><br />
-      Shop price:<font class="f1">￥5999元</font><br />
-      </li>
-    </ul>
-    <ul class="clearfix">
-	<img src="themes/default/images/top_6.gif" class="iteration" />
-			
-      <li >
-      <a href="goods.php?id=20" title="">三星BC01</a><br />
-      Shop price:<font class="f1">￥280元</font><br />
-      </li>
-    </ul>
-    <ul class="clearfix">
-	<img src="themes/default/images/top_7.gif" class="iteration" />
-			
-      <li >
-      <a href="goods.php?id=8" title="">飞利浦9@9v</a><br />
-      Shop price:<font class="f1">￥399元</font><br />
-      </li>
-    </ul>
-    </div>
- </div>
-</div>
-<div class="blank5"></div>
-<div class="box">
- <div class="box_1">
-  <h3><span>Promotion Info</span></h3>
-  <div class="boxCenterList RelaArticle">
-            <a href="snatch.php" title="Dutch Auction">[Snatch]</a>
-        <a href="snatch.php?id=2" title="Dutch Auction 夺宝奇兵之夏新N7promotion time from 2009-05-12 to 2012-08-31, please hurry up!" style="background:none; padding-left:0px;">夺宝奇兵之夏新N7</a><br />
-      </div>
- </div>
-</div>
-<div class="blank5"></div>
-<script>var invalid_order_sn = "Invalid order SN"</script>
-<div class="box">
- <div class="box_1">
-  <h3><span>Order Query</span></h3>
-  <div class="boxCenterList">
-    <form name="ecsOrderQuery">
-    <input type="text" name="order_sn" class="inputBg" /><br />
-    <div class="blank5"></div>
-    <input type="button" value="Query order" class="bnt_blue_2" onclick="orderQuery()" />
-    </form>
-    <div id="ECS_ORDER_QUERY" style="margin-top:8px;">
-          </div>
-  </div>
- </div>
-</div>
-<div class="blank5"></div>
-<style type="text/css">
-.boxCenterList form{display:inline;}
-.boxCenterList form a{color:#404040; text-decoration:underline;}
-</style>
-<div class="box">
- <div class="box_1">
-  <h3><span>Shipping Query</span></h3>
-  <div class="boxCenterList">
-       NO. 2009061909851<br />
-   Invoice 232421   <div class="blank"></div>
-      NO. 2009052224892<br />
-   Invoice 1123344   <div class="blank"></div>
-     </div>
- </div>
-</div>
-<div class="blank5"></div>
-554fcae493e564ee0dc75bdf2ebf94cavote|a:1:{s:4:"name";s:4:"vote";}554fcae493e564ee0dc75bdf2ebf94ca<div class="box">
- <div class="box_1">
-  <h3><span>Email Subscribe</span></h3>
-  <div class="boxCenterList RelaArticle">
-    <input type="text" id="user_email" class="inputBg" /><br />
-    <div class="blank5"></div>
-    <input type="button" class="bnt_blue" value="Subscribe email list" onclick="add_email_list();" />
-    <input type="button" class="bnt_bonus"  value="Cancel email list" onclick="cancel_email_list();" />
-  </div>
- </div>
-</div>
-<div class="blank5"></div>
-<script type="text/javascript">
-var email = document.getElementById('user_email');
-function add_email_list()
-{
-  if (check_email())
-  {
-    Ajax.call('user.php?act=email_list&job=add&email=' + email.value, '', rep_add_email_list, 'GET', 'TEXT');
-  }
-}
-function rep_add_email_list(text)
-{
-  alert(text);
-}
-function cancel_email_list()
-{
-  if (check_email())
-  {
-    Ajax.call('user.php?act=email_list&job=del&email=' + email.value, '', rep_cancel_email_list, 'GET', 'TEXT');
-  }
-}
-function rep_cancel_email_list(text)
-{
-  alert(text);
-}
-function check_email()
-{
-  if (Utils.isEmail(email.value))
-  {
-    return true;
-  }
-  else
-  {
-    alert('Email is invalid!');
-    return false;
-  }
-}
-</script>
-  </div>
-  
-  
-  <div class="AreaR">
-   
-    <div class="box clearfix">
-     <div class="box_1 clearfix">
-       <div class="f_l" id="focus">
-         <script type="text/javascript">
-  var swf_width=484;
-  var swf_height=200;
-  </script>
-  <script type="text/javascript" src="data/flashdata/dynfocus/cycle_image.js"></script>
+        <li>
+       <a href="goods.php?id=68" title="Heart Shape Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet"><img src="images/201208/goods_img/20120823_3_51_0062-60-001_1097_G_1345739568608.jpg" width="188" height="188" title="Heart Shape Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet" alt="Heart Shape Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=68" title="Heart Shape Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet">Heart Shape Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$4.74</font></b><br />
+         <b>Now:<font color="#00CC00">$4.11</font></b>
        </div>
-       
-       <div id="mallNews" class="f_r">
-        <div class="NewsTit"></div>
-        <div class="NewsList tc">
-         
-        <ul>
-  <li>
-	[<a href="article_cat.php?id=12">站内快讯</a>] <a href="article.php?id=33" title="三星SGHU308说明书下载">三星SGHU308说...</a>
-	</li>
-  <li>
-	[<a href="article_cat.php?id=12">站内快讯</a>] <a href="article.php?id=32" title="手机游戏下载">手机游戏下载</a>
-	</li>
-  <li>
-	[<a href="article_cat.php?id=11">手机促销</a>] <a href="article.php?id=30" title="促销诺基亚N96">促销诺基亚N96</a>
-	</li>
-  <li>
-	[<a href="article_cat.php?id=11">手机促销</a>] <a href="article.php?id=29" title="诺基亚5320 促销">诺基亚5320 促销</a>
-	</li>
-  <li>
-	[<a href="article_cat.php?id=12">站内快讯</a>] <a href="article.php?id=34" title="3G知识普及">3G知识普及</a>
-	</li>
-  <li>
-	[<a href="article_cat.php?id=12">站内快讯</a>] <a href="article.php?id=31" title="诺基亚6681手机广告欣赏">诺基亚6681手机广...</a>
-	</li>
-  <li>
-	[<a href="article_cat.php?id=11">手机促销</a>] <a href="article.php?id=28" title="飞利浦9@9促销">飞利浦9@9促销</a>
-	</li>
-  <li>
-	[<a href="article_cat.php?id=4">3G资讯</a>] <a href="article.php?id=27" title="800万像素超强拍照机 LG Viewty Smart再曝光">800万像素超强拍照...</a>
-	</li>
-</ul>        </div>
+     </li>
+          <li>
+       <a href="goods.php?id=69" title="Fashion Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet"><img src="images/201208/goods_img/20120823_3_51_0185-68-013_4244_G_1345740427355.jpg" width="188" height="188" title="Fashion Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet" alt="Fashion Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=69" title="Fashion Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet">Fashion Austrian Crystal With Real Platinum Plated Anti-Allergy Ladies Bracelet</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$5.56</font></b><br />
+         <b>Now:<font color="#00CC00">$4.82</font></b>
        </div>
-       
-     </div>
-    </div>
-    <div class="blank5"></div>
-   
-   
-    <div class="clearfix">
-      
-      <div id="sales" class="f_l clearfix">
-      <h1><a href="search.php?intro=promotion"><img src="themes/default/images/more.gif" /></a></h1>
-       <div class="clearfix goodBox">
-                             <div class="goodList">
-           <a href="goods.php?id=32"><img src="images/200905/thumb_img/32_thumb_G_1242110760196.jpg" border="0" alt="诺基亚N85"/></a><br />
-					 <p><a href="goods.php?id=32" title="诺基亚N85">诺基亚N85</a></p>
-           Promotion price:<font class="f1">￥2750元</font>
-           </div>
-                                      <div class="goodList">
-           <a href="goods.php?id=8"><img src="images/200905/thumb_img/8_thumb_G_1241425513488.jpg" border="0" alt="飞利浦9@9v"/></a><br />
-					 <p><a href="goods.php?id=8" title="飞利浦9@9v">飞利浦9@9v</a></p>
-           Promotion price:<font class="f1">￥385元</font>
-           </div>
-                         </div>
-      </div>
-      
-      <div class="box f_r brandsIe6">
-       <div class="box_1 clearfix" id="brands">
-                            <a href="brand.php?id=1"><img src="data/brandlogo/1240803062307572427.gif" alt="诺基亚 (7)" /></a>
-                              <a href="brand.php?id=2"><img src="data/brandlogo/1240802922410634065.gif" alt="摩托罗拉 (1)" /></a>
-                              <a href="brand.php?id=3"><img src="data/brandlogo/1240803144788047486.gif" alt="多普达 (1)" /></a>
-                              <a href="brand.php?id=4"><img src="data/brandlogo/1240803247838195732.gif" alt="飞利浦 (1)" /></a>
-                              <a href="brand.php?id=5"><img src="data/brandlogo/1240803352280856940.gif" alt="夏新 (1)" /></a>
-                              <a href="brand.php?id=6"><img src="data/brandlogo/1240803412367015368.gif" alt="三星 (2)" /></a>
-                              <a href="brand.php?id=7"><img src="data/brandlogo/1240803482283160654.gif" alt="索爱 (2)" /></a>
-                              <a href="brand.php?id=8"><img src="data/brandlogo/1240803526904622792.gif" alt="LG (1)" /></a>
-                              <a href="brand.php?id=9"><img src="data/brandlogo/1240803578417877983.gif" alt="联想 (1)" /></a>
-                              <a href="brand.php?id=10">金立 (1)</a>
-            <div class="brandsMore"><a href="brand.php"><img src="themes/default/images/moreBrands.gif" /></a></div>
+     </li>
+          <li>
+       <a href="goods.php?id=72" title="Titanic (Marine Heart)-Austria Crystal Ladies Ring"><img src="images/201208/goods_img/20120824_3_52_0255-32-242_8018_G_1345824129255.jpg" width="188" height="188" title="Titanic (Marine Heart)-Austria Crystal Ladies Ring" alt="Titanic (Marine Heart)-Austria Crystal Ladies Ring" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=72" title="Titanic (Marine Heart)-Austria Crystal Ladies Ring">Titanic (Marine Heart)-Austria Crystal Ladies Ring</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$3.39</font></b><br />
+         <b>Now:<font color="#00CC00">$3.15</font></b>
        </div>
-      </div>
-    </div>
-    <div class="blank5"></div>
+     </li>
+          <li>
+       <a href="goods.php?id=70" title="Fashionable Austrian Crystal Ladies Bracelet"><img src="images/201208/goods_img/20120823_3_51_0265-65-117_5418_G_1345742409537.jpg" width="188" height="188" title="Fashionable Austrian Crystal Ladies Bracelet" alt="Fashionable Austrian Crystal Ladies Bracelet" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=70" title="Fashionable Austrian Crystal Ladies Bracelet">Fashionable Austrian Crystal Ladies Bracelet</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$5.69</font></b><br />
+         <b>Now:<font color="#00CC00">$4.93</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=71" title="Fashion Hollow Out Butterfly Ladies Bracelet"><img src="images/201208/goods_img/20120823_3_51_0063-60-009_3259_G_1345743564143.jpg" width="188" height="188" title="Fashion Hollow Out Butterfly Ladies Bracelet" alt="Fashion Hollow Out Butterfly Ladies Bracelet" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=71" title="Fashion Hollow Out Butterfly Ladies Bracelet">Fashion Hollow Out Butterfly Ladies Bracelet</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$5.54</font></b><br />
+         <b>Now:<font color="#00CC00">$4.61</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=59" title="Shining 925 Sterling Silver Rhinestones With Platinum Plated Earrings"><img src="images/201208/goods_img/20120822_3_50_0050-50-002_2586_G_1345665699703.jpg" width="188" height="188" title="Shining 925 Sterling Silver Rhinestones With Platinum Plated Earrings" alt="Shining 925 Sterling Silver Rhinestones With Platinum Plated Earrings" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=59" title="Shining 925 Sterling Silver Rhinestones With Platinum Plated Earrings">Shining 925 Sterling Silver Rhinestones With Platinum Plated Earrings</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$4.29</font></b><br />
+         <b>Now:<font color="#00CC00">$3.98</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=61" title="Gorgeous And Fashion One Rhinestone Platinum-Plated Ladies' Earrings"><img src="images/201208/goods_img/20120822_3_50_0128-55-001_8604_G_1345669772428.jpg" width="188" height="188" title="Gorgeous And Fashion One Rhinestone Platinum-Plated Ladies' Earrings" alt="Gorgeous And Fashion One Rhinestone Platinum-Plated Ladies' Earrings" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=61" title="Gorgeous And Fashion One Rhinestone Platinum-Plated Ladies' Earrings">Gorgeous And Fashion One Rhinestone Platinum-Plated Ladies' Earrings</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$4.74</font></b><br />
+         <b>Now:<font color="#00CC00">$4.40</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=62" title="Elegant Austrian Crystal With fully-jewelled Conch Shape Stud Earrings"><img src="images/201208/goods_img/20120822_3_50_0152-72-022_3233_G_1345713088534.jpg" width="188" height="188" title="Elegant Austrian Crystal With fully-jewelled Conch Shape Stud Earrings" alt="Elegant Austrian Crystal With fully-jewelled Conch Shape Stud Earrings" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=62" title="Elegant Austrian Crystal With fully-jewelled Conch Shape Stud Earrings">Elegant Austrian Crystal With fully-jewelled Conch Shape Stud Earrings</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$4.88</font></b><br />
+         <b>Now:<font color="#00CC00">$4.53</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=63" title="Hot Sales Fashion Plating 18K Gold In Alloy Bracelets"><img src="images/201208/goods_img/20120822_3_51_0112-102-475_2379_G_1345715524603.jpg" width="188" height="188" title="Hot Sales Fashion Plating 18K Gold In Alloy Bracelets" alt="Hot Sales Fashion Plating 18K Gold In Alloy Bracelets" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=63" title="Hot Sales Fashion Plating 18K Gold In Alloy Bracelets">Hot Sales Fashion Plating 18K Gold In Alloy Bracelets</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$5.44</font></b><br />
+         <b>Now:<font color="#00CC00">$4.72</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=64" title="Fashion Crystal Sweet Four-leaf Bracelets "><img src="images/201208/goods_img/20120823_3_51_0106-80-010_9818_G_1345731425164.jpg" width="188" height="188" title="Fashion Crystal Sweet Four-leaf Bracelets " alt="Fashion Crystal Sweet Four-leaf Bracelets " /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=64" title="Fashion Crystal Sweet Four-leaf Bracelets ">Fashion Crystal Sweet Four-leaf Bracelets </a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$3.99</font></b><br />
+         <b>Now:<font color="#00CC00">$3.46</font></b>
+       </div>
+     </li>
+        </ul>
+ </div>
+</div>
+<div class="topten"> 
+ <div class="title1">
+   <h2>Top 10</h2>
+   <div class="more"><a href="" target="_blank">more</a></div>
+ </div>
+   <ul>
+        <li>
+       <a href="goods.php?id=385" title="goods.php?id=385"><img src="images/201209/goods_img/385_G_1347614152779.jpg" width="188" height="188" title="Dental Tooth Whitening Teeth Whitener Whitelight" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=385" title="Dental Tooth Whitening Teeth Whitener Whitelight">Dental Tooth Whitening Teeth Whitener Whitelight</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$7.97</font></b><br />
+         <b>Now:<font color="#00CC00">$6.64</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=384" title="goods.php?id=384"><img src="images/201209/goods_img/384_G_1347614152512.jpg" width="188" height="188" title="New Breast Enhancer For Enlargement Massager" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=384" title="New Breast Enhancer For Enlargement Massager">New Breast Enhancer For Enlargement Massager</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$5.75</font></b><br />
+         <b>Now:<font color="#00CC00">$4.79</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=383" title="goods.php?id=383"><img src="images/201209/goods_img/383_G_1347614151401.jpg" width="188" height="188" title="Slender Shaper Fat Burning Oscillating Loss Weight Slim Belt" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=383" title="Slender Shaper Fat Burning Oscillating Loss Weight Slim Belt">Slender Shaper Fat Burning Oscillating Loss Weight Slim Belt</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$59.53</font></b><br />
+         <b>Now:<font color="#00CC00">$49.61</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=382" title="goods.php?id=382"><img src="images/201209/goods_img/382_G_1347614151037.jpg" width="188" height="188" title="Calorie Watch H598" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=382" title="Calorie Watch H598">Calorie Watch H598</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$11.95</font></b><br />
+         <b>Now:<font color="#00CC00">$9.96</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=381" title="goods.php?id=381"><img src="images/201209/goods_img/381_G_1347614151125.jpg" width="188" height="188" title="Tractors for Cervical Spine &amp; Neck Vertebra Retrator" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=381" title="Tractors for Cervical Spine &amp; Neck Vertebra Retrator">Tractors for Cervical Spine &amp; Neck Vertebra Retrator</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$8.10</font></b><br />
+         <b>Now:<font color="#00CC00">$6.75</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=380" title="goods.php?id=380"><img src="images/201209/goods_img/380_G_1347614150877.jpg" width="188" height="188" title="Eye Care Health Electric Alleviate Fatigue Massager" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=380" title="Eye Care Health Electric Alleviate Fatigue Massager">Eye Care Health Electric Alleviate Fatigue Massager</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$9.20</font></b><br />
+         <b>Now:<font color="#00CC00">$7.67</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=379" title="goods.php?id=379"><img src="images/201209/goods_img/379_G_1347614150239.jpg" width="188" height="188" title="Alive and Relax 2-in-1 Foot Massager" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=379" title="Alive and Relax 2-in-1 Foot Massager">Alive and Relax 2-in-1 Foot Massager</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$23.65</font></b><br />
+         <b>Now:<font color="#00CC00">$19.71</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=378" title="goods.php?id=378"><img src="images/201209/goods_img/378_G_1347614150507.jpg" width="188" height="188" title="Head Massager Vibrating Trembling Massage Trembler" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=378" title="Head Massager Vibrating Trembling Massage Trembler">Head Massager Vibrating Trembling Massage Trembler</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$11.18</font></b><br />
+         <b>Now:<font color="#00CC00">$9.32</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=377" title="goods.php?id=377"><img src="images/201209/goods_img/377_G_1347614149144.jpg" width="188" height="188" title="Mini Digital Heart Beat Detector Keychain " alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=377" title="Mini Digital Heart Beat Detector Keychain ">Mini Digital Heart Beat Detector Keychain </a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$11.15</font></b><br />
+         <b>Now:<font color="#00CC00">$9.29</font></b>
+       </div>
+     </li>
+          <li>
+       <a href="goods.php?id=376" title="goods.php?id=376"><img src="images/201209/goods_img/376_G_1347614149535.jpg" width="188" height="188" title="Sport Pulse Heart Rate Calorie Counter Watch with Monitor" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=376" title="Sport Pulse Heart Rate Calorie Counter Watch with Monitor">Sport Pulse Heart Rate Calorie Counter Watch with Monitor</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$13.24</font></b><br />
+         <b>Now:<font color="#00CC00">$11.03</font></b>
+       </div>
+     </li>
+        </ul>
+</div>
+<div class="Hot_Sales">
+  <div class="title">
+   <h2>New Arrival</h2>
+   <div class="more"><a href="" target="_blank">more</a></div>
+  </div> 
+  <ul>
+  	     <li>
+       <a href="goods.php?id=385" title="Dental Tooth Whitening Teeth Whitener Whitelight"><img src="images/201209/goods_img/385_G_1347614152779.jpg" width="188" height="188" title="Dental Tooth Whitening Teeth Whitener Whitelight" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=385" title="Dental Tooth Whitening Teeth Whitener Whitelight">Dental Tooth Whitening Teeth Whitener Whitelight</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$7.97</font></b><br />
+         <b>Now:<font color="#00CC00">$6.64</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=384" title="New Breast Enhancer For Enlargement Massager"><img src="images/201209/goods_img/384_G_1347614152512.jpg" width="188" height="188" title="New Breast Enhancer For Enlargement Massager" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=384" title="New Breast Enhancer For Enlargement Massager">New Breast Enhancer For Enlargement Massager</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$5.75</font></b><br />
+         <b>Now:<font color="#00CC00">$4.79</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=381" title="Tractors for Cervical Spine &amp; Neck Vertebra Retrator"><img src="images/201209/goods_img/381_G_1347614151125.jpg" width="188" height="188" title="Tractors for Cervical Spine &amp; Neck Vertebra Retrator" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=381" title="Tractors for Cervical Spine &amp; Neck Vertebra Retrator">Tractors for Cervical Spine &amp; Neck Vertebra Retrator</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$8.10</font></b><br />
+         <b>Now:<font color="#00CC00">$6.75</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=382" title="Calorie Watch H598"><img src="images/201209/goods_img/382_G_1347614151037.jpg" width="188" height="188" title="Calorie Watch H598" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=382" title="Calorie Watch H598">Calorie Watch H598</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$11.95</font></b><br />
+         <b>Now:<font color="#00CC00">$9.96</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=383" title="Slender Shaper Fat Burning Oscillating Loss Weight Slim Belt"><img src="images/201209/goods_img/383_G_1347614151401.jpg" width="188" height="188" title="Slender Shaper Fat Burning Oscillating Loss Weight Slim Belt" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=383" title="Slender Shaper Fat Burning Oscillating Loss Weight Slim Belt">Slender Shaper Fat Burning Oscillating Loss Weight Slim Belt</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$59.53</font></b><br />
+         <b>Now:<font color="#00CC00">$49.61</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=378" title="Head Massager Vibrating Trembling Massage Trembler"><img src="images/201209/goods_img/378_G_1347614150507.jpg" width="188" height="188" title="Head Massager Vibrating Trembling Massage Trembler" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=378" title="Head Massager Vibrating Trembling Massage Trembler">Head Massager Vibrating Trembling Massage Trembler</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$11.18</font></b><br />
+         <b>Now:<font color="#00CC00">$9.32</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=379" title="Alive and Relax 2-in-1 Foot Massager"><img src="images/201209/goods_img/379_G_1347614150239.jpg" width="188" height="188" title="Alive and Relax 2-in-1 Foot Massager" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=379" title="Alive and Relax 2-in-1 Foot Massager">Alive and Relax 2-in-1 Foot Massager</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$23.65</font></b><br />
+         <b>Now:<font color="#00CC00">$19.71</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=380" title="Eye Care Health Electric Alleviate Fatigue Massager"><img src="images/201209/goods_img/380_G_1347614150877.jpg" width="188" height="188" title="Eye Care Health Electric Alleviate Fatigue Massager" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=380" title="Eye Care Health Electric Alleviate Fatigue Massager">Eye Care Health Electric Alleviate Fatigue Massager</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$9.20</font></b><br />
+         <b>Now:<font color="#00CC00">$7.67</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=376" title="Sport Pulse Heart Rate Calorie Counter Watch with Monitor"><img src="images/201209/goods_img/376_G_1347614149535.jpg" width="188" height="188" title="Sport Pulse Heart Rate Calorie Counter Watch with Monitor" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=376" title="Sport Pulse Heart Rate Calorie Counter Watch with Monitor">Sport Pulse Heart Rate Calorie Counter Watch with Monitor</a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$13.24</font></b><br />
+         <b>Now:<font color="#00CC00">$11.03</font></b>
+       </div>
+     </li>
+         <li>
+       <a href="goods.php?id=377" title="Mini Digital Heart Beat Detector Keychain "><img src="images/201209/goods_img/377_G_1347614149144.jpg" width="188" height="188" title="Mini Digital Heart Beat Detector Keychain " alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="goods.php?id=377" title="Mini Digital Heart Beat Detector Keychain ">Mini Digital Heart Beat Detector Keychain </a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through">$11.15</font></b><br />
+         <b>Now:<font color="#00CC00">$9.29</font></b>
+       </div>
+     </li>
+       </ul>
+</div>
+<div class="bottom">
+  <ul>
+     <li>
+       <h3>Company information</h3>
+       <a href="" target="_blank" title="xxxx">About Us</a><BR />
+       <a href="" target="_blank" title="xxxx">Contact Us </a><BR />
+       <a href="" target="_blank" title="xxxx">dfdfgdfg</a><BR />
+       <a href="" target="_blank" title="xxxx">Customer Service </a><BR />
+       <a href="" target="_blank" title="xxxx">Privacy Policies</a>
+     </li>
+     <li>
+       <h3>Customer Service</h3>
+       <a href="" target="_blank" title="xxxx">Warranty and Return </a><BR />
+       <a href="" target="_blank" title="xxxx">Payment Methods </a><BR />
+       <a href="" target="_blank" title="xxxx">Terms and Conditions </a><BR />
+       <a href="" target="_blank" title="xxxx">Shipping & Handling</a><BR />
+     </li>
+     <li>
+       <h3>My account</h3>
+       <a href="" target="_blank" title="xxxx" style=" padding-left:23px">Login/Register </a><BR />
+       <a href="" target="_blank" title="xxxx" style=" padding-left:23px">Order History</a><BR />
+       <a href="" target="_blank" title="xxxx" style=" padding-left:23px">My Favorites </a><BR />
+       <a href="" target="_blank" title="xxxx" style=" padding-left:23px">FAQ</a>
+     </li>
+     <li>
+       <h3>We are social</h3>
+       <a href="" target="_blank" title="xxxx" class="fb"></a><BR />
+       <a href="" target="_blank" title="xxxx" class="tw"></a><BR />
+       <a href="" target="_blank" title="xxxx"  class="tb"></a><BR />
+     </li>
+     <li class="track_orders">
+        <h3>Track orders</h3>
+        <div class="track"><input type="button" value="" class="bt" /> <input type="text" value="Order Number" class="enter" /></div>
+        <h3>Newsletter</h3>
+        <div class="track"><input type="button" value="" class="bt" /> <input type="text" value="Enter your email" class="enter" /></div>
+     </li>
+   </ul>
+   <div class="bt_nav">
+     <a href="" target="_blank">11111111</a> | <a href="" target="_blank">22222222</a> | <a href="" target="_blank">33333333</a> | <a href="" target="_blank">44444444</a> | <a href="" target="_blank">55555555</a> | <a href="" target="_blank">66666666</a> | <a href="" target="_blank">77777777</a> | <a href="" target="_blank">888888</a> | <a href="" target="_blank">99999</a> | <a href="" target="_blank">000000</a>
+   </div> 
    
-<div class="box">
-<div class="box_2 centerPadd">
-  <div class="itemTit" id="itemBest">
-            <h2><a href="javascript:void(0)" onclick="change_tab_style('itemBest', 'h2', this);get_cat_recommend(1, 0);">All products</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemBest', 'h2', this);get_cat_recommend(1, 3)">GSM手机</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemBest', 'h2', this);get_cat_recommend(1, 5)">双模手机</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemBest', 'h2', this);get_cat_recommend(1, 12)">充值卡</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemBest', 'h2', this);get_cat_recommend(1, 15)">联通手机充值卡</a></h2>
-              </div>
-  <div id="show_best_area" class="clearfix goodsBox">
-      <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=23"><img src="images/200905/thumb_img/23_thumb_G_1241971556399.jpg" alt="诺基亚N96" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=23" title="诺基亚N96">诺基亚N96</a></p>
-           <font class="f1">
-                     ￥3700元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=24"><img src="images/200905/thumb_img/24_thumb_G_1241971981429.jpg" alt="P806" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=24" title="P806">P806</a></p>
-           <font class="f1">
-                     ￥2000元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=9"><img src="images/200905/thumb_img/9_thumb_G_1241511871555.jpg" alt="诺基亚E66" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=9" title="诺基亚E66">诺基亚E66</a></p>
-           <font class="f1">
-                     ￥2298元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=1"><img src="images/200905/thumb_img/1_thumb_G_1240902890710.jpg" alt="KD876" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=1" title="KD876">KD876</a></p>
-           <font class="f1">
-                     ￥1388元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=8"><img src="images/200905/thumb_img/8_thumb_G_1241425513488.jpg" alt="飞利浦9@9v" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=8" title="飞利浦9@9v">飞利浦9@9v</a></p>
-           <font class="f1">
-                     ￥385元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=17"><img src="images/200905/thumb_img/17_thumb_G_1241969394587.jpg" alt="夏新N7" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=17" title="夏新N7">夏新N7</a></p>
-           <font class="f1">
-                     ￥2300元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=19"><img src="images/200905/thumb_img/19_thumb_G_1241970175208.jpg" alt="三星SGH-F258" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=19" title="三星SGH-F258">三星SGH-F...</a></p>
-           <font class="f1">
-                     ￥858元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=20"><img src="images/200905/thumb_img/20_thumb_G_1242106490058.jpg" alt="三星BC01" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=20" title="三星BC01">三星BC01</a></p>
-           <font class="f1">
-                     ￥280元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=22"><img src="images/200905/thumb_img/22_thumb_G_1241971076803.jpg" alt="多普达Touch HD" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=22" title="多普达Touch HD">多普达Touc...</a></p>
-           <font class="f1">
-                     ￥5999元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="best"></span>
-           <a href="goods.php?id=27"><img src="images/200905/thumb_img/27_thumb_G_1241972894068.jpg" alt="联通100元充值卡" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=27" title="联通100元充值卡">联通100元充...</a></p>
-           <font class="f1">
-                     ￥95元                     </font>
-        </div>
-    <div class="more"><a href="search.php?intro=best"><img src="themes/default/images/more.gif" /></a></div>
-    </div>
-</div>
-</div>
-<div class="blank5"></div>
-  <div class="box">
-<div class="box_2 centerPadd">
-  <div class="itemTit New" id="itemNew">
-            <h2><a href="javascript:void(0)" onclick="change_tab_style('itemNew', 'h2', this);get_cat_recommend(2, 0);">All products</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemNew', 'h2', this);get_cat_recommend(2, 3)">GSM手机</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemNew', 'h2', this);get_cat_recommend(2, 5)">双模手机</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemNew', 'h2', this);get_cat_recommend(2, 12)">充值卡</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemNew', 'h2', this);get_cat_recommend(2, 14)">移动手机充值卡</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemNew', 'h2', this);get_cat_recommend(2, 15)">联通手机充值卡</a></h2>
-              </div>
-  <div id="show_new_area" class="clearfix goodsBox">
-      <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=32"><img src="images/200905/thumb_img/32_thumb_G_1242110760196.jpg" alt="诺基亚N85" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=32" title="诺基亚N85">诺基亚N85</a></p>
-           <font class="f1">
-                     ￥2750元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=23"><img src="images/200905/thumb_img/23_thumb_G_1241971556399.jpg" alt="诺基亚N96" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=23" title="诺基亚N96">诺基亚N96</a></p>
-           <font class="f1">
-                     ￥3700元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=24"><img src="images/200905/thumb_img/24_thumb_G_1241971981429.jpg" alt="P806" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=24" title="P806">P806</a></p>
-           <font class="f1">
-                     ￥2000元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=9"><img src="images/200905/thumb_img/9_thumb_G_1241511871555.jpg" alt="诺基亚E66" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=9" title="诺基亚E66">诺基亚E66</a></p>
-           <font class="f1">
-                     ￥2298元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=1"><img src="images/200905/thumb_img/1_thumb_G_1240902890710.jpg" alt="KD876" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=1" title="KD876">KD876</a></p>
-           <font class="f1">
-                     ￥1388元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=8"><img src="images/200905/thumb_img/8_thumb_G_1241425513488.jpg" alt="飞利浦9@9v" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=8" title="飞利浦9@9v">飞利浦9@9v</a></p>
-           <font class="f1">
-                     ￥385元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=19"><img src="images/200905/thumb_img/19_thumb_G_1241970175208.jpg" alt="三星SGH-F258" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=19" title="三星SGH-F258">三星SGH-F...</a></p>
-           <font class="f1">
-                     ￥858元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=20"><img src="images/200905/thumb_img/20_thumb_G_1242106490058.jpg" alt="三星BC01" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=20" title="三星BC01">三星BC01</a></p>
-           <font class="f1">
-                     ￥280元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=22"><img src="images/200905/thumb_img/22_thumb_G_1241971076803.jpg" alt="多普达Touch HD" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=22" title="多普达Touch HD">多普达Touc...</a></p>
-           <font class="f1">
-                     ￥5999元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="news"></span>
-           <a href="goods.php?id=12"><img src="images/200905/thumb_img/12_thumb_G_1241965978410.jpg" alt="摩托罗拉A810" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=12" title="摩托罗拉A810">摩托罗拉A81...</a></p>
-           <font class="f1">
-                     ￥983元                     </font>
-        </div>
-    <div class="more"><a href="search.php?intro=new"><img src="themes/default/images/more.gif" /></a></div>
-    </div>
-</div>
-</div>
-<div class="blank5"></div>
-  <div class="box">
-<div class="box_2 centerPadd">
-  <div class="itemTit Hot" id="itemHot">
-            <h2><a href="javascript:void(0)" onclick="change_tab_style('itemHot', 'h2', this);get_cat_recommend(3, 0);">All products</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemHot', 'h2', this);get_cat_recommend(3, 3)">GSM手机</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemHot', 'h2', this);get_cat_recommend(3, 5)">双模手机</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemHot', 'h2', this);get_cat_recommend(3, 12)">充值卡</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemHot', 'h2', this);get_cat_recommend(3, 13)">小灵通/固话充值卡</a></h2>
-            <h2 class="h2bg"><a href="javascript:void(0)" onclick="change_tab_style('itemHot', 'h2', this);get_cat_recommend(3, 14)">移动手机充值卡</a></h2>
-              </div>
-  <div id="show_hot_area" class="clearfix goodsBox">
-      <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=32"><img src="images/200905/thumb_img/32_thumb_G_1242110760196.jpg" alt="诺基亚N85" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=32" title="诺基亚N85">诺基亚N85</a></p>
-           <font class="f1">
-                     ￥2750元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=24"><img src="images/200905/thumb_img/24_thumb_G_1241971981429.jpg" alt="P806" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=24" title="P806">P806</a></p>
-           <font class="f1">
-                     ￥2000元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=9"><img src="images/200905/thumb_img/9_thumb_G_1241511871555.jpg" alt="诺基亚E66" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=9" title="诺基亚E66">诺基亚E66</a></p>
-           <font class="f1">
-                     ￥2298元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=1"><img src="images/200905/thumb_img/1_thumb_G_1240902890710.jpg" alt="KD876" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=1" title="KD876">KD876</a></p>
-           <font class="f1">
-                     ￥1388元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=8"><img src="images/200905/thumb_img/8_thumb_G_1241425513488.jpg" alt="飞利浦9@9v" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=8" title="飞利浦9@9v">飞利浦9@9v</a></p>
-           <font class="f1">
-                     ￥385元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=13"><img src="images/200905/thumb_img/13_thumb_G_1241968002527.jpg" alt="诺基亚5320 XpressMusic" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=13" title="诺基亚5320 XpressMusic">诺基亚5320...</a></p>
-           <font class="f1">
-                     ￥1311元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=14"><img src="images/200905/thumb_img/14_thumb_G_1241968492116.jpg" alt="诺基亚5800XM" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=14" title="诺基亚5800XM">诺基亚5800...</a></p>
-           <font class="f1">
-                     ￥2625元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=17"><img src="images/200905/thumb_img/17_thumb_G_1241969394587.jpg" alt="夏新N7" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=17" title="夏新N7">夏新N7</a></p>
-           <font class="f1">
-                     ￥2300元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=19"><img src="images/200905/thumb_img/19_thumb_G_1241970175208.jpg" alt="三星SGH-F258" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=19" title="三星SGH-F258">三星SGH-F...</a></p>
-           <font class="f1">
-                     ￥858元                     </font>
-        </div>
-    <div class="goodsItem">
-         <span class="hot"></span>
-           <a href="goods.php?id=20"><img src="images/200905/thumb_img/20_thumb_G_1242106490058.jpg" alt="三星BC01" class="goodsimg" /></a><br />
-           <p><a href="goods.php?id=20" title="三星BC01">三星BC01</a></p>
-           <font class="f1">
-                     ￥280元                     </font>
-        </div>
-    <div class="more"><a href="search.php?intro=hot"><img src="themes/default/images/more.gif" /></a></div>
-    </div>
-</div>
-</div>
-<div class="blank5"></div>
-  
-  </div>
-  
-</div>
-<div class="blank5"></div>
-<div class="block">
-  <div class="box">
-   <div class="helpTitBg clearfix">
-    <dl>
-  <dt><a href='article_cat.php?id=5' title="新手上路 ">新手上路 </a></dt>
-    <dd><a href="article.php?id=9" title="售后流程">售后流程</a></dd>
-    <dd><a href="article.php?id=10" title="购物流程">购物流程</a></dd>
-    <dd><a href="article.php?id=11" title="订购方式">订购方式</a></dd>
-  </dl>
-<dl>
-  <dt><a href='article_cat.php?id=6' title="手机常识 ">手机常识 </a></dt>
-    <dd><a href="article.php?id=12" title="如何分辨原装电池">如何分辨原装电池</a></dd>
-    <dd><a href="article.php?id=13" title="如何分辨水货手机 ">如何分辨水货手机</a></dd>
-    <dd><a href="article.php?id=14" title="如何享受全国联保">如何享受全国联保</a></dd>
-  </dl>
-<dl>
-  <dt><a href='article_cat.php?id=7' title="配送与支付 ">配送与支付 </a></dt>
-    <dd><a href="article.php?id=15" title="货到付款区域">货到付款区域</a></dd>
-    <dd><a href="article.php?id=16" title="配送支付智能查询 ">配送支付智能查询</a></dd>
-    <dd><a href="article.php?id=17" title="支付方式说明">支付方式说明</a></dd>
-  </dl>
-<dl>
-  <dt><a href='article_cat.php?id=10' title="会员中心">会员中心</a></dt>
-    <dd><a href="article.php?id=18" title="资金管理">资金管理</a></dd>
-    <dd><a href="article.php?id=19" title="我的收藏">我的收藏</a></dd>
-    <dd><a href="article.php?id=20" title="我的订单">我的订单</a></dd>
-  </dl>
-<dl>
-  <dt><a href='article_cat.php?id=8' title="服务保证 ">服务保证 </a></dt>
-    <dd><a href="article.php?id=21" title="退换货原则">退换货原则</a></dd>
-    <dd><a href="article.php?id=22" title="售后服务保证 ">售后服务保证</a></dd>
-    <dd><a href="article.php?id=23" title="产品质量保证 ">产品质量保证</a></dd>
-  </dl>
-<dl>
-  <dt><a href='article_cat.php?id=9' title="联系我们 ">联系我们 </a></dt>
-    <dd><a href="article.php?id=24" title="网站故障报告">网站故障报告</a></dd>
-    <dd><a href="article.php?id=25" title="选机咨询 ">选机咨询</a></dd>
-    <dd><a href="article.php?id=26" title="投诉与建议 ">投诉与建议</a></dd>
-  </dl>
+   <div class="cooperation">
+     <!--<img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" />-->
+     <img src="themes/default/images/paypal.gif" width="768" height="55" />
    </div>
-  </div>
 </div>
-<div class="blank"></div>
-<div id="bottomNav" class="box">
- <div class="box_1">
-  <div class="links clearfix">
-        <a href="http://www.ecshop.com/" target="_blank" title="ECSHOP 网上商店管理系统"><img src="http://www.ecshop.com/images/logo/ecshop_logo.gif" alt="ECSHOP 网上商店管理系统" border="0" /></a>
-                [<a href="http://www.maifou.net/" target="_blank" title="买否网">买否网</a>]
-        [<a href="http://www.wdwd.com/" target="_blank" title="免费开独立网店">免费开独立网店</a>]
-          </div>
- </div>
-</div>
-<div class="blank"></div>
-<div id="bottomNav" class="box">
- <div class="box_1">
-  <div class="bNavList clearfix">
-   <div class="f_l">
-              <a href="article.php?id=1" >免责条款</a>
-                   -
-                      <a href="article.php?id=2" >隐私保护</a>
-                   -
-                      <a href="article.php?id=3" >咨询热点</a>
-                   -
-                      <a href="article.php?id=4" >联系我们</a>
-                   -
-                      <a href="article.php?id=5" >公司简介</a>
-                   -
-                      <a href="wholesale.php" >批发方案</a>
-                   -
-                      <a href="myship.php" >配送方式</a>
-                   </div>
-   <div class="f_r">
-   <a href="#top"><img src="themes/default/images/bnt_top.gif" /></a> <a href="index.php"><img src="themes/default/images/bnt_home.gif" /></a>
-   </div>
-  </div>
- </div>
-</div>
-<div class="blank"></div>
-<div id="footer">
- <div class="text">
- &copy; 2005-2012 ECSHOP Copyright, All Rights Reserved.<br />
-                                                                                     <br />
-    554fcae493e564ee0dc75bdf2ebf94caquery_info|a:1:{s:4:"name";s:10:"query_info";}554fcae493e564ee0dc75bdf2ebf94ca<br />
-  <a href="http://www.ecshop.com" target="_blank" style=" font-family:Verdana; font-size:11px;">Powered&nbsp;by&nbsp;<strong><span style="color: #3366FF">ECShop</span>&nbsp;<span style="color: #FF9966">v2.7.3</span></strong></a>&nbsp;<a href="http://www.ecshop.com/license.php?product=ecshop_b2c&url=http%3A%2F%2Flocalhost%2Fecshop%2F" target="_blank"
->&nbsp;&nbsp;Licensed</a><br />
-        <div align="left"  id="rss"><a href="feed.php"><img src="themes/default/images/xml_rss2.gif" alt="rss" /></a></div>
- </div>
 </div>
 </body>
 </html>

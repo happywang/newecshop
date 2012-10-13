@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<title>Drop-down Combo Box</title>
+
+
+<link href="js/ddcombo/js/jquery/ddcombo/jquery.ddcombo.css" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+{insert_scripts files='ddcombo/js/jquery/jquery-1.2.6.min.js,ddcombo/js/jquery/ddcombo/lib/jquery.ready.js,ddcombo/js/jquery/ddcombo/lib/jquery.flydom-3.1.1.js,ddcombo/js/jquery/ddcombo/lib/autocomplete/jquery.bgiframe.min.js,ddcombo/js/jquery/ddcombo/lib/autocomplete/jquery.dimensions.js,ddcombo/js/jquery/ddcombo/lib/autocomplete/jquery.ajaxQueue.js,ddcombo/js/jquery/ddcombo/lib/autocomplete/thickbox-compressed.js,ddcombo/js/jquery/ddcombo/jquery.ddcombo.js,ddcombo/js/jquery/main.js}
+</head>
+<body>
+  <div id="box1" class="ddcombo"></div>
+  <a href="javascript:;" onclick="show();">aa</a>
+  <script>
+  function show(){
+	  alert($("#combotable_input").val());
+  }
+  </script>
+</body>
+</html>

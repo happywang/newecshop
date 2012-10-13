@@ -60,7 +60,6 @@ if (!empty($_REQUEST['act']) && $_REQUEST['act'] == 'price')
         {
             $res['qty'] = $number;
         }
-
         $shop_price  = get_final_price($goods_id, $number, true, $attr_id);
         $res['result'] = price_format($shop_price * $number);
     }

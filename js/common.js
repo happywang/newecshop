@@ -1083,3 +1083,20 @@ function cancel_div()
     i++;
   }
 }
+
+function ec_search(){
+	var search_val = document.getElementById('search_input').value;
+	if(search_val=='Please enter the name of the commodity'){
+		document.getElementById('search_input').value = '';
+		return false;
+	}
+	return true;
+}
+
+function do_search(){
+	var search_val = document.getElementById('search_input').value;
+	if(search_val=='Please enter the name of the commodity' || search_val==''){
+		return false;
+	}
+	window.location.href="do_search.php?act=do&name="+search_val;
+}

@@ -1,7 +1,7 @@
 {if $full_page}
 {include file="pageheader.htm"}
 {insert_scripts files="../js/utils.js,listtable.js"}
-<!-- 订单搜索 -->
+<!-- 璁㈠崟鎼滅储 -->
 <div class="form-div">
   <form action="javascript:searchOrder()" name="searchForm">
     <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
@@ -19,7 +19,7 @@
   </form>
 </div>
 
-<!-- 订单列表 -->
+<!-- 璁㈠崟鍒楄〃 -->
 <form method="post" action="order.php?act=operate" name="listForm" onsubmit="return check()">
   <div class="list-div" id="listDiv">
 {/if}
@@ -42,7 +42,7 @@
     <td>{$order.buyer|escape}<br />{$order.short_order_time}</td>
     <td align="left" valign="top"><a href="mailto:{$order.email}"> {$order.consignee|escape}</a>{if $order.tel} [TEL: {$order.tel|escape}]{/if} <br />{$order.address|escape}</td>
     <td align="right" valign="top" nowrap="nowrap">{$order.formated_total_fee}</td>
-    <td align="right" valign="top" nowrap="nowrap">{$order.formated_order_amount}</td>
+    <td align="right" valign="top" nowrap="nowrap">{$order.formated_total_fee}</td>
     <td align="center" valign="top" nowrap="nowrap">{$lang.os[$order.order_status]},{$lang.ps[$order.pay_status]},{$lang.ss[$order.shipping_status]}</td>
     <td align="center" valign="top"  nowrap="nowrap">
      <a href="order.php?act=info&order_id={$order.order_id}">{$lang.detail}</a>
@@ -54,7 +54,7 @@
   {/foreach}
 </table>
 
-<!-- 分页 -->
+<!-- 鍒嗛〉 -->
 <table id="page-table" cellspacing="0">
   <tr>
     <td align="right" nowrap="true">
@@ -86,12 +86,12 @@ listTable.filter.{$key} = '{$item}';
 
     onload = function()
     {
-        // 开始检查订单
+        // 寮�妫�煡璁㈠崟
         startCheckOrder();
     }
 
     /**
-     * 搜索订单
+     * 鎼滅储璁㈠崟
      */
     function searchOrder()
     {
@@ -124,14 +124,14 @@ listTable.filter.{$key} = '{$item}';
       }
     }
     /**
-     * 显示订单商品及缩图
+     * 鏄剧ず璁㈠崟鍟嗗搧鍙婄缉鍥�
      */
     var show_goods_layer = 'order_goods_layer';
     var goods_hash_table = new Object;
     var timer = new Object;
 
     /**
-     * 绑定订单号事件
+     * 缁戝畾璁㈠崟鍙蜂簨浠�
      *
      * @return void
      */
@@ -192,7 +192,7 @@ listTable.filter.{$key} = '{$item}';
         }
     }
     /**
-     * 浏览器兼容式绑定Onload事件
+     * 娴忚鍣ㄥ吋瀹瑰紡缁戝畾Onload浜嬩欢
      *
      */
     if (Browser.isIE)
@@ -205,7 +205,7 @@ listTable.filter.{$key} = '{$item}';
     }
 
     /**
-     * 建立订单商品显示层
+     * 寤虹珛璁㈠崟鍟嗗搧鏄剧ず灞�
      *
      * @return void
      */
@@ -233,7 +233,7 @@ listTable.filter.{$key} = '{$item}';
     }
 
     /**
-     * 显示订单商品数据
+     * 鏄剧ず璁㈠崟鍟嗗搧鏁版嵁
      *
      * @return void
      */
@@ -255,7 +255,7 @@ listTable.filter.{$key} = '{$item}';
     }
 
     /**
-     * 隐藏订单商品
+     * 闅愯棌璁㈠崟鍟嗗搧
      *
      * @return void
      */
@@ -266,7 +266,7 @@ listTable.filter.{$key} = '{$item}';
     }
 
     /**
-     * 处理订单商品的Callback
+     * 澶勭悊璁㈠崟鍟嗗搧鐨凜allback
      *
      * @return void
      */

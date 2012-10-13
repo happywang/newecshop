@@ -19,7 +19,7 @@ require(dirname(__FILE__) . '/includes/init.php');
 
 if ((DEBUG_MODE & 2) != 2)
 {
-    $smarty->caching = true;
+    $smarty->caching = false;
 }
 $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
 
@@ -94,12 +94,12 @@ if ($act == 'cat_rec')
 /*------------------------------------------------------ */
 /* 缓存编号 */
 $cache_id = sprintf('%X', crc32($_SESSION['user_rank'] . '-' . $_CFG['lang']));
-
 if (!$smarty->is_cached('index.dwt', $cache_id))
 {
     assign_template();
 
     $position = assign_ur_here();
+    $smarty->assign('home_url',$_SERVER['HTTP_HOST']);
     $smarty->assign('page_title',      $position['title']);    // 页面标题
     $smarty->assign('ur_here',         $position['ur_here']);  // 当前位置
 
@@ -156,6 +156,37 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
 
     /* 页面中的动态内容 */
     assign_dynamic('index');
+    /***********************************************获取分类信息***********************************************/
+    $cat_list = get_categories_tree();
+//     var_dump($cat_list);exit;
+//     $cat_list = cat_list(0, 0, false);
+//     $cat_info = array();
+//     $chil_cat_info = array();
+//     foreach ($cat_list as $key=>$value)
+//     {
+//     	if($value['parent_id'] == '0')
+//     	{
+//     		array_push($cat_info, $value);
+//     	}
+//     	else
+//     	{
+//     		array_push($chil_cat_info, $value);
+//     	}
+//     }
+    $smarty->assign('cat_list',       	   $cat_list);
+//     $smarty->assign('chil_cat_info',       $chil_cat_info);
+    /**************************************************获取分类信息********************************************/
+    /*************************************************weeklydeal***********************************************/
+	$weeklydeal=get_recommend_goods('best');
+	$smarty->assign('weeklydeal',$weeklydeal);
+	/***************************************************top10**************************************************/
+	$top10=get_top10();
+	$smarty->assign('top10',$top10);
+	/****************************************************新品推荐***********************************************/
+	$new_goods=get_recommend_goods('new');
+	$smarty->assign('new_goods',$new_goods);
+	/****************************************************首页幻灯片******************************************/
+	$slide_rec=get_slide_recommend(4);
 }
 
 $smarty->display('index.dwt', $cache_id);
@@ -356,5 +387,20 @@ function index_get_links()
 
     return $links;
 }
-
+//获得首页的动画推荐商品
+function get_slide_recommend($num){
+	if($num<=0){
+		return null;
+	}
+	$sql="
+		SELECT recommended_mark,recommended_img
+		FROM ecs_goods
+		WHERE is_recommend=1
+		LIMIT 0,$num";
+	$res=$GLOBALS['db']->getAll($sql);
+	if(!$res){
+		return NULL;
+	}
+	return $res;
+}
 ?>

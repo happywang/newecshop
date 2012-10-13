@@ -21,7 +21,7 @@ p a{color:#006acd; text-decoration:underline;}
 </style>
 </head>
 <body>
-<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/header.lbi" --><!-- #EndLibraryItem -->
 
 <div class="blank"></div>
 <div class="block">

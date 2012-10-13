@@ -102,6 +102,7 @@ $_LANG['label_all_status'] = '订单状态：';
 $_LANG['label_user_name'] = '购货人：';
 $_LANG['label_consignee'] = '收货人：';
 $_LANG['label_email'] = '电子邮件：';
+$_LANG['label_country'] = '国家：';
 $_LANG['label_address'] = '地址：';
 $_LANG['label_zipcode'] = '邮编：';
 $_LANG['label_tel'] = '电话：';

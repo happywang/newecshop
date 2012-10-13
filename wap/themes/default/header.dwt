@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="wholesale fashion clothing, wholesale lots of low price clothing" />
+<meta name="description" content="We are professional and reliable China wholesaler, who provide all kinds of high quality wholesale fashion clothing, wholesale lots of low price clothing... " />
+<title>tobunny</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+<link href="themes/default/css/tobunny.css" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,index.js,jquery.min.js,slide.js'}
+</head>
+<body>
+<div class="top">
+ <div class="welcome">Cheap Clothing Online </div>
+ <div class="login">
+  <div class="sign"><a href="" target="_blank">Sign In</a> or <a href="" target="_blank">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login &nbsp;</div>
+  <a href="" class="tw" title="twitter"></a>
+   <a href="" class="fb" title="facebook"></a> 
+ </div>
+ 
+</div>
+
+<div class="head">
+ <div class="m_head">
+  <div class="logo"><a href="index.html"><img src="images/logo.png"  width="242" height="80" border="0" /></a></div>
+  <div class="search">
+    <input type="text" value="XXX" class="enter" /> <input type="button" value="" class="bt" /> 
+  </div>  
+  <div class="cart">
+    <div class="goods">
+      {insert name='cart_info'}
+    </div>
+    <input type="button" value="" class="bt1" /> 
+  </div>
+ </div> 
+</div>
+<div id="menu">
+<ul id="nav">
+	<li class="mainlevel"><a href="http://{$home_url}">HOME</a></li>
+<!--{foreach from=$cat_list item=cat}-->
+ <li class="mainlevel" id="mainlevel_0{$smarty.foreach.cat.index}"><a href="{$cat.url}">{$cat.name}</a>
+    <ul id="sub_0{$smarty.foreach.cat.index}">
+    <!--{foreach from=$cat.cat_id item=child}-->
+    <li><a href="{$child.url}">{$child.name}</a></li>
+     <!--{/foreach}--> 
+    </ul>
+  </li>
+ 
+ <!--{/foreach}--> 
+    <div class="clear"></div>
+
+</ul>
+</div>

@@ -1126,7 +1126,7 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     }
 
     /* 处理相册图片 */
-    handle_gallery_image($goods_id, $_FILES['img_url'], $_POST['img_desc'], $_POST['img_file'],$goods_source);
+    handle_gallery_image($goods_id, $_FILES['img_url'], $_POST['img_desc'], $_POST['img_file'],$goods_sn);
 
     /* 编辑时处理相册图片描述 */
     if (!$is_insert && isset($_POST['old_img_desc']))
@@ -1855,6 +1855,10 @@ elseif ($_REQUEST['act'] == 'set_source_price')
 	$row = $GLOBALS['db']->getRow($sql);
 	
 	$price = getMarketPrice($goodsSource,$row['interest_rate']);
+	if(!$price)
+	{
+		$price = array('shop_price'=>1.3,'market_price'=>1.5);
+	}
 	$shop_price = $goodsSource * $price['shop_price'];
 	$market_price = $goodsSource * $price['market_price'];
 	$reg_price = $shop_price;

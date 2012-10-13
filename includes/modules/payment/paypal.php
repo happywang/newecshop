@@ -92,7 +92,7 @@ class paypal
     function get_code($order, $payment)
     {
         $data_order_id      = $order['log_id'];
-        $data_amount        = $order['order_amount'];
+        $data_amount        = $order['amount_formated'];
         $data_return_url    = return_url(basename(__FILE__, '.php'));
         $data_pay_account   = $payment['paypal_account'];
         $currency_code      = $payment['paypal_currency'];
@@ -195,7 +195,7 @@ class paypal
 
                     // check that payment_amount/payment_currency are correct
                     $sql = "SELECT order_amount FROM " . $GLOBALS['ecs']->table('pay_log') . " WHERE log_id = '$order_sn'";
-                    if ($GLOBALS['db']->getOne($sql) != $payment_amount)
+                    if (price_format($GLOBALS['db']->getOne($sql)) != $payment_amount)
                     {
                         fclose($fp);
 

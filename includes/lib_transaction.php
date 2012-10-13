@@ -539,6 +539,18 @@ function save_consignee($consignee, $default=false)
     return $res !== false;
 }
 
+function get_countryid($country)
+{
+	$sql = "SELECT `country_id` FROM ".$GLOBALS['ecs']->table('shipping_country') ." WHERE `country_en_name` = '{$country}' LIMIT 1";
+	return $res = $GLOBALS['db']->getOne($sql);
+}
+
+function get_country_en_name($countryid)
+{
+	$sql = "SELECT `country_en_name` FROM ".$GLOBALS['ecs']->table('shipping_country') ." WHERE `country_id` = '{$countryid}' LIMIT 1";
+	return $res = $GLOBALS['db']->getOne($sql);
+}
+
 /**
  * 删除一个收货地址
  *

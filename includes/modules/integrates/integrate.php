@@ -434,6 +434,28 @@ class integrate
 
         return $row;
     }
+    
+    /**
+     *  获取指定用户的信息
+     *
+     * @access  public
+     * @param
+     *
+     * @return void
+     */
+    function get_profile_by_email($email)
+    {
+    
+    	$sql = "SELECT " . $this->field_id . " AS user_id," . $this->field_name . " AS user_name," .
+    			$this->field_email . " AS email," . $this->field_gender ." AS sex,".
+    			$this->field_bday . " AS birthday," . $this->field_reg_date . " AS reg_time, ".
+    			$this->field_pass . " AS password ".
+    			" FROM " . $this->table($this->user_table) .
+    			" WHERE email='$email' limit 1";
+    	$row = $this->db->getRow($sql);
+    
+    	return $row;
+    }
 
     /**
      *  获取指定用户的信息

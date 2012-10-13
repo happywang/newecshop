@@ -11,10 +11,11 @@
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
 {* 包含脚本文件 *}
-{insert_scripts files='utils.js,common.js,global.js,compare.js'}
+{insert_scripts files='jquery.min.js'}
+{insert_scripts files='common.js,global.js,compare.js,utils.js'}
 </head>
 <body>
-<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/header.lbi" --><!-- #EndLibraryItem -->
 <!--当前位置 start-->
 <div class="block box">
  <div id="ur_here">
@@ -27,7 +28,7 @@
   <!--left start-->
   <div class="AreaL">
     <!-- TemplateBeginEditable name="左边区域" -->
-    <!-- #BeginLibraryItem "/library/cart.lbi" --><!-- #EndLibraryItem -->
+    
     <!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem -->
     <!-- #BeginLibraryItem "/library/goods_related.lbi" --><!-- #EndLibraryItem -->
     <!-- #BeginLibraryItem "/library/goods_fittings.lbi" --><!-- #EndLibraryItem -->

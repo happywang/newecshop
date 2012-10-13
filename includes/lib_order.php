@@ -70,6 +70,14 @@ function shipping_info($shipping_id)
 
     return $GLOBALS['db']->getRow($sql);
 }
+/**
+ *取得配送方式列表
+ *
+ */
+function get_shipping_byCountry($country){
+	$sql="select * from ecs_shipping_country where country_id='$country' limit 1";
+	return $GLOBALS['db']->getAll($sql);
+}
 
 /**
  * 取得可用的配送方式列表
@@ -87,6 +95,60 @@ function available_shipping_list($region_id_list)
             ' AND r.shipping_area_id = a.shipping_area_id AND a.shipping_id = s.shipping_id AND s.enabled = 1 ORDER BY s.shipping_order';
 
     return $GLOBALS['db']->getAll($sql);
+}
+
+/**
+ * 取得可用的配送方式列表
+ * @param   array   $region_id_list     收货人地区id数组（包括国家、省、市、区）
+ * @return  array   配送方式数组
+ */
+function available_shipping_list_v2($region_id_list,$flow_type)
+{
+	$sql = 'SELECT s.shipping_id, s.shipping_code, s.shipping_name, ' .
+                's.shipping_desc, s.insure, s.support_cod ' .
+            'FROM ' . $GLOBALS['ecs']->table('shipping') . ' AS s ORDER BY s.shipping_order';
+
+    $result = $GLOBALS['db']->getAll($sql);
+    $country_sql = 'SELECT s.country_id, s.country_en_name, s.ems_lifting_price, s.ems_heavy_price,s.ems_registration_fee,s.dhl_lifting_price ,' .
+                's.dhl_heavy_price,s.dhl_registration_fee,s.hk_registration_fee ' .
+            'FROM ' . $GLOBALS['ecs']->table('shipping_country') . ' AS s WHERE s.country_id= ' .$region_id_list[0] .' LIMIT 1';
+    $return = $GLOBALS['db']->getAll($country_sql);
+    $cart_weight_price = cart_weight_price($flow_type);
+    $goodsInfo=array_merge(array('w'=>$cart_weight_price['weight']),$cart_weight_price['volume']);
+    $emsPrice=getFreight(1,$goodsInfo,$region_id_list[0]);
+    $dhlPrice=getFreight(2,$goodsInfo,$region_id_list[0]);
+    $hkbagPrice=getFreight(3,$goodsInfo,$region_id_list[0]);	
+    foreach ($result as $key=>$v)
+    {
+    	if( $v['shipping_name']== 'EMS')
+    	{
+    		$result[$key]['lifting_price'] = $return[0]['ems_lifting_price'];
+    		$result[$key]['heavy_price'] = $return[0]['ems_heavy_price'];
+    		$result[$key]['registration_fee'] = $return[0]['ems_registration_fee'];
+		$result[$key]['shipping_fee']=$emsPrice;
+    	}
+    	if( $v['shipping_name']== 'DHL')
+    	{
+    		$result[$key]['lifting_price'] = $return[0]['dhl_lifting_price'];
+    		$result[$key]['heavy_price'] = $return[0]['dhl_heavy_price'];
+    		$result[$key]['registration_fee'] = $return[0]['dhl_registration_fee'];
+		$result[$key]['shipping_fee']=$dhlPrice;
+    	}
+    	if( $v['shipping_name']== 'HK')
+    	{
+    		$result[$key]['registration_fee'] = $return[0]['hk_registration_fee'];
+		$result[$key]['shipping_fee']=$hkbagPrice;
+    	}
+    }
+	
+    return $result;
+}
+
+function getShippings(){
+	$sql = 'SELECT s.shipping_id, s.shipping_code, s.shipping_name,s.shipping_desc, s.insure, s.support_cod ' .
+			'FROM ' . $GLOBALS['ecs']->table('shipping') . ' AS s ORDER BY s.shipping_order';
+	$result = $GLOBALS['db']->getAll($sql);
+	return $result;
 }
 
 /**
@@ -440,7 +502,7 @@ function order_info($order_id, $order_sn = '')
         $order['formated_bonus']          = price_format($order['bonus'], false);
         $order['formated_integral_money'] = price_format($order['integral_money'], false);
         $order['formated_surplus']        = price_format($order['surplus'], false);
-        $order['formated_order_amount']   = price_format(abs($order['order_amount']), false);
+        $order['formated_order_amount']   = abs($order['order_amount']);
         $order['formated_add_time']       = local_date($GLOBALS['_CFG']['time_format'], $order['add_time']);
     }
 
@@ -569,7 +631,8 @@ function order_fee($order, $goods, $consignee)
                     'surplus'          => 0,
                     'cod_fee'          => 0,
                     'pay_fee'          => 0,
-                    'tax'              => 0);
+                    'tax'              => 0,
+		    'regFee'           => 0);
     $weight = 0;
 
     /* 商品总价 */
@@ -581,16 +644,15 @@ function order_fee($order, $goods, $consignee)
             $total['real_goods_count']++;
         }
 
-        $total['goods_price']  += $val['goods_price'] * $val['goods_number'];
-        $total['market_price'] += $val['market_price'] * $val['goods_number'];
+        $total['goods_price']  += sub_string(price_format($val['goods_price'], false)) * $val['goods_number'];
+        $total['market_price'] += sub_string(price_format($val['market_price'], false)) * $val['goods_number'];
     }
-
     $total['saving']    = $total['market_price'] - $total['goods_price'];
     $total['save_rate'] = $total['market_price'] ? round($total['saving'] * 100 / $total['market_price']) . '%' : 0;
 
-    $total['goods_price_formated']  = price_format($total['goods_price'], false);
-    $total['market_price_formated'] = price_format($total['market_price'], false);
-    $total['saving_formated']       = price_format($total['saving'], false);
+    $total['goods_price_formated']  = $total['goods_price'];
+    $total['market_price_formated'] = $total['market_price'];
+    $total['saving_formated']       = $total['saving'];
 
     /* 折扣 */
     if ($order['extension_code'] != 'group_buy')
@@ -623,7 +685,12 @@ function order_fee($order, $goods, $consignee)
         }
     }
     $total['tax_formated'] = price_format($total['tax'], false);
-
+    /*挂号费用*/
+    if(isset($_SESSION['regFee'])&&$_SESSION['regFee']>0){
+		$total['regFee']=$_SESSION['regFee'];
+    }else{
+    	$total['regFee']=0;
+    }
     /* 包装费用 */
     if (!empty($order['pack_id']))
     {
@@ -659,16 +726,25 @@ function order_fee($order, $goods, $consignee)
 
     /* 配送费用 */
     $shipping_cod_fee = NULL;
-
     if ($order['shipping_id'] > 0 && $total['real_goods_count'] > 0)
     {
         $region['country']  = $consignee['country'];
         $region['province'] = $consignee['province'];
         $region['city']     = $consignee['city'];
         $region['district'] = $consignee['district'];
+        foreach ($goods as $key=>$v)
+        {
+        	$goods_sql = "select `goods_volume`,`goods_weight` from " . $GLOBALS['ecs']->table('goods') . " where `goods_id` = '{$v['goods_id']}'";
+        	$retule = $GLOBALS['db']->getRow($goods_sql);
+        	$total['goods_weight'] += ($retule['goods_weight'] * $v['goods_number']);
+        	$temp = sort(explode("*", $retule['goods_volume']));
+        	$total['c'] =$total['c']< $temp[0]? $temp[0]:$total['c'];
+        	$total['k'] =$total['k']<$temp[1]? $temp[1]:$total['k'];
+        	$total['g'] += ($temp[2]*$v['goods_number']);
+        }
         $shipping_info = shipping_area_info($order['shipping_id'], $region);
 
-        if (!empty($shipping_info))
+        /* if (!empty($shipping_info))
         {
             if ($order['extension_code'] == 'group_buy')
             {
@@ -699,12 +775,11 @@ function order_fee($order, $goods, $consignee)
             {
                 $shipping_cod_fee = $shipping_info['pay_fee'];
             }
-        }
+        } */
     }
-
+    $total['shipping_fee'] = getFreight($order['shipping_id'],$total,$region['country']);
     $total['shipping_fee_formated']    = price_format($total['shipping_fee'], false);
     $total['shipping_insure_formated'] = price_format($total['shipping_insure'], false);
-
     // 购物车中的商品能享受红包支付的总额
     $bonus_amount = compute_discount_amount();
     // 红包和积分最多能支付的金额为商品总额
@@ -718,7 +793,7 @@ function order_fee($order, $goods, $consignee)
     else
     {
         $total['amount'] = $total['goods_price'] - $total['discount'] + $total['tax'] + $total['pack_fee'] + $total['card_fee'] +
-            $total['shipping_fee'] + $total['shipping_insure'] + $total['cod_fee'];
+            $total['shipping_fee'] + $total['shipping_insure'] + $total['cod_fee']+$total['regFee'];
 
         // 减去红包金额
         $use_bonus        = min($total['bonus'], $max_amount); // 实际减去的红包金额
@@ -783,17 +858,22 @@ function order_fee($order, $goods, $consignee)
 
     $se_flow_type = isset($_SESSION['flow_type']) ? $_SESSION['flow_type'] : '';
     
+    
+    
+    
     /* 支付费用 */
     if (!empty($order['pay_id']) && ($total['real_goods_count'] > 0 || $se_flow_type != CART_EXCHANGE_GOODS))
     {
         $total['pay_fee']      = pay_fee($order['pay_id'], $total['amount'], $shipping_cod_fee);
     }
 
-    $total['pay_fee_formated'] = price_format($total['pay_fee'], false);
-
     $total['amount']           += $total['pay_fee']; // 订单总额累加上支付费用
-    $total['amount_formated']  = price_format($total['amount'], false);
-
+   
+    $total["amount"]  =  $total['shipping_fee_formated'] + $total["amount"];
+    
+    
+//     $total['amount_formated']  = price_format($total['amount'], false);
+//     var_dump($total["shipping_fee_formated"]);exit;
     /* 取得可以得到的积分和红包 */
     if ($order['extension_code'] == 'group_buy')
     {
@@ -808,10 +888,13 @@ function order_fee($order, $goods, $consignee)
         $total['will_get_integral'] = get_give_integral($goods);
     }
     $total['will_get_bonus']        = $order['extension_code'] == 'exchange_goods' ? 0 : price_format(get_total_bonus(), false);
-    $total['formated_goods_price']  = price_format($total['goods_price'], false);
-    $total['formated_market_price'] = price_format($total['market_price'], false);
-    $total['formated_saving']       = price_format($total['saving'], false);
-
+    $total['formated_goods_price']  = '$'.$total['goods_price'];
+    $total['formated_market_price'] = '$'.$total['market_price'];
+    $total['formated_saving']       = '$'.$total['saving'];
+    $total['amount_formated'] = 0.00;
+    $total['amount_formated'] = substr($total['shipping_fee_formated'],1,strlen($total['shipping_fee_formated'])-1) + substr($total['formated_goods_price'],1,strlen($total['formated_goods_price'])-1);
+    
+    
     if ($order['extension_code'] == 'exchange_goods')
     {
         $sql = 'SELECT SUM(eg.exchange_integral) '.
@@ -823,7 +906,6 @@ function order_fee($order, $goods, $consignee)
         $exchange_integral = $GLOBALS['db']->getOne($sql);
         $total['exchange_integral'] = $exchange_integral;
     }
-
     return $total;
 }
 
@@ -872,7 +954,7 @@ function cart_goods($type = CART_GENERAL_GOODS)
     {
         $arr[$key]['formated_market_price'] = price_format($value['market_price'], false);
         $arr[$key]['formated_goods_price']  = price_format($value['goods_price'], false);
-        $arr[$key]['formated_subtotal']     = price_format($value['subtotal'], false);
+        $arr[$key]['formated_subtotal']     = '$'.sub_string(price_format($value['goods_price'], false)) * $value['goods_number'];
 
         if ($value['extension_code'] == 'package_buy')
         {
@@ -936,6 +1018,9 @@ function cart_weight_price($type = CART_GENERAL_GOODS)
     $package_row['weight'] = 0;
     $package_row['amount'] = 0;
     $package_row['number'] = 0;
+    $len=0;
+    $width=0;
+    $height=0;
 
     $packages_row['free_shipping'] = 1;
 
@@ -965,8 +1050,17 @@ function cart_weight_price($type = CART_GENERAL_GOODS)
                     $GLOBALS['ecs']->table('package_goods') . ' AS pg, ' .
                     $GLOBALS['ecs']->table('goods') . ' AS g ' .
                     "WHERE g.goods_id = pg.goods_id AND g.is_shipping = 0 AND pg.package_id = '"  . $val['goods_id'] . "'";
-
                 $goods_row = $GLOBALS['db']->getRow($sql);
+		//累计商品的体积
+		$volumenSql="select goods_volume,COUNT(goods_volume) number from ecs_package_goods,ecs_goods where ecs_package_goods.goods_id=ecs_goods.goods_id AND ecs_goods.is_shipping=0 and ecs_package_goods.package_id=$val[goods_id] group by ecs_goods.goods_id";
+		$goods_volume=$GLOBALS['db']->getAll($volumeSql);
+		foreach($goods_volume as $value){
+			$number=intval($value['number']);
+			$ckg=rsort(explode('*',$value['goods_volume']));
+			$len+=$number*intval($ckg[0]);
+			$width=intval($width<$ckg[1]? $ckg[1]:$width);
+			$height=intval($height<$ckg[2]? $ckg[2]:$height);		
+		}	
                 $package_row['weight'] += floatval($goods_row['weight']) * $val['goods_number'];
                 $package_row['amount'] += floatval($val['goods_price']) * $val['goods_number'];
                 $package_row['number'] += intval($goods_row['number']) * $val['goods_number'];
@@ -989,15 +1083,36 @@ function cart_weight_price($type = CART_GENERAL_GOODS)
                 "WHERE c.session_id = '" . SESS_ID . "' " .
                 "AND rec_type = '$type' AND g.is_shipping = 0 AND c.extension_code != 'package_buy'";
     $row = $GLOBALS['db']->getRow($sql);
-
+    $volumeSql = 'SELECT g.goods_volume,c.goods_number'.
+                ' FROM ' . $GLOBALS['ecs']->table('cart') . ' AS c '.
+                'LEFT JOIN ' . $GLOBALS['ecs']->table('goods') . ' AS g ON g.goods_id = c.goods_id '.
+                "WHERE c.session_id = '" . SESS_ID . "' " .
+                "AND rec_type = '$type' AND g.is_shipping = 0 AND c.extension_code != 'package_buy'";
+    $res=$GLOBALS['db']->getAll($volumeSql);
+    foreach($res as $value){
+	$number=intval($value['goods_number']);
+	$ckg=explode('*',$value['goods_volume']);
+	$len+=$number*intval($ckg[0]);
+	$width=intval($width<$ckg[1]? $ckg[1]:$width);
+	$height=intval($height<$ckg[2]? $ckg[2]:$height);		
+    }	
     $packages_row['weight'] = floatval($row['weight']) + $package_row['weight'];
     $packages_row['amount'] = floatval($row['amount']) + $package_row['amount'];
     $packages_row['number'] = intval($row['number']) + $package_row['number'];
+    $packages_row['volume']=array('c'=>$len,'k'=>$width,'g'=>$height);
     /* 格式化重量 */
     $packages_row['formated_weight'] = formated_weight($packages_row['weight']);
 
     return $packages_row;
 }
+/**
+ *计算购物车中商品重量和体积
+ */
+
+function getWV(){
+
+}
+
 
 /**
  * 添加商品到购物车
@@ -1575,6 +1690,11 @@ function order_refund($order, $refund_type, $refund_note, $refund_amount = 0)
     }
 }
 
+function sub_string($str)
+{
+	return substr($str, 1, strlen($str)-1);
+}
+
 /**
  * 获得购物车中的商品
  *
@@ -1606,10 +1726,10 @@ function get_cart_goods()
 
     while ($row = $GLOBALS['db']->fetchRow($res))
     {
-        $total['goods_price']  += $row['goods_price'] * $row['goods_number'];
-        $total['market_price'] += $row['market_price'] * $row['goods_number'];
+        $total['goods_price']  += sub_string(price_format($row['goods_price'],false)) * $row['goods_number'];
+        $total['market_price'] += sub_string(price_format($row['market_price'],false)) * $row['goods_number'];
 
-        $row['subtotal']     = price_format($row['goods_price'] * $row['goods_number'], false);
+        $row['subtotal']     = '$'.sub_string(price_format($row['goods_price'], false)) * $row['goods_number'];
         $row['goods_price']  = price_format($row['goods_price'], false);
         $row['market_price'] = price_format($row['market_price'], false);
 
@@ -1648,13 +1768,14 @@ function get_cart_goods()
     }
     $total['goods_amount'] = $total['goods_price'];
     $total['saving']       = price_format($total['market_price'] - $total['goods_price'], false);
+//     var_dump($total['goods_amount'],$total['market_price'],$total['saving']);exit;
     if ($total['market_price'] > 0)
     {
         $total['save_rate'] = $total['market_price'] ? round(($total['market_price'] - $total['goods_price']) *
         100 / $total['market_price']).'%' : 0;
     }
-    $total['goods_price']  = price_format($total['goods_price'], false);
-    $total['market_price'] = price_format($total['market_price'], false);
+    $total['goods_price']  = '$'.$total['goods_price'];
+    $total['market_price'] = '$'.$total['market_price'];
     $total['real_goods_count']    = $real_goods_count;
     $total['virtual_goods_count'] = $virtual_goods_count;
 
@@ -1732,17 +1853,17 @@ function check_consignee_info($consignee, $flow_type)
             !empty($consignee['email']) &&
             !empty($consignee['tel']);
 
-        if ($res)
+        /*if ($res)
         {
             if (empty($consignee['province']))
             {
-                /* 没有设置省份，检查当前国家下面有没有设置省份 */
+                // 没有设置省份，检查当前国家下面有没有设置省份 
                 $pro = get_regions(1, $consignee['country']);
                 $res = empty($pro);
             }
             elseif (empty($consignee['city']))
             {
-                /* 没有设置城市，检查当前省下面有没有城市 */
+                //没有设置城市，检查当前省下面有没有城市 
                 $city = get_regions(2, $consignee['province']);
                 $res = empty($city);
             }
@@ -1751,8 +1872,7 @@ function check_consignee_info($consignee, $flow_type)
                 $dist = get_regions(3, $consignee['city']);
                 $res = empty($dist);
             }
-        }
-
+        }*/
         return $res;
     }
     else
@@ -2992,5 +3112,211 @@ function judge_package_stock($package_id, $package_num = 1)
     }
 
     return false;
+}
+
+/**
+ * $country = '20|9';//起重|续重
+$goodsInfo = array(
+				'w'=>'0.40',//重量
+				'c'=>'12',//长
+				'k'=>'10',//宽
+				'g'=>'5',//高
+		);
+ * @param unknown_type $country
+ * @param unknown_type $goodsInfo
+ * @return unknown|number
+ * ems
+ */
+function getEms($country,$goodsInfo)
+{
+	$param = explode('|', $country);
+	$Lifting = $param[0];
+	$Continued_heavy = $param[1];
+	$w = $goodsInfo['goods_weight'];
+	$Proportion = $w/0.5;
+	if($Proportion < 0)
+	{
+		return $Lifting;
+	}else
+	{
+		return (ceil(($w-0.5)/0.5)*$Continued_heavy + $Lifting);
+	}
+}
+//dhl
+function getDhl($country,$goodsInfo)
+{
+	$param = explode('|', $country);
+	$Lifting = $param[0];
+	$Continued_heavy = $param[1];
+	$Actual_weight = $goodsInfo['goods_weight'];
+	$Product_weight = ($goodsInfo['c'] * $goodsInfo['k'] * $goodsInfo['g'])/5000;
+	$w = $Actual_weight > $Product_weight ? $Actual_weight : $Product_weight;
+	if($w < 21)//实际重量大于体积重量
+	{
+		return (ceil(($w-0.5)/0.5))*$Continued_heavy + $Lifting;
+	}else
+	{
+		return (ceil(($w-1)/1))*$Continued_heavy + $Lifting;
+	}
+}
+
+//hk small bag
+function getHkbag($goodsInfo)
+{
+	$w = $goodsInfo['goods_weight'];
+	/* if($w > 2) return false;
+	if(($goodsInfo['c'] + $goodsInfo['k'] + $goodsInfo['g']) > 90 || $goodsInfo['c'] > 60 || $goodsInfo['k'] >60 || $goodsInfo['g'])
+	{
+		return false;
+	} */
+	return $w * 1000 * 0.105 + 13 ;
+}
+
+/**
+ * 入口函数
+ * @param unknown_type $method ems:1 dhl:2 hkbag:3 
+ * @param unknown_type $goodsInfo
+ * @param unknown_type $param
+ * @return Ambigous <boolean, number>
+ */
+function getFreight($method,$goodsInfo,$countryid)
+{
+	$param = getlift($countryid, $method);
+	switch ($method)
+	{
+		case 1://ems
+			$result = getEms($param, $goodsInfo);
+			break;
+		case 2://dhl
+			$result = getDhl($param, $goodsInfo);
+			break;
+		case 3://hk bag
+			$result = getHkbag($param,$goodsInfo);
+			break;
+	}
+	return $result;
+}
+
+function getlift($countryid,$method)
+{
+	$sql = "select * from " . $GLOBALS['ecs']->table('shipping_country') . "WHERE country_id = '{$countryid}' limit 1";
+	$result = $GLOBALS['db']->getRow($sql);
+	if($method == 1)
+	{
+		return $result['ems_lifting_price'] .'|'. $result['ems_heavy_price '];
+	}
+	if($method == 2)
+	{
+		return $result['dhl_lifting_price'] .'|'. $result['dhl_heavy_price '];
+	}
+	/* if($method == 3)
+	{
+		return $result['ems_lifting_price'] .'|'. $result['ems_heavy_price '];
+	} */
+	
+	
+}
+
+/**
+ * 
+ * @param array $goodsInfo
+ * @param array $userInfo
+ * @param int $discountId
+ */
+function getDiscount($goodsInfo,$userInfo,$discountId)
+{
+// 	if(!is_array($goodsInfo) || !is_array($userInfo) || !$discountId) return false;
+// 	if(empty($goodsInfo) || empty($userInfo)) return false;
+	$sql = "SELECT coupons_id,coupons_code,coupons_rate,coupons_subtracting_amount,user_email,cat_id,goods_id,goods_sn,use_times,expiration_time FROM
+	 " . $GLOBALS['ecs']->table('discount_coupons') . "WHERE coupons_code = '{$discountId}' LIMIT 1";
+	$result = $GLOBALS['db']->getRow($sql);
+	$return = array();
+	do{
+		if(!$result || empty($result))
+		{
+			$return['ret'] = -1;
+			break;
+		}
+		if($result['user_email'] && ($result['user_email']) !== $userInfo['user_email'])
+		{
+			$return['ret'] = -2;
+			break;
+		}
+		if($result['use_times'] < 1 )
+		{
+			$return['ret'] = -3;
+			break;
+		}
+		if($result['expiration_time'] < date("Y-m-d"))
+		{
+			$return['ret'] = -4;
+			break;
+		}
+		if(isset($result['goods_sn']) && $result['goods_sn'] != $goodsInfo['goods_sn'])
+		{
+			$return['ret'] = -5;
+			break;
+		}
+		if(isset($result['cat_id']) && ($result['cat_id'] != $goodsInfo['cat_id']))
+		{
+			$return['ret'] = -7;
+			break;
+		}
+		if($result['coupons_rate'])
+		{
+			$return['ret'] = 1;
+			$return['discount_price'] = $discount_price = $goodsInfo['shop_price'] * (1 - $result['coupons_rate']/100);
+			$return['save_price'] = $save_price = $goodsInfo['shop_price'] - $discount_price;
+			$return['save_rate'] = $save_rate = $result['coupons_rate'].'%';
+			break;
+		}
+		if($result['coupons_subtracting_amount'])
+		{
+			$discount_array = explode('-', $goodsInfo['coupons_subtracting_amount']);
+			if($discount_array[0] >  $goodsInfo['shop_price'])
+			{
+				$return['ret'] = -6;
+				break;
+			}
+			else
+			{
+				$return['ret'] = 2;
+				$return['discount_price'] = $discount_price = $goodsInfo['shop_price']  - $discount_array['1'];
+				$return['save_price'] = $save_price = $discount_array['1'];
+				$return['save_rate'] = $save_rate = $discount_array['1']/$goodsInfo['shop_price'] * 100 . '%';
+				break;
+			}
+		}
+	}while (0);
+	return json_encode($return);
+		
+}
+//取得购物车中商品的长宽高
+function getCKG(){
+	
+}
+/**
+ * 获取国家的中文名字
+ */
+function getCountryChineseName($countryid){
+	$sql = 'SELECT country_name ' .
+            'FROM ' . $GLOBALS['ecs']->table('shipping_country') .
+            ' WHERE country_id = ' . $countryid . ' LIMIT 1';
+    return $GLOBALS['db']->getOne($sql);
+}
+
+function getOrderGoodsInfo($order_id)
+{
+	$sql = "SELECT goods_name,goods_number,goods_price
+	FROM " . $GLOBALS['ecs']->table('order_goods') . " WHERE order_id  = '" . $order_id . "'";
+	$row = $GLOBALS['db']->getAll($sql);
+	$goods_info = array();
+	foreach ($row as $key=>$value)
+	{
+		$goods_info[$key]['goods_price'] = price_format($row[$key]['goods_price']);
+		$goods_info[$key]['goods_name'] = $row[$key]['goods_name'];
+		$goods_info[$key]['goods_number'] = $row[$key]['goods_number'];
+	}
+	return $goods_info;
 }
 ?>

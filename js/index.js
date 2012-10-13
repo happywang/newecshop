@@ -85,3 +85,39 @@ function change_tab_style(item, elem, obj)
     }
     _o.className = '';
 }
+function checkSubscrib(){
+	var email = document.getElementById("subscrib").value;
+	if(email == 'Enter your email'){
+		document.getElementById("subscrib").value = "";
+		return true;
+	}
+	return true;
+}
+function subscrib(){
+	var email = document.getElementById("subscrib").value;
+	if(!checkEmail(email)){
+		//email ge shi bu dui
+		return false;
+	}
+	shopAjax('ajax.php','POST',{'act':'subscrib','email':email},function(res)
+	{
+	    if (res.err_no < 0)
+	    {
+	        alert(res.err_msg);
+	    }
+	    else
+	    {
+	    	alert(res.err_msg);
+	    }
+	    return ;
+	});
+}
+
+function checkEmail(email){
+   //var email = /^(([\-\w]+)\.?)+@(([\-\w]+)\.?)+\.[a-zA-Z]{2,4}$/;
+   if (!Utils.isEmail(email)){
+	   //alert(1111);
+      return false ;
+   }
+   return true
+}

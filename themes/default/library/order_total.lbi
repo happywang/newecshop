@@ -1,9 +1,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 {insert_scripts files='transport.js,utils.js'}
 <div id="ECS_ORDERTOTAL">
-<table width="99%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+<table width="100%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
   <!-- {if $smarty.session.user_id > 0 and ($config.use_integral or $config.use_bonus)} -->
-  <tr>
+  <!--<tr>
     <td align="right" bgcolor="#ffffff">
     {$lang.complete_acquisition} 
       <!-- {if $config.use_integral} 是否使用积分-->
@@ -13,11 +13,11 @@
       <!-- {if $config.use_bonus} 是否使用红包-->
        <font class="f4_b">{$total.will_get_bonus}</font>{$lang.de}{$lang.bonus}。
       <!-- {/if} -->    </td>
-  </tr>
+  </tr>-->
   <!-- {/if} -->
   <tr>
     <td align="right" bgcolor="#ffffff">
-      {$lang.goods_all_price}: <font class="f4_b">{$total.goods_price_formated}</font>
+      {$lang.goods_all_price}: <font class="f4_b">{$total.formated_goods_price}</font>
       <!-- {if $total.discount gt 0} 折扣 -->
       - {$lang.discount}: <font class="f4_b">{$total.discount_formated}</font>
       <!-- {/if} -->
@@ -38,7 +38,11 @@
       <!-- {/if} -->
       <!-- {if $total.card_fee > 0} 贺卡费用-->
       + {$lang.card_fee}: <font class="f4_b">{$total.card_fee_formated}</font>
-      <!-- {/if} -->    </td>
+      <!-- {/if} -->   
+      <!--{if $total.regFee>0}-->
+      + registration fee: <font class="f4_b">{$total.regFee}</font>
+      <!--{/if}-->
+   </td>
   </tr>
   <!-- {if $total.surplus > 0 or $total.integral > 0 or $total.bonus > 0} 使用余额或积分或红包 -->
   <tr>
@@ -51,7 +55,8 @@
       <!-- {/if} -->
       <!-- {if $total.bonus > 0} 使用红包 -->
       - {$lang.use_bonus}: <font class="f4_b">{$total.bonus_formated}</font>
-      <!-- {/if} -->    </td>
+      <!-- {/if} -->
+    </td>
   </tr>
   <!-- {/if} 使用余额或积分或红包 -->
   <tr>

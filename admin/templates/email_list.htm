@@ -11,12 +11,16 @@
 <tr>
 <th width="5%"><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox"><a href="javascript:listTable.sort('id'); ">{$lang.id}</a>{$sort_id}</th>
 <th><a href="javascript:listTable.sort('email'); ">{$lang.email_val}</a>{$sort_email}</th>
+<th><a href="javascript:; ">ip</a></th>
+<th><a href="javascript:listTable.sort('sub_date'); ">订阅时间</a></th>
 <th width="15%"><a href="javascript:listTable.sort('stat'); ">{$lang.stat.name}</a>{$sort_stat}</th>
 </tr>
 {foreach from=$emaildb item=val}
 <tr>
   <td><input name="checkboxes[]" type="checkbox" value="{$val.id}" />{$val.id}</td>
   <td>{$val.email}</td>
+  <td>{$val.ip}</td>
+  <td>{$val.sub_date}</td>
   <td align="center">{$lang.stat[$val.stat]}</td>
 </tr>
 {foreachelse}
@@ -48,7 +52,7 @@ listTable.filter.{$key} = '{$item}';
 <!--
 onload = function()
 {
-  // 开始检查订单
+  // 寮�妫�煡璁㈠崟
   startCheckOrder();
 }
 //-->

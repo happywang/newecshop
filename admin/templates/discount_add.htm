@@ -60,15 +60,15 @@ function submitForm(){
 	}
 	var user_email = $("#user_email").val();
 	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	if(!myreg.test(user_email)){
+	/* if(!myreg.test(user_email)){
 		alert('请输入有效的E_mail！');
 		return false;
-	}
+	} */
 	var cat_id = $("#cat_id").val();
 	var goods_sn = $("#goods_sn").val();
 	var use_times = $("#use_times").val();
 	if(use_times == ''){
-		alert('次数为必填项！');return false ;
+		use_times = 99999;
 	}
 	var expiration_time = $("#promote_start_date").val();
 	var Remarks = $("#Remarks").val();

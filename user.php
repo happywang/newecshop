@@ -332,8 +332,15 @@ elseif ($action == 'act_login')
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
     $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
-
-
+	if(strpos($username,'@')===false)
+	{
+		$username = $username;
+	}
+	else
+	{
+		$userInfo = $user->get_profile_by_email($username);
+		$username = $userInfo['user_name'];
+	}
     $captcha = intval($_CFG['captcha']);
     if (($captcha & CAPTCHA_LOGIN) && (!($captcha & CAPTCHA_LOGIN_FAIL) || (($captcha & CAPTCHA_LOGIN_FAIL) && $_SESSION['login_fail'] > 2)) && gd_version() > 0)
     {

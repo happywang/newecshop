@@ -174,6 +174,7 @@ $_LANG['52_virtual_card_change'] = '更改加密串';
 $_LANG['goods_auto'] = '商品自动上下架';
 $_LANG['article_auto'] = '文章自动发布';
 $_LANG['navigator'] = '自定义导航栏';
+$_LANG['recommend_goods'] = '首页推荐商品';
 
 /* 促销管理 */
 $_LANG['01_discount_list'] = '折扣券';

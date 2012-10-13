@@ -146,7 +146,7 @@ elseif (($_REQUEST['act'] == 'forget_pwd' || $_REQUEST['act'] == 'reset_pwd' || 
 
 /* 载入系统参数 */
 $_CFG = load_config();
-$_CFG['lang']= "zh_cn";
+$_CFG['lang'] = 'zh_cn'; // 设置后台语言为简体中文 add by 王乐
 
 // TODO : 登录部分准备拿出去做，到时候把以下操作一起挪过去
 if ($_REQUEST['act'] == 'captcha')

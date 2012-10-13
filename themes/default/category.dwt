@@ -14,10 +14,11 @@
 <link href="{$cat_style}" rel="stylesheet" type="text/css" />
 <!-- {/if} -->
 {* 包含脚本文件 *}
+{insert_scripts files='jquery.min.js'}
 {insert_scripts files='common.js,global.js,compare.js'}
 </head>
 <body>
-<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/header.lbi" --><!-- #EndLibraryItem -->
 <!--当前位置 start-->
 <div class="block box">
  <div id="ur_here">
@@ -30,12 +31,7 @@
   <!--left start-->
   <div class="AreaL">
     <!-- TemplateBeginEditable name="左边区域" -->
-<!-- #BeginLibraryItem "/library/cart.lbi" -->
 
-{insert_scripts files='transport.js'}
-<div class="cart" id="ECS_CARTINFO">
- {insert name='cart_info'}
-</div>
 <div class="blank5"></div>
 
  <!-- #EndLibraryItem -->

@@ -14,14 +14,24 @@
  */
 
 
-        define('API_ENDPOINT', 'https://api-3t.paypal.com/nvp');
+        /* define('API_ENDPOINT', 'https://api-3t.paypal.com/nvp');
         define('USE_PROXY',FALSE);
         define('PROXY_HOST', '127.0.0.1');
         define('PROXY_PORT', '808');
         define('PAYPAL_URL', 'https://www.paypal.com/cgi-bin/webscr&cmd=_express-checkout&token=');
 
         $API_Endpoint =API_ENDPOINT;
-        $version=VERSION;
+        $version=VERSION; */
+//define('API_ENDPOINT', 'https://api-3t.paypal.com/nvp');
+define('API_ENDPOINT', 'https://api-3t.sandbox.paypal.com/nvp');
+define('USE_PROXY',FALSE);
+define('PROXY_HOST', '127.0.0.1');
+define('PROXY_PORT', '808');
+//define('PAYPAL_URL', 'https://www.paypal.com/cgi-bin/webscr&cmd=_express-checkout&token=');
+define('PAYPAL_URL', 'https://www.sandbox.paypal.com/webscr&cmd=_express-checkout&token=');
+
+$API_Endpoint =API_ENDPOINT;
+$version=VERSION;
 if (!defined('IN_ECS'))
 {
     die('Hacking attempt');
@@ -107,7 +117,7 @@ class paypal_ec
      */
     function get_code($order, $payment)
     {
-
+		var_dump($order);exit;
         $token = '';
         $serverName = $_SERVER['SERVER_NAME'];
         $serverPort = $_SERVER['SERVER_PORT'];
@@ -115,7 +125,7 @@ class paypal_ec
         $paymentAmount=$order['order_amount'];
         $currencyCodeType=$payment['paypal_ec_currency'];
         $paymentType='Sale';
-        $data_order_id      = $order['log_id'];
+        $data_order_id = $order['log_id'];
 
         $_SESSION['paypal_username']=$payment['paypal_ec_username'];
         $_SESSION['paypal_password']=$payment['paypal_ec_password'];
@@ -124,8 +134,25 @@ class paypal_ec
         $returnURL =urlencode($url.'/respond.php?code=paypal_ec&currencyCodeType='.$currencyCodeType.'&paymentType='.$paymentType.'&paymentAmount='.$paymentAmount.'&invoice='.$data_order_id);
         $cancelURL =urlencode("$url/SetExpressCheckout.php?paymentType=$paymentType" );
 
-        $nvpstr="&Amt=".$paymentAmount."&PAYMENTACTION=".$paymentType."&ReturnUrl=".$returnURL."&CANCELURL=".$cancelURL ."&CURRENCYCODE=".$currencyCodeType ."&ButtonSource=ECSHOP_cart_EC_C2";
-
+        //$nvpstr="&AMT=".$paymentAmount."&PAYMENTACTION=".$paymentType."&ReturnUrl=".$returnURL."&CANCELURL=".$cancelURL ."&CURRENCYCODE=".$currencyCodeType ."&ButtonSource=ECSHOP_cart_EC_C2";
+		$goods_info = "";
+		$ITEMAMT = 0.00;
+		$AMT = 0.00;
+		$order['shipping_fee'] = substr($order['shipping_fee'],1,strlen($order['shipping_fee'])-1);
+		foreach ($order['goods_info'] as $key=>$value)
+		{
+			$order['goods_info'][$key]['goods_price'] = substr($order['goods_info'][$key]['goods_price'],1,strlen($order['goods_info'][$key]['goods_price'])-1);
+			$goods_info .= "L_NAME{$key}={$order['goods_info'][$key]['goods_name']}&L_AMT{$key}={$order['goods_info'][$key]['goods_price']}&L_QTY{$key}={$order['goods_info'][$key]['goods_number']}";
+			$ITEMAMT += $order['goods_info'][$key]['goods_price']*$order['goods_info'][$key]['goods_number'];
+		}
+		$AMT = $ITEMAMT + $order['shipping_fee'];
+        //$nvpstr = "&ADDROVERRIDE=0&NOSHIPPING=2&L_NAME0=故事会&L_NAME1=Path To Nirvana&L_AMT0=9.00&L_AMT1=39.00&L_QTY0=2&L_QTY1=2&AMT=104
+        //&ITEMAMT=96&L_SHIPPINGOPTIONAMOUNT0=3.00&INSURANCEOPTIONOFFERED=false&SHIPPINGAMT=8.00&ReturnUrl=".$returnURL."&CANCELURL=".$returnURL."&CURRENCYCODE=USD&PAYMENTACTION=Sale";
+        
+		
+		$nvpstr = "&ADDROVERRIDE=0&NOSHIPPING=2&".$goods_info."&AMT=".$AMT."&ITEMAMT=".$ITEMAMT."&L_SHIPPINGOPTIONAMOUNT0=3.00&INSURANCEOPTIONOFFERED=false&SHIPPINGAMT=".$order['shipping_fee']."&ReturnUrl=".$returnURL."&CANCELURL=".$returnURL."&CURRENCYCODE=USD&PAYMENTACTION=Sale";
+        
+        echo $nvpstr;exit;
         $resArray=$this->hash_call("SetExpressCheckout",$nvpstr);
 
         $_SESSION['reshash']=$resArray;

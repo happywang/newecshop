@@ -1,131 +1,134 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta name="Generator" content="ECSHOP v2.7.3" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Keywords" content="<?php echo $this->_var['keywords']; ?>" />
-<meta name="Description" content="<?php echo $this->_var['description']; ?>" />
+<?php echo $this->fetch('header.dwt'); ?>
+<div id="main">
 
-<title><?php echo $this->_var['page_title']; ?></title>
-
-
-
-<link rel="shortcut icon" href="favicon.ico" />
-<link rel="icon" href="animated_favicon.gif" type="image/gif" />
-<link href="<?php echo $this->_var['ecs_css_path']; ?>" rel="stylesheet" type="text/css" />
-<link rel="alternate" type="application/rss+xml" title="RSS|<?php echo $this->_var['page_title']; ?>" href="<?php echo $this->_var['feed_url']; ?>" />
-
-<?php echo $this->smarty_insert_scripts(array('files'=>'common.js,index.js')); ?>
-</head>
-<body>
-<?php echo $this->fetch('library/page_header.lbi'); ?>
-<?php echo $this->fetch('library/page_header2.lbi'); ?>
-<div class="blank"></div>
-<div class="block clearfix">
-  
-  <div class="AreaL">
-    
-    <div class="box">
-     <div class="box_1">
-      <h3><span><?php echo $this->_var['lang']['shop_notice']; ?></span></h3>
-      <div class="boxCenterList RelaArticle">
-        <?php echo $this->_var['shop_notice']; ?>
-      </div>
-     </div>
-    </div>
-    <div class="blank5"></div>
-    
-  
-<?php echo $this->fetch('library/cart.lbi'); ?>
-<?php echo $this->fetch('library/category_tree.lbi'); ?>
-<?php echo $this->fetch('library/top10.lbi'); ?>
-<?php echo $this->fetch('library/promotion_info.lbi'); ?>
-<?php echo $this->fetch('library/order_query.lbi'); ?>
-<?php echo $this->fetch('library/invoice_query.lbi'); ?>
-<?php echo $this->fetch('library/vote_list.lbi'); ?>
-<?php echo $this->fetch('library/email_list.lbi'); ?>
-
-
-  </div>
-  
-  
-  <div class="AreaR">
-   
-    <div class="box clearfix">
-     <div class="box_1 clearfix">
-       <div class="f_l" id="focus">
-       <?php echo $this->fetch('library/index_ad.lbi'); ?>
-       </div>
-       
-       <div id="mallNews" class="f_r">
-        <div class="NewsTit"></div>
-        <div class="NewsList tc">
-         
-
-        <?php echo $this->fetch('library/new_articles.lbi'); ?>
+<div  class="banner">
+  <div id=myjQuery>
+        <div id=myjQueryContent>
+          <div><a href="" target=_blank><img src="themes/default/images/01.jpg" width="990" height="350" /></a></div>
+          <div class=smask><a href="" target=_blank><img src="themes/default/images/02.JPG"  width="990" height="350"/></a></div>
+          <div class=smask><a href="" target=_blank><img src="themes/default/images/03.jpg"  width="990" height="350"/></a></div>
+          <div class=smask><a href="" target=_blank><img src="themes/default/images/04.jpg" width="990" height="350" /></a></div>
         </div>
-       </div>
-       
-     </div>
-    </div>
-    <div class="blank5"></div>
-   
-   
-    <div class="clearfix">
-      
-      <?php echo $this->fetch('library/recommend_promotion.lbi'); ?>
-      
-      <div class="box f_r brandsIe6">
-       <div class="box_1 clearfix" id="brands">
-        <?php echo $this->fetch('library/brands.lbi'); ?>
-       </div>
+        <ul id=myjQueryNav>
+          <li class=current><a href="" target=_blank>2009情人节攻略三部曲</a> </li>
+          <li><a href="" target=_blank>给闺蜜的礼物两件新衣80元起</a> </li>
+          <li><a href="" target=_blank>09运动新品新年8折起！</a> </li>
+          <li class=nbg><a href="" target=_blank>新年给家人一次奢华的享受</a> </li>
+        </ul>
       </div>
-    </div>
-    <div class="blank5"></div>
-   
-<?php echo $this->fetch('library/recommend_best.lbi'); ?>
-<?php echo $this->fetch('library/recommend_new.lbi'); ?>
-<?php echo $this->fetch('library/recommend_hot.lbi'); ?>
-<?php echo $this->fetch('library/auction.lbi'); ?>
-<?php echo $this->fetch('library/group_buy.lbi'); ?>
-
-  </div>
-  
 </div>
-<div class="blank5"></div>
-
-<div class="block">
-  <div class="box">
-   <div class="helpTitBg clearfix">
-    <?php echo $this->fetch('library/help.lbi'); ?>
-   </div>
-  </div>
-</div>
-<div class="blank"></div>
 
 
-<?php if ($this->_var['img_links'] || $this->_var['txt_links']): ?>
-<div id="bottomNav" class="box">
- <div class="box_1">
-  <div class="links clearfix">
-    <?php $_from = $this->_var['img_links']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'link');if (count($_from)):
-    foreach ($_from AS $this->_var['link']):
+<div class="Weekly_Deals">
+ <div class="title"> 
+   <div class="email"><input type="button" value="subscrib" class="bt" onclick="subscrib();"/> <input type="text" onclick="checkSubscrib();" value="Enter your email" class="enter" id="subscrib" />  </div>
+ </div> 
+ <div class="New_Arrivals">
+   <ul>
+   <?php $_from = $this->_var['weeklydeal']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'weekly');if (count($_from)):
+    foreach ($_from AS $this->_var['weekly']):
 ?>
-    <a href="<?php echo $this->_var['link']['url']; ?>" target="_blank" title="<?php echo $this->_var['link']['name']; ?>"><img src="<?php echo $this->_var['link']['logo']; ?>" alt="<?php echo $this->_var['link']['name']; ?>" border="0" /></a>
-    <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
-    <?php if ($this->_var['txt_links']): ?>
-    <?php $_from = $this->_var['txt_links']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'link');if (count($_from)):
-    foreach ($_from AS $this->_var['link']):
-?>
-    [<a href="<?php echo $this->_var['link']['url']; ?>" target="_blank" title="<?php echo $this->_var['link']['name']; ?>"><?php echo $this->_var['link']['name']; ?></a>]
-    <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
-    <?php endif; ?>
-  </div>
+     <li>
+       <a href="<?php echo $this->_var['weekly']['url']; ?>" title="<?php echo $this->_var['weekly']['goods_style_name']; ?>"><img src="<?php echo $this->_var['weekly']['goods_img']; ?>" width="188" height="188" title="<?php echo $this->_var['weekly']['name']; ?>" alt="<?php echo $this->_var['weekly']['goods_style_name']; ?>" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="<?php echo $this->_var['weekly']['url']; ?>" title="<?php echo $this->_var['weekly']['goods_style_name']; ?>"><?php echo $this->_var['weekly']['name']; ?></a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through"><?php echo $this->_var['weekly']['market_price']; ?></font></b><br />
+         <b>Now:<font color="#00CC00"><?php echo $this->_var['weekly']['shop_price']; ?></font></b>
+       </div>
+     </li>
+     <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+   </ul>
  </div>
 </div>
-<?php endif; ?>
 
-<div class="blank"></div>
-<?php echo $this->fetch('library/page_footer.lbi'); ?>
+<div class="topten"> 
+ <div class="title1">
+   <h2>Top 10</h2>
+   <div class="more"><a href="" target="_blank">more</a></div>
+ </div>
+   <ul>
+   <?php $_from = $this->_var['top10']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'topone');if (count($_from)):
+    foreach ($_from AS $this->_var['topone']):
+?>
+     <li>
+       <a href="<?php echo $this->_var['topone']['url']; ?>" title="<?php echo $this->_var['topone']['url']; ?>"><img src="<?php echo $this->_var['topone']['goods_img']; ?>" width="188" height="188" title="<?php echo $this->_var['topone']['goods_name']; ?>" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="<?php echo $this->_var['topone']['url']; ?>" title="<?php echo $this->_var['topone']['goods_name']; ?>"><?php echo $this->_var['topone']['goods_name']; ?></a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through"><?php echo $this->_var['topone']['market_price']; ?></font></b><br />
+         <b>Now:<font color="#00CC00"><?php echo $this->_var['topone']['shop_price']; ?></font></b>
+       </div>
+     </li>
+     <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+   </ul>
+</div>
+
+<div class="Hot_Sales">
+  <div class="title">
+   <h2>New Arrival</h2>
+   <div class="more"><a href="" target="_blank">more</a></div>
+  </div> 
+  <ul>
+  	<?php $_from = $this->_var['new_goods']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'newgood');if (count($_from)):
+    foreach ($_from AS $this->_var['newgood']):
+?>
+     <li>
+       <a href="<?php echo $this->_var['newgood']['url']; ?>" title="<?php echo $this->_var['newgood']['goods_style_name']; ?>"><img src="<?php echo $this->_var['newgood']['goods_img']; ?>" width="188" height="188" title="<?php echo $this->_var['newgood']['name']; ?>" alt="tobunny" /></a>
+       <div class="intro">
+         <div class="goods_title"><a href="<?php echo $this->_var['newgood']['url']; ?>" title="<?php echo $this->_var['newgood']['name']; ?>"><?php echo $this->_var['newgood']['name']; ?></a></div>
+         <b>Was:<font color="#FF0033" style=" text-decoration:line-through"><?php echo $this->_var['newgood']['market_price']; ?></font></b><br />
+         <b>Now:<font color="#00CC00"><?php echo $this->_var['newgood']['shop_price']; ?></font></b>
+       </div>
+     </li>
+    <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+   </ul>
+</div>
+<div class="bottom">
+  <ul>
+     <li>
+       <h3>Company information</h3>
+       <a href="" target="_blank" title="xxxx">About Us</a><BR />
+       <a href="" target="_blank" title="xxxx">Contact Us </a><BR />
+       <a href="" target="_blank" title="xxxx">dfdfgdfg</a><BR />
+       <a href="" target="_blank" title="xxxx">Customer Service </a><BR />
+       <a href="" target="_blank" title="xxxx">Privacy Policies</a>
+     </li>
+     <li>
+       <h3>Customer Service</h3>
+       <a href="" target="_blank" title="xxxx">Warranty and Return </a><BR />
+       <a href="" target="_blank" title="xxxx">Payment Methods </a><BR />
+       <a href="" target="_blank" title="xxxx">Terms and Conditions </a><BR />
+       <a href="" target="_blank" title="xxxx">Shipping & Handling</a><BR />
+     </li>
+     <li>
+       <h3>My account</h3>
+       <a href="" target="_blank" title="xxxx" style=" padding-left:23px">Login/Register </a><BR />
+       <a href="" target="_blank" title="xxxx" style=" padding-left:23px">Order History</a><BR />
+       <a href="" target="_blank" title="xxxx" style=" padding-left:23px">My Favorites </a><BR />
+       <a href="" target="_blank" title="xxxx" style=" padding-left:23px">FAQ</a>
+     </li>
+     <li>
+       <h3>We are social</h3>
+       <a href="" target="_blank" title="xxxx" class="fb"></a><BR />
+       <a href="" target="_blank" title="xxxx" class="tw"></a><BR />
+       <a href="" target="_blank" title="xxxx"  class="tb"></a><BR />
+     </li>
+     <li class="track_orders">
+        <h3>Track orders</h3>
+        <div class="track"><input type="button" value="" class="bt" /> <input type="text" value="Order Number" class="enter" /></div>
+        <h3>Newsletter</h3>
+        <div class="track"><input type="button" value="" class="bt" /> <input type="text" value="Enter your email" class="enter" /></div>
+     </li>
+   </ul>
+   <div class="bt_nav">
+     <a href="" target="_blank">11111111</a> | <a href="" target="_blank">22222222</a> | <a href="" target="_blank">33333333</a> | <a href="" target="_blank">44444444</a> | <a href="" target="_blank">55555555</a> | <a href="" target="_blank">66666666</a> | <a href="" target="_blank">77777777</a> | <a href="" target="_blank">888888</a> | <a href="" target="_blank">99999</a> | <a href="" target="_blank">000000</a>
+   </div> 
+   
+   <div class="cooperation">
+     <!--<img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" /><img src="themes/default/images/paypal.JPG" width="150" height="60" />-->
+     <img src="themes/default/images/paypal.gif" width="768" height="55" />
+   </div>
+</div>
+
+</div>
 </body>
 </html>

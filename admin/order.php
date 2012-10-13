@@ -268,7 +268,7 @@ elseif ($_REQUEST['act'] == 'info')
     /* 取得订单商品总重量 */
     $weight_price = order_weight_price($order['order_id']);
     $order['total_weight'] = $weight_price['formated_weight'];
-
+    $order['country'] = getCountryChineseName($order['country']);
     /* 参数赋值：订单 */
     $smarty->assign('order', $order);
 
@@ -5065,7 +5065,7 @@ function order_list()
     /* 格式话数据 */
     foreach ($row AS $key => $value)
     {
-        $row[$key]['formated_order_amount'] = price_format($value['order_amount']);
+        $row[$key]['formated_order_amount'] = $value['order_amount'];
         $row[$key]['formated_money_paid'] = price_format($value['money_paid']);
         $row[$key]['formated_total_fee'] = price_format($value['total_fee']);
         $row[$key]['short_order_time'] = local_date('m-d H:i', $value['add_time']);

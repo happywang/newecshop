@@ -179,6 +179,13 @@ function get_regions($type = 0, $parent = 0)
     return $GLOBALS['db']->GetAll($sql);
 }
 
+function get_regions_v2($type = 0, $parent = 0)
+{
+	$sql = 'SELECT country_id, country_en_name  FROM ' . $GLOBALS['ecs']->table('shipping_country');
+
+	return $GLOBALS['db']->GetAll($sql);
+}
+
 /**
  * 获得配送区域中指定的配送方式的配送费用的计算参数
  *
@@ -925,6 +932,8 @@ function order_action($order_sn, $order_status, $shipping_status, $pay_status, $
  */
 function price_format($price, $change_price = true)
 {
+	$rate = $GLOBALS['_CFG']['ww'] ? $GLOBALS['_CFG']['ww'] : '6.20';
+	$price = $price / $rate;
     if($price==='')
     {
      $price=0;
@@ -2286,13 +2295,20 @@ function get_final_price($goods_id, $goods_num = '1', $is_spec_price = false, $s
 
     //取得商品促销价格列表
     /* 取得商品信息 */
+//     $sql = "SELECT g.promote_price, g.promote_start_date, g.promote_end_date, ".
+//                 "IFNULL(mp.user_price, g.shop_price * '" . $_SESSION['discount'] . "') AS shop_price ".
+//            " FROM " .$GLOBALS['ecs']->table('goods'). " AS g ".
+//            " LEFT JOIN " . $GLOBALS['ecs']->table('member_price') . " AS mp ".
+//                    "ON mp.goods_id = g.goods_id AND mp.user_rank = '" . $_SESSION['user_rank']. "' ".
+//            " WHERE g.goods_id = '" . $goods_id . "'" .
+//            " AND g.is_delete = 0";
     $sql = "SELECT g.promote_price, g.promote_start_date, g.promote_end_date, ".
-                "IFNULL(mp.user_price, g.shop_price * '" . $_SESSION['discount'] . "') AS shop_price ".
-           " FROM " .$GLOBALS['ecs']->table('goods'). " AS g ".
-           " LEFT JOIN " . $GLOBALS['ecs']->table('member_price') . " AS mp ".
-                   "ON mp.goods_id = g.goods_id AND mp.user_rank = '" . $_SESSION['user_rank']. "' ".
-           " WHERE g.goods_id = '" . $goods_id . "'" .
-           " AND g.is_delete = 0";
+    		" g.shop_price AS shop_price ".
+    		" FROM " .$GLOBALS['ecs']->table('goods'). " AS g ".
+    		" LEFT JOIN " . $GLOBALS['ecs']->table('member_price') . " AS mp ".
+    		"ON mp.goods_id = g.goods_id AND mp.user_rank = '" . $_SESSION['user_rank']. "' ".
+    		" WHERE g.goods_id = '" . $goods_id . "'" .
+    		" AND g.is_delete = 0";
     $goods = $GLOBALS['db']->getRow($sql);
 
     /* 计算商品的促销价格 */
@@ -2345,6 +2361,7 @@ function get_final_price($goods_id, $goods_num = '1', $is_spec_price = false, $s
     }
 
     //返回商品最终购买价格
+    //return $goods['shop_price'];
     return $final_price;
 }
 

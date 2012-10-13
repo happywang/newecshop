@@ -14,7 +14,7 @@
 {insert_scripts files='common.js,user.js,transport.js'}
 
 <body>
-<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/header.lbi" --><!-- #EndLibraryItem -->
 <!--当前位置 start-->
 <div class="block box">
  <div id="ur_here">
@@ -32,7 +32,7 @@
         <table width="100%" border="0" align="left" cellpadding="3" cellspacing="5">
           <tr>
             <td width="15%" align="right">{$lang.label_username}</td>
-            <td width="85%"><input name="username" type="text" size="25" class="inputBg" /></td>
+            <td width="85%"><input onclick="clearname();" name="username" type="text" size="25" class="inputBg" value="name/email"/></td>
           </tr>
           <tr>
             <td align="right">{$lang.label_password}</td>

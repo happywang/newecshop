@@ -30,7 +30,7 @@ if ($_REQUEST['act'] == 'list')
 }
 elseif ($_REQUEST['act'] == 'export')
 {
-    $sql = "SELECT email FROM " . $ecs->table('email_list') . "WHERE stat = 1";
+    $sql = "SELECT email FROM " . $ecs->table('subscrib') . "WHERE stat = 1";
     $emails = $db->getAll($sql);
     $out = '';
     foreach ($emails as $key => $val)
@@ -73,7 +73,7 @@ elseif ($_REQUEST['act'] == 'batch_remove')
         sys_msg($_LANG['no_select_email'], 1);
     }
 
-    $sql = "DELETE FROM " . $ecs->table('email_list') .
+    $sql = "DELETE FROM " . $ecs->table('subscrib') .
             " WHERE id " . db_create_in(join(',', $_POST['checkboxes']));
     $db->query($sql);
 
@@ -91,7 +91,7 @@ elseif ($_REQUEST['act'] == 'batch_unremove')
         sys_msg($_LANG['no_select_email'], 1);
     }
 
-    $sql = "UPDATE " . $ecs->table('email_list') .
+    $sql = "UPDATE " . $ecs->table('subscrib') .
             " SET stat = 1 WHERE stat <> 1 AND id " . db_create_in(join(',', $_POST['checkboxes']));
     $db->query($sql);
 
@@ -109,7 +109,7 @@ elseif ($_REQUEST['act'] == 'batch_exit')
         sys_msg($_LANG['no_select_email'], 1);
     }
 
-    $sql = "UPDATE " . $ecs->table('email_list') .
+    $sql = "UPDATE " . $ecs->table('subscrib') .
             " SET stat = 2 WHERE stat <> 2 AND id " . db_create_in(join(',', $_POST['checkboxes']));
     $db->query($sql);
 
@@ -125,7 +125,7 @@ function get_email_list()
         $filter['sort_by']      = empty($_REQUEST['sort_by']) ? 'stat' : trim($_REQUEST['sort_by']);
         $filter['sort_order']   = empty($_REQUEST['sort_order']) ? 'ASC' : trim($_REQUEST['sort_order']);
 
-        $sql = "SELECT COUNT(*) FROM " . $GLOBALS['ecs']->table('email_list');
+        $sql = "SELECT COUNT(*) FROM " . $GLOBALS['ecs']->table('subscrib');
         $filter['record_count'] = $GLOBALS['db']->getOne($sql);
 
         /* 分页大小 */
@@ -133,7 +133,7 @@ function get_email_list()
 
         /* 查询 */
 
-        $sql = "SELECT * FROM " . $GLOBALS['ecs']->table('email_list') .
+        $sql = "SELECT * FROM " . $GLOBALS['ecs']->table('subscrib') .
             " ORDER BY " . $filter['sort_by'] . ' ' . $filter['sort_order'] .
             " LIMIT " . $filter['start'] . ",$filter[page_size]";
 

@@ -1,0 +1,66 @@
+@CHARSET "UTF-8";
+#attach-list {
+	
+}
+
+#attach-list img.thumb {
+	width: 60px;
+	height: 60px;
+	border: 1px solid #CCC;
+	padding: 2px;
+}
+
+#attach-list em {
+	color: #333
+}
+
+#attach-list a {
+	color: : #066;
+	font-size: 12px;
+	text-decoration: underline
+}
+
+#attach-list textarea {
+	width: 200px;
+	height: 40px;
+	color: #666;
+}
+
+#imgshow {
+	position: absolute;
+	border: 1px solid #ccc;
+	background: #333;
+	padding: 5px;
+	color: #fff;
+	display: none;
+}
+
+img {
+	border: none;
+}
+
+ul,li {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+	float: left;
+	display: inline;
+	margin-right: 10px;
+}
+
+#imglist img {
+	width: 150px;
+	height: 120px;
+}
+
+#imgshow {
+	position: absolute;
+	border: 1px solid #ccc;
+	background: #333;
+	padding: 5px;
+	color: #fff;
+	display: none;
+}

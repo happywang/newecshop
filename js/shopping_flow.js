@@ -9,15 +9,188 @@ var selectedBonus    = 0;
 var selectedIntegral = 0;
 var selectedOOS      = null;
 var alertedSurplus   = false;
-
+var selectedCountry=null;
 var groupBuyShipping = null;
 var groupBuyPayment  = null;
 
+/**
+ *购物车加减动作处理
+ */
+function qtyAction(id,quantity){
+	var nowValue=$('#'+id).val();
+	nowValue=parseInt(nowValue);
+	nowValue+=(parseInt(quantity));	
+	nowValue=nowValue>0?nowValue:1;
+	$('#'+id).val(nowValue);
+	var list = id.split("_");
+	var good_price_id = "goods_price_" + list[2];
+	var good_price = $("#"+good_price_id).html();
+	var good_totle_price = (getGoodsPriceByInt(good_price)*nowValue).toFixed(2);
+	$('#goods_subtotalprice_'+list[2]).html("$"+good_totle_price);
+	return true;
+//	alert(good_price_id+"|"+good_price);return ;
+//	alert(list[2]+"|"+nowValue);return false;
+//	showdiv(document.getElementById(id));
+}
+
+/**
+ *购物车手动改变数量
+ */
+function qtyAction_v2(obj){
+	var id = obj.id;
+	var nowValue=$('#'+id).val();
+	nowValue=parseInt(nowValue);
+//	nowValue+=(parseInt(quantity));	
+	nowValue=nowValue>0?nowValue:1;
+	$('#'+id).val(nowValue);
+	var list = id.split("_");
+	var good_price_id = "goods_price_" + list[2];
+	var good_price = $("#"+good_price_id).html();
+	var good_totle_price = (getGoodsPriceByInt(good_price)*nowValue).toFixed(2);
+	$('#goods_subtotalprice_'+list[2]).html("$"+good_totle_price);
+	return true;
+//	alert(good_price_id+"|"+good_price);return ;
+//	alert(list[2]+"|"+nowValue);return false;
+//	showdiv(document.getElementById(id));
+}
+
+function getGoodsPriceByInt(str){
+	var strlen = str.length;
+	return parseFloat(str.substr(1,strlen));
+}
+
+/**
+ * 更新购买物品并跳转到checkout
+ */
+function toCheckout(){
+//	alert(213123);
+//	$("#formCart").submit();
+	document.forms['formCart'].submit();
+}
+/**
+ *用户默认收获地址修改
+ */
+function enableEdit(input){
+	$(input).removeClass('noborder_1');
+	$(input).addClass('noborder_0');
+	$(input).attr('readonly',false);
+}
+
+function disableEdit(input){
+	$(input).removeClass('noborder_0');
+	$(input).addClass('noborder_1');
+	$(input).attr('readonly',true);
+}
+function checkEdit(obj){
+	var rt=Array(1,'');
+	if($(obj).hasClass('consigneeCountry')){
+		if($(obj).val()==-1){
+			rt[0]=-1;
+			rt[1]="*please choose your country";
+		}
+		return rt;
+	}else if($(obj).hasClass('consigneeEmail')){
+		if(!Utils.isEmail($(obj).val())){
+			rt[0]=-1;
+			rt[1]='*the email is invalid!';
+			return rt;
+		}	
+		return rt;
+	}else if($(obj).hasClass('consigneeNot')){
+		if($(obj).val()!=''){
+			return rt;
+		}
+		rt[0]=-1;
+		rt[1]="please tell us your address!";
+		return rt;
+	}else if($(obj).hasClass('consigneeNum')){
+		if($(obj).val()==''){
+			return rt;
+		}
+		var exp=/^\d+$/;
+		if(!exp.test($(obj).val())){
+			rt[0]=-1;
+			rt[1]='*only numeric is allowed!';
+			return rt;
+		}
+		return rt;
+	}else if($(obj).hasClass('consigneeNull')){
+		return rt;
+	}
+	
+}
+function saveEdit(){
+	var consigneeInfo=$('.consignee');
+	var consignee=$(consigneeInfo[0]).val(); 
+	var country=$(consigneeInfo[0]).val();
+	var email=$(consigneeInfo[1]).val();
+	var address=$(consigneeInfo[2]).val();
+	var zipcode=$(consigneeInfo[3]).val();
+	var tel=$(consigneeInfo[4]).val();
+	var mobile=$(consigneeInfo[5]).val();
+	var sign_building=$(consigneeInfo[6]).val();
+	var best_time=$(consigneeInfo[7]).val();
+	var address_id=$(consigneeInfo[8]).val();
+	$.ajax({
+		url:'flow.php',
+		type:'POST',
+		data:{address_id:address_id,consignee:consignee,country:country,email:email,address:address,zipcode:zipcode,tel:tel,mobile:mobile,sign_building:sign_building,best_time:best_time,step:'consignee'},
+		success:function(data){
+			if(selectedCountry!=country){
+				selectedCountry=country;
+				data=eval('('+data+')');
+				__saveEdit(data);
+			}
+
+		}
+	})
+}
+function __saveEdit(data){
+	for (i in data){
+		$('#shippingFeeTa tr:eq('+i+')').find('span[class=emsFee]').html(data[i].shipping_fee);
+		$('#shippingFeeTa tr:eq('+i+')').find('input[name=shipping]').attr('supportCod',data[i].support_cod);		
+		$('#shippingFeeTa tr:eq('+i+')').find('input[name=shipping]').attr('insure',data[i].insure);		
+	}
+	selectedShipping=null;	
+	$('input[name=shipping][checked]').trigger('click');
+}
+
+/**
+ *增加配送费用
+ */
+function addFee(obj,howMany){
+	$(obj).val(parseFloat($(obj).val())+parseFloat(howMany));
+}
+/**
+ *
+ *改变挂号设置
+ */
+function selectReg(obj){
+	if($(obj).attr('checked')){
+		var value=obj.value;
+	}else{
+		var value=0;
+	}
+	Ajax.call('flow.php?step=select_reg', 'reg=' + value, __selectReg, 'GET', 'JSON');
+}
+function __selectReg(res){
+	if(res.error!=''){
+		alert(res.error);
+		return;
+	}
+	orderSelectedResponse(res);
+}
 /* *
  * 改变配送方式
  */
-function selectShipping(obj)
-{
+function selectShipping(obj) {
+  var reg=0
+  $('#registrationBox').val(obj.value);
+  if($('#registrationBox').attr('checked')){
+	  reg=obj.value;
+  }else{
+	  reg=0;
+  }
   if (selectedShipping == obj)
   {
     return;
@@ -58,7 +231,53 @@ function selectShipping(obj)
   }
 
   var now = new Date();
-  Ajax.call('flow.php?step=select_shipping', 'shipping=' + obj.value, orderShippingSelectedResponse, 'GET', 'JSON');
+  Ajax.call('flow.php?step=select_shipping', 'shipping=' + obj.value+'&reg='+reg, orderShippingSelectedResponse, 'GET', 'JSON');
+}
+
+/* *
+ * 改变配送方式
+ */
+function selectShipping2(obj) {
+  var reg=0
+  $('#registrationBox').val(obj.value);
+  if($('#registrationBox').attr('checked')){
+	  reg=obj.value;
+  }else{
+	  reg=0;
+  }
+  selectedShipping = obj;
+  var supportCod = obj.attributes['supportCod'].value + 0;
+  var theForm = obj.form;
+
+  for (i = 0; i < theForm.elements.length; i ++ )
+  {
+    if (theForm.elements[i].name == 'payment' && theForm.elements[i].attributes['isCod'].value == '1')
+    {
+      if (supportCod == 0)
+      {
+        theForm.elements[i].checked = false;
+        theForm.elements[i].disabled = true;
+      }
+      else
+      {
+        theForm.elements[i].disabled = false;
+      }
+    }
+  }
+
+  if (obj.attributes['insure'].value + 0 == 0)
+  {
+    document.getElementById('ECS_NEEDINSURE').checked = false;
+    document.getElementById('ECS_NEEDINSURE').disabled = true;
+  }
+  else
+  {
+    document.getElementById('ECS_NEEDINSURE').checked = false;
+    document.getElementById('ECS_NEEDINSURE').disabled = false;
+  }
+
+  var now = new Date();
+  Ajax.call('flow.php?step=select_shipping', 'shipping=' + obj.value+'&reg='+reg, orderShippingSelectedResponse, 'GET', 'JSON');
 }
 
 /**
@@ -235,7 +454,7 @@ function orderSelectedResponse(result)
   if (result.error)
   {
     alert(result.error);
-    location.href = './';
+   // location.href = './';
   }
 
   try

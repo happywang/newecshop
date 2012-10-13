@@ -1,0 +1,85 @@
+<!-- $Id: discount_list.htm 17043 2010-02-26 10:40:02Z sxc_shop $ -->
+{include file="pageheader.htm"}
+<link href="styles/showimage.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="../js/utils.js,listtable.js,../js/jquery.min.js,../js/common.js"}
+<!-- start payment list -->
+<div class="list-div" id="listDiv">
+<div id="imglist">
+<table cellspacing='1' cellpadding='3'>
+  <tr>
+    <th>编号</th>
+    <th>商品名称</th>
+    <th>商品推荐图片</th>
+    <th>专题链接</th>
+    <th>备注</th>
+    <th>描述</th>
+    <th>排序</th>
+    <th>操作</th>
+  </tr>
+  {foreach from=$goods_info item=goods}
+  <tr align="center">
+  	<td>{$goods.goods_id}</td>
+  	<td>{$goods.goods_name}</td>
+  	<td><img width="10" height="10" src="../{$goods.recommended_img}" id="img{$smarty.foreach.goods.index}" border='0' class='thumb'></td>
+  	<td>{$goods.subject_url}</td>
+  	<td>{$goods.recommended_mark}</td>
+  	<td>{$goods.description}</td>
+  	<td>{$goods.sort}</td>
+  	<td><a href="?act=info&goods_id={$goods.goods_id}">{$lang.edit}</a>/<a href="javascript:;" onclick="delCoupons({$goods.goods_id});">取消推荐</a></td>
+  </tr>
+   {/foreach}
+</table>
+</div>
+</div>
+<!-- end payment list -->
+<script type="Text/Javascript" language="JavaScript">
+<!--
+var ShowImage = function() {
+    xOffset = 10;
+    yOffset = 30;
+    jQuery("#imglist").find("img").hover(function(e) {
+        
+    	jQuery("<img id='imgshow' src='" + this.src + "' />").appendTo("body");
+        jQuery("#imgshow")
+            .css("top", (e.pageY - xOffset) + "px")
+         .css("left", (e.pageX + yOffset) + "px")
+   .fadeIn("fast");
+    }, function() {
+        jQuery("#imgshow").remove();
+    });
+
+    jQuery("#imglist").find("img").mousemove(function(e) {
+        jQuery("#imgshow")
+           .css("top", (e.pageY - xOffset) + "px")
+     .css("left", (e.pageX + yOffset) + "px")
+    });
+};
+
+
+jQuery(document).ready(function() {
+    ShowImage();
+});
+function delCoupons(goods_id){
+	if(!goods_id){
+		return ;
+	}
+	if(window.confirm('确实取消吗')){
+		shopAjax('recommend_goods.php?act=del','POST',{'goods_id':goods_id},function(json)
+		{
+			if(json.Ret > 0)
+			{
+				alert("成功");
+				location.reload();
+				return;
+			}else{
+				alert("失败");return ;
+			}
+		});
+     }else{
+        //alert("ȡ��");
+        return false;
+    }
+}
+//-->
+</script>
+{include file="pagefooter.htm"}

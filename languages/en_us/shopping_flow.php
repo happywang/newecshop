@@ -27,7 +27,7 @@ $_LANG['regist_success'] = "Congratulations! %s register successfully!";
 $_LANG['login_success'] = 'Congratulations! Login successfully!';
 
 /* 购物车 */
-$_LANG['update_cart'] = 'Update the cart';
+$_LANG['update_cart'] = '';
 $_LANG['back_to_cart'] = 'Back to the cart';
 $_LANG['update_cart_notice'] = 'Update successfully, please choose the gift again.';
 $_LANG['direct_shopping'] = 'I don\'t plan to login, directly purchase.';
